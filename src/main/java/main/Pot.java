@@ -36,7 +36,7 @@ public class Pot {
      */
     public void addToPot(double amount) {
         totalAmount += amount;
-        System.out.printf("%.2f dollars have been added to the pot. \n", amount);
+//        System.out.printf("%.2f dollars have been added to the pot. \n", amount);
     }
 
     /**
