@@ -28,7 +28,7 @@ enum PlayerAction {
 public class Player {
     private int playerNum;
     private boolean isDealer;
-    private ArrayList<Card> playerHand = new ArrayList<Card>();
+    public ArrayList<Card> playerHand = new ArrayList<Card>();
     private Card card1;
     private Card card2;
     private PlayerAction action;
@@ -38,6 +38,7 @@ public class Player {
 
     public Player(int playerNum) {
         this.playerNum = playerNum;
+        this.chips = new Chips();
 
     }
 
@@ -47,9 +48,9 @@ public class Player {
         chips.subtractAmount(actionAmount);
     }
 
-    public void setChips(int initAmount) {
+    public void setChips(double initAmount) {
         this.chips.initAmount = initAmount;
-        this.chips.currAmount = this.chips.initAmount;
+        this.chips.currAmount = initAmount;
     }
 
     public void setCard1(Card card1){
@@ -69,6 +70,22 @@ public class Player {
     public int getScore() {
         score = new Score(playerHand);
         return score.getScore();
+    }
+
+    public void addChips(double amount){
+        chips.currAmount += amount;
+    }
+
+    public void subChips(double amount){
+        chips.currAmount -= amount;
+    }
+
+    public double getChips(){
+        return chips.currAmount;
+    }
+
+    public int getPlayerNum(){
+        return playerNum;
     }
 
 

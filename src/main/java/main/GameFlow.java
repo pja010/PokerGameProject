@@ -26,38 +26,126 @@ public class GameFlow {
     private static Player player4;
     private static ArrayList<Card> tableCards;
     private static Deck deck;
+    private static double bet1;
+    private static double bet2;
+    private static double bet3;
+    private static double bet4;
+
 
 
     public static void main(String[] args) throws EmptyDeckException {
 
         deck = new Deck();
         tableCards = new ArrayList<Card>();
-        //deck.shuffle();
+
+        deck.shuffle();
 
         initPlayers();
+        setChips();
 
-        initCard1(deck);
+        int round = 0;
 
-        initCard2(deck);
+        boolean isPlaying = true;
+        // WE NEED TO ADD A BOOLEAN FOR EACH PLAYER TO CHECK IF THEY ARE PLAYING
+        // TO CONTROL THIS
 
-        initTableCards();
+        // GETTING PLAYER ACTIONS AND BET AMOUNTS IS EVENTUALLY GOING
+        // TO GO IN AN ORDER BUT FOR NOW LEAVING AS ONE PART
 
-        System.out.println(player1.getPlayerHand());
-        System.out.println(player1.getScore());
-        System.out.println(player2.getPlayerHand());
-        System.out.println(player1.getScore());
-        System.out.println(player3.getPlayerHand());
-        System.out.println(player1.getScore());
-        System.out.println(player4.getPlayerHand());
-        System.out.println(player1.getScore());
+        while(isPlaying){
+            round += 1;
+            double POT = 0;
+
+            deck.shuffle();
+
+            initCard1(deck);
+
+            initCard2(deck);
+
+            initTableCards();
+
+            //GET PLAYER ACTION
+
+            // GET BETTING AMOUNTS &&
+            // REDUCE PLAYER CHIPS BY THEIR BET AMOUNT
+            getBets();
+
+            // ADD ALL BETS TO POT
+            POT += bet1 + bet2 + bet3 + bet4;
+
+            //SHOW PLAYERS TABLE CARDS 1-3
+
+            //GET PLAYER ACTION
+
+            // GET BETTING AMOUNTS &&
+            // REDUCE PLAYER CHIPS BY THEIR BET AMOUNT
+            getBets();
+
+            // ADD ALL BETS TO POT
+            POT += bet1 + bet2 + bet3 + bet4;
+
+            //SHOW PLAYERS TABLE CARD 4
+
+            //GET PLAYER ACTION
+
+            // GET BETTING AMOUNTS &&
+            // REDUCE PLAYER CHIPS BY THEIR BET AMOUNT
+            getBets();
+
+            // ADD ALL BETS TO POT
+            POT += bet1 + bet2 + bet3 + bet4;
+
+
+            //SHOW PLAYERS TABLE CARD 5
+
+            //GET PLAYER ACTION
+
+            // GET BETTING AMOUNTS &&
+            // REDUCE PLAYER CHIPS BY THEIR BET AMOUNT
+            getBets();
+
+            // ADD ALL BETS TO POT
+            POT += bet1 + bet2 + bet3 + bet4;
+
+            // gives winner the pot
+            getWinner().addChips(POT);
+
+            System.out.println(getWinner().getPlayerNum() + " wins!");
+
+            player1.playerHand.clear();
+            tableCards.clear();
+
+            if (round >= 4){
+                isPlaying = false;
+            }
+        }
+
+        System.out.println(player1.getChips());
+        System.out.println(player2.getChips());
+        System.out.println(player3.getChips());
+        System.out.println(player4.getChips());
+    }
+
+    private static void getBets() {
+        bet1 = 100;
+        player1.subChips(bet1);
+        bet2 = 100;
+        player2.subChips(bet2);
+        bet3 = 100;
+        player3.subChips(bet3);
+        bet4 = 100;
+        player4.subChips(bet4);
 
     }
 
     private static void initTableCards() throws EmptyDeckException {
+        deck.deal();
         tableCards.add(deck.deal());
         tableCards.add(deck.deal());
         tableCards.add(deck.deal());
+        deck.deal();
         tableCards.add(deck.deal());
+        deck.deal();
         tableCards.add(deck.deal());
 
         addTableCardsToPlayer(player1);
@@ -93,6 +181,40 @@ public class GameFlow {
         }
 
     }
+
+    private static void setChips() {
+        player1.setChips(1600);
+        player2.setChips(1600);
+        player3.setChips(1600);
+        player4.setChips(1600);
+    }
+
+    public static int getMax(int[] values){
+        int max = values[0];
+        for (int i = 1; i < values.length; i++){
+            if (values[i] > max){
+                max = values[i];
+            }
+        }
+        return max;
+    }
+
+    public static Player getWinner(){
+        int max = getMax(new int[]{player1.getScore(), player2.getScore(), player3.getScore(), player4.getScore()});
+        if (player1.getScore() == max){
+            return player1;
+        }
+        if (player2.getScore() == max){
+            return player2;
+        }
+        if (player3.getScore() == max){
+            return player3;
+        }
+        else {
+            return player4;
+        }
+    }
+
 
 }
     
