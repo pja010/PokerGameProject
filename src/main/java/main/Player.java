@@ -19,16 +19,17 @@ package main;
 import java.util.ArrayList;
 
 enum PlayerAction {
-    FOLD,
-    CHECK,
+    FOLD,  // Player folds
+    CALL,  // Player matches previous bet
+    CHECK, // Player doesn't bet any money
     BET,
-    RAISE
+    RAISE // Player bets at least double of previous bet
 }
 
 public class Player {
     private int playerNum;
     private boolean isDealer;
-    private ArrayList<Card> playerHand = new ArrayList<Card>();
+    private ArrayList<Card> playerHand = new ArrayList<>();
     private Card card1;
     private Card card2;
     private PlayerAction action;
@@ -38,18 +39,25 @@ public class Player {
 
     public Player(int playerNum) {
         this.playerNum = playerNum;
-
+        this.chips = new Chips();
     }
 
     public void move(PlayerAction action, double actionAmount) {
         this.action = action;
         this.actionAmount = actionAmount;
-        chips.subtractAmount(actionAmount);
+        if (this.action.equals(PlayerAction.CALL)) {
+            System.out.println("Player " + getPlayerNum() + " calls.");
+            this.chips.subtractAmount(actionAmount);
+        }
     }
 
     public void setChips(int initAmount) {
         this.chips.initAmount = initAmount;
         this.chips.currAmount = this.chips.initAmount;
+    }
+
+    public Chips getChips() {
+        return chips;
     }
 
     public void setCard1(Card card1){
@@ -71,6 +79,9 @@ public class Player {
         return score.getScore();
     }
 
+    public int getPlayerNum() {
+        return playerNum;
+    }
 
     public ArrayList<Card> getPlayerHand() {
         return playerHand;

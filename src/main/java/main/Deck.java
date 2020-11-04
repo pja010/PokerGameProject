@@ -48,14 +48,18 @@ public class Deck {
      * https://introcs.cs.princeton.edu/java/15inout/Shuffle.java.html
      */
     public void shuffle() {
-        for (int i = 0; i < deckOfCards.size(); i++) {
-            Random random = new Random();
-            int index = random.nextInt(deckOfCards.size());
-            Card card = deckOfCards.get(i);
-            deckOfCards.remove(i);
-            deckOfCards.add(index, card);
+        int j = 0;
+        while(j < 10) {
+            for (int i = 0; i < deckOfCards.size(); i++) {
+                Random random = new Random();
+                int index = random.nextInt(deckOfCards.size());
+                Card card = deckOfCards.get(i);
+                deckOfCards.remove(i);
+                deckOfCards.add(index, card);
+            }
+            j += 1;
         }
-
+        cardsDealt = 0;
     }
 
     public Card deal() throws EmptyDeckException{
