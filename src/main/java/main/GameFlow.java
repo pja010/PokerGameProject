@@ -31,6 +31,7 @@ public class GameFlow {
     private static double bet3;
     private static double bet4;
 
+    private static Pot pot;
 
 
     public static void main(String[] args) throws EmptyDeckException {
@@ -54,7 +55,7 @@ public class GameFlow {
 
         while(isPlaying){
             round += 1;
-            double POT = 0;
+            pot = new Pot();
 
             deck.shuffle();
 
@@ -71,7 +72,11 @@ public class GameFlow {
             getBets();
 
             // ADD ALL BETS TO POT
-            POT += bet1 + bet2 + bet3 + bet4;
+//            POT += bet1 + bet2 + bet3 + bet4;
+            pot.addToPot(bet1);
+            pot.addToPot(bet2);
+            pot.addToPot(bet3);
+            pot.addToPot(bet4);
 
             //SHOW PLAYERS TABLE CARDS 1-3
 
@@ -82,7 +87,11 @@ public class GameFlow {
             getBets();
 
             // ADD ALL BETS TO POT
-            POT += bet1 + bet2 + bet3 + bet4;
+//            POT += bet1 + bet2 + bet3 + bet4;
+            pot.addToPot(bet1);
+            pot.addToPot(bet2);
+            pot.addToPot(bet3);
+            pot.addToPot(bet4);
 
             //SHOW PLAYERS TABLE CARD 4
 
@@ -93,8 +102,11 @@ public class GameFlow {
             getBets();
 
             // ADD ALL BETS TO POT
-            POT += bet1 + bet2 + bet3 + bet4;
-
+//            POT += bet1 + bet2 + bet3 + bet4;
+            pot.addToPot(bet1);
+            pot.addToPot(bet2);
+            pot.addToPot(bet3);
+            pot.addToPot(bet4);
 
             //SHOW PLAYERS TABLE CARD 5
 
@@ -105,10 +117,14 @@ public class GameFlow {
             getBets();
 
             // ADD ALL BETS TO POT
-            POT += bet1 + bet2 + bet3 + bet4;
+//            POT += bet1 + bet2 + bet3 + bet4;
+            pot.addToPot(bet1);
+            pot.addToPot(bet2);
+            pot.addToPot(bet3);
+            pot.addToPot(bet4);
 
             // gives winner the pot
-            getWinner().addChips(POT);
+            getWinner().addChips(pot.getTotalAmount());
 
             System.out.println(getWinner().getPlayerNum() + " wins!");
 
@@ -126,6 +142,9 @@ public class GameFlow {
         System.out.println(player4.getChips());
     }
 
+    /**
+     * Get bets from all the players, for Player 1, we use information from the command line
+     */
     private static void getBets() {
         bet1 = 100;
         player1.subChips(bet1);
