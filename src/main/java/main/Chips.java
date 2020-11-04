@@ -16,9 +16,7 @@
  */
 package main;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-//import java.util.Scanner;
 
 public class Chips {
     /** Initial amount of chips player has */
@@ -27,15 +25,12 @@ public class Chips {
     /** Current value of total amount of chips */
     public double currAmount;
 
-    public Pot pot;
-
     public boolean validAmount = false;
 
     /**
      * General constructor for amount of chips, setting initial and current amount to 0
      */
     public Chips() {
-        pot = new Pot();
         this.initAmount = 0;
         this.currAmount = 0;
     }
@@ -43,6 +38,8 @@ public class Chips {
     /**
      * Subtracts amount player bets from their current amount
      * @param betValue amount player bets
+     * *currently this checks the value a user inputs to make sure it is of correct value
+     * but this functionality can easily be removed
      */
     public void subtractAmount(double betValue) {
         Scanner scnr = new Scanner(System.in);
@@ -56,8 +53,6 @@ public class Chips {
             case 100:
                 // Subtract bet amount from player
                 this.currAmount -= betValue;
-                // Add amount to pot
-                pot.addToPot(betValue);
                 validAmount = true;
                 break;
             default:
@@ -73,10 +68,6 @@ public class Chips {
      */
     public void addAmount(double value) {
         this.currAmount += value;
-    }
-
-    public Pot getPot() {
-        return pot;
     }
 
     @Override

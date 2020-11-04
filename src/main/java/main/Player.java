@@ -45,7 +45,10 @@ public class Player {
     public void move(PlayerAction action, double actionAmount) {
         this.action = action;
         this.actionAmount = actionAmount;
-        chips.subtractAmount(actionAmount);
+        if (this.action.equals(PlayerAction.CALL)) {
+            System.out.println("Player " + getPlayerNum() + " calls.");
+            this.chips.subtractAmount(actionAmount);
+        }
     }
 
     public void setChips(int initAmount) {
