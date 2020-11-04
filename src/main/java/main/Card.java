@@ -58,5 +58,13 @@ public class Card {
                 ", suit=" + suit +
                 '}';
     }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public int getSuit() {
+        return suit;
+    }
 }
     
