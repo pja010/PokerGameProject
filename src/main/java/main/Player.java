@@ -19,17 +19,16 @@ package main;
 import java.util.ArrayList;
 
 enum PlayerAction {
-    FOLD,  // Player folds
-    CALL,  // Player matches previous bet
-    CHECK, // Player doesn't bet any money
+    FOLD,
+    CHECK,
     BET,
-    RAISE // Player bets at least double of previous bet
+    RAISE
 }
 
 public class Player {
     private int playerNum;
     private boolean isDealer;
-    private ArrayList<Card> playerHand = new ArrayList<>();
+    public ArrayList<Card> playerHand = new ArrayList<Card>();
     private Card card1;
     private Card card2;
     private PlayerAction action;
@@ -40,24 +39,18 @@ public class Player {
     public Player(int playerNum) {
         this.playerNum = playerNum;
         this.chips = new Chips();
+
     }
 
     public void move(PlayerAction action, double actionAmount) {
         this.action = action;
         this.actionAmount = actionAmount;
-        if (this.action.equals(PlayerAction.CALL)) {
-            System.out.println("Player " + getPlayerNum() + " calls.");
-            this.chips.subtractAmount(actionAmount);
-        }
+        chips.subtractAmount(actionAmount);
     }
 
-    public void setChips(int initAmount) {
+    public void setChips(double initAmount) {
         this.chips.initAmount = initAmount;
-        this.chips.currAmount = this.chips.initAmount;
-    }
-
-    public Chips getChips() {
-        return chips;
+        this.chips.currAmount = initAmount;
     }
 
     public void setCard1(Card card1){
@@ -79,9 +72,22 @@ public class Player {
         return score.getScore();
     }
 
-    public int getPlayerNum() {
+    public void addChips(double amount){
+        chips.currAmount += amount;
+    }
+
+    public void subChips(double amount){
+        chips.currAmount -= amount;
+    }
+
+    public double getChips(){
+        return chips.currAmount;
+    }
+
+    public int getPlayerNum(){
         return playerNum;
     }
+
 
     public ArrayList<Card> getPlayerHand() {
         return playerHand;
