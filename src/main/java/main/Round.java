@@ -23,7 +23,7 @@ public class Round {
 
     private int roundNum;
     private boolean isInPlay;
-
+//
     private static Player player1;
     private static Player player2;
     private static Player player3;
@@ -37,20 +37,27 @@ public class Round {
 
     private static Pot pot;
 
-    public Round(Player player1, Player player2, Player player3, Player player4) {
+    // ToDo - perhaps create several constructors with different numbers of players?
+
+    public Round(Player p1, Player p2, Player p3, Player p4) {
         this.isInPlay = false;
         this.roundNum = 1;
+        player1 = p1;
+        player2 = p2;
+        player3 = p3;
+        player4 = p4;
 
     }
-
 
     /**
      * Start and execute a new round of poker.
      * A round consists of up to four "betting rounds".
      *
-     * @throws EmptyDeckException
+     * @throws EmptyDeckException if card deck is empty.
      */
     public void startRound() throws EmptyDeckException {
+        deck = new Deck();
+        tableCards = new ArrayList<>();
         this.isInPlay = true;
         while(this.isInPlay) {
             switch (this.roundNum) {
@@ -159,13 +166,6 @@ public class Round {
         addTableCardsToPlayer(player4);
     }
 
-    private static void initPlayers() {
-        player1 = new Player(1);
-        player2 = new Player(2);
-        player3 = new Player(3);
-        player4 = new Player(4);
-    }
-
     private static void initCard2(Deck deck) throws EmptyDeckException {
         player1.setCard2(deck.deal());
         player2.setCard2(deck.deal());
@@ -185,13 +185,6 @@ public class Round {
             player.addCard(tableCards.get(i));
         }
 
-    }
-
-    private static void setChips() {
-        player1.setChips(1600);
-        player2.setChips(1600);
-        player3.setChips(1600);
-        player4.setChips(1600);
     }
 
     public static int getMax(int[] values){
@@ -222,40 +215,5 @@ public class Round {
 
     public int getRoundNum() {
         return roundNum;
-    }
-
-
-
-
-
-//
-    public static void main(String[] args) throws EmptyDeckException {
-//        Round round1 = new Round();
-//        System.out.println("Current game status: " + round1.isInPlay());
-//        System.out.println("Current game status: " + round1.isInPlay);
-
-        deck = new Deck();
-        tableCards = new ArrayList<Card>();
-
-        deck.shuffle();
-
-        initPlayers();
-        setChips();
-
-        Round round1 = new Round(player1, player2, player3, player4);
-        System.out.println("Starting new round.");
-        round1.startRound();
-
-    // WE NEED TO ADD A BOOLEAN FOR EACH PLAYER TO CHECK IF THEY ARE PLAYING
-    // TO CONTROL THIS
-
-    // GETTING PLAYER ACTIONS AND BET AMOUNTS IS EVENTUALLY GOING
-    // TO GO IN AN ORDER BUT FOR NOW LEAVING AS ONE PART
-
-        System.out.println(player1.getChips());
-        System.out.println(player2.getChips());
-        System.out.println(player3.getChips());
-        System.out.println(player4.getChips());
-
     }
 }
