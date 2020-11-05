@@ -1,7 +1,7 @@
 /* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
- * Instructor: Prof. Brian King *
+ * Instructor: Prof. Brian King
  * Name: Per Astrom
  * Section: 11:30
  * Date: 11/3/20
@@ -19,46 +19,66 @@ package main;
 
 import java.util.ArrayList;
 
+/**
+ * A class representing a round of poker,
+ * consisting of up to 4 "betting-rounds".
+ */
 public class Round {
-
+    /**
+     * The number of the betting-round
+     */
     private int roundNum;
-    private boolean isInPlay;
-//
-    private static Player player1;
-    private static Player player2;
-    private static Player player3;
-    private static Player player4;
-    private static ArrayList<Card> tableCards;
-    private static Deck deck;
-    private static double bet1;
-    private static double bet2;
-    private static double bet3;
-    private static double bet4;
 
+    /**
+     * The status of the round
+     */
+    private boolean isInPlay;
+
+    /**
+     * The players in the round
+     */
+    private static ArrayList<Player> playerList;
+
+    /**
+     * The cards on the table
+     */
+    private static ArrayList<Card> tableCards;
+
+    /**
+     * The deck of cards used in the round
+     */
+    private static Deck deck;
+
+    /**
+     * A player's betting amount
+     */
+    private static double bet;
+
+    /**
+     * The sum of the players' bets
+     */
     private static Pot pot;
 
-    // ToDo - perhaps create several constructors with different numbers of players?
-
-    public Round(Player p1, Player p2, Player p3, Player p4) {
+    /**
+     * Constructor initializing the list of players,
+     * the round status to false and the betting round to 1.
+     * @param players is list of Player instances.
+     */
+    public Round(ArrayList players) {
+        playerList = players;
         this.isInPlay = false;
         this.roundNum = 1;
-        player1 = p1;
-        player2 = p2;
-        player3 = p3;
-        player4 = p4;
-
     }
 
     /**
      * Start and execute a new round of poker.
-     * A round consists of up to four "betting rounds".
-     *
      * @throws EmptyDeckException if card deck is empty.
      */
     public void startRound() throws EmptyDeckException {
         deck = new Deck();
         tableCards = new ArrayList<>();
         this.isInPlay = true;
+
         while(this.isInPlay) {
             switch (this.roundNum) {
                 case (1):
@@ -67,12 +87,9 @@ public class Round {
                     initCard1(deck);
                     initCard2(deck);
 
-                    //GET PLAYER ACTION
+                    //TODO - GET PLAYER ACTION (for all 4 cases)
 
                     getBets();
-
-                    // ADD ALL BETS TO POT
-                    addBetsToPot();
 
                     //SHOW PLAYERS TABLE CARDS 1-3
                     initTableCards();
@@ -81,17 +98,15 @@ public class Round {
 
                 case (2):
 
-                    //TODO - GET PLAYER ACTION
                     getBets();
-                    addBetsToPot();
 
                     this.roundNum += 1;
                 case (3):
                     //SHOW PLAYERS TABLE CARD 4
 
                     //GET PLAYER ACTION
+
                     getBets();
-                    addBetsToPot();
 
                     this.roundNum += 1;
 
@@ -101,14 +116,15 @@ public class Round {
                     //GET PLAYER ACTION
 
                     getBets();
-                    addBetsToPot();
 
-                    // gives winner the pot
+                    // Give winner the pot
                     getWinner().addChips(pot.getTotalAmount());
-
                     System.out.println(getWinner().getPlayerNum() + " wins!");
 
-                    player1.playerHand.clear();
+                    // Clear players' hands
+                    for (Player player : playerList) {
+                        player.playerHand.clear();
+                    }
                     tableCards.clear();
                     endRound();
             }
@@ -124,32 +140,29 @@ public class Round {
         return isInPlay;
     }
 
+    /**
+     * End the current round.
+     */
     public void endRound() {
         this.isInPlay = false;
-    }
-
-    private static void addBetsToPot() {
-        pot.addToPot(bet1);
-        pot.addToPot(bet2);
-        pot.addToPot(bet3);
-        pot.addToPot(bet4);
     }
 
     /**
      * Get bets from all the players, for Player 1, we use information from the command line
      */
     private static void getBets() {
-        bet1 = 100;
-        player1.subChips(bet1);
-        bet2 = 100;
-        player2.subChips(bet2);
-        bet3 = 100;
-        player3.subChips(bet3);
-        bet4 = 100;
-        player4.subChips(bet4);
-
+        for (Player player : playerList) {
+            bet = 100;
+            player.subChips(bet);
+            pot.addToPot(bet);
+        }
     }
 
+    /**
+     * Add 5 cards to the table from the deck.
+     *
+     * @throws EmptyDeckException if deck is empty.
+     */
     private static void initTableCards() throws EmptyDeckException {
         deck.deal();
         tableCards.add(deck.deal());
@@ -160,60 +173,96 @@ public class Round {
         deck.deal();
         tableCards.add(deck.deal());
 
-        addTableCardsToPlayer(player1);
-        addTableCardsToPlayer(player2);
-        addTableCardsToPlayer(player3);
-        addTableCardsToPlayer(player4);
+        for (Player player : playerList) {
+            addTableCardsToPlayer(player);
+        }
     }
 
-    private static void initCard2(Deck deck) throws EmptyDeckException {
-        player1.setCard2(deck.deal());
-        player2.setCard2(deck.deal());
-        player3.setCard2(deck.deal());
-        player4.setCard2(deck.deal());
-    }
-
+    // ToDo - could make initcards methods into one to avoid repetitive code
+    /**
+     * Deal the first card to each player.
+     * @param deck contains the card to be dealt.
+     * @throws EmptyDeckException - if deck is empty.
+     */
     private static void initCard1(Deck deck) throws EmptyDeckException {
-        player1.setCard1(deck.deal());
-        player2.setCard1(deck.deal());
-        player3.setCard1(deck.deal());
-        player4.setCard1(deck.deal());
+        for (Player player : playerList) {
+            player.setCard2(deck.deal());
+        }
     }
 
+    /**
+     * Deal the second card to each player.
+     * @param deck contains the card to be dealt.
+     * @throws EmptyDeckException - if deck is empty.
+     */
+    private static void initCard2(Deck deck) throws EmptyDeckException {
+        for (Player player : playerList) {
+            player.setCard2(deck.deal());
+        }
+    }
+
+    /**
+     * Add cards on table to players hand to get a total score.
+     * @param player is instance of Player.
+     */
     private static void addTableCardsToPlayer(Player player) {
-        for (int i = 0; i < tableCards.size(); i++){
-            player.addCard(tableCards.get(i));
+        for (Card card : tableCards) {
+            player.addCard(card);
         }
 
     }
 
-    public static int getMax(int[] values){
-        int max = values[0];
-        for (int i = 1; i < values.length; i++){
-            if (values[i] > max){
-                max = values[i];
+
+    /**
+     * Determine winner by finding the hand with the highest score.
+     * @return winner is Player instance with winning hand.
+     */
+    public static Player getWinner(){
+        Player winner = null;
+
+        // Find max score among players
+        int max = playerList.get(0).getScore();
+        
+        for (int i = 0; i < playerList.size(); ++i) {
+            if (playerList.get(i).getScore() > max) {
+                max = playerList.get(i).getScore();
             }
         }
-        return max;
+        // Determine winner
+        for (Player player : playerList) {
+            if (player.getScore() == max) {
+                winner = player;
+            }
+        }
+        return winner;
+
     }
 
-    public static Player getWinner(){
-        int max = getMax(new int[]{player1.getScore(), player2.getScore(), player3.getScore(), player4.getScore()});
-        if (player1.getScore() == max){
-            return player1;
-        }
-        if (player2.getScore() == max){
-            return player2;
-        }
-        if (player3.getScore() == max){
-            return player3;
-        }
-        else {
-            return player4;
-        }
-    }
-
+    /**
+     * Get the number of the current betting round.
+     * @return roundNum is an integer between 1-4.
+     */
     public int getRoundNum() {
         return roundNum;
+    }
+
+    public static void main(String[] args) throws EmptyDeckException {
+        Player p1 = new Player(1);
+        Player p2 = new Player(2);
+        Player p3 = new Player(3);
+        Player p4 = new Player(4);
+
+        ArrayList<Player> playerList = new ArrayList<>(4);
+        playerList.add(p1);
+        playerList.add(p2);
+        playerList.add(p3);
+//        playerList.add(p4);
+
+//        Round testRound = new Round(p1,p2,p3,p4);
+        Round testRound = new Round(playerList);
+        testRound.startRound();
+
+
+
     }
 }

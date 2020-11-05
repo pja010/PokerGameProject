@@ -16,6 +16,8 @@
  */
 package main;
 
+import java.util.ArrayList;
+
 public class GameFlow {
 
     private static Player player1;
@@ -28,7 +30,13 @@ public class GameFlow {
         initPlayers();
         setChips();
 
-        Round round1 = new Round(player1, player2, player3, player4);
+        ArrayList<Player> playerList = new ArrayList<>(4);
+        playerList.add(player1);
+        playerList.add(player2);
+        playerList.add(player3);
+        playerList.add(player4);
+
+        Round round1 = new Round(playerList);
         System.out.println("Starting new round.");
         round1.startRound();
 
