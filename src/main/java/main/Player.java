@@ -35,10 +35,12 @@ public class Player {
     private double actionAmount;
     private Chips chips;
     private Score score;
+    public boolean isPlaying;
 
     public Player(int playerNum) {
         this.playerNum = playerNum;
         this.chips = new Chips();
+        this.isPlaying = true;
 
     }
 
@@ -88,6 +90,9 @@ public class Player {
         return playerNum;
     }
 
+    public void setIsPlaying(boolean isPlaying) {
+        this.isPlaying = isPlaying;
+    }
 
     public ArrayList<Card> getPlayerHand() {
         return playerHand;
