@@ -60,7 +60,7 @@ public class PokerGameMain extends Application {
         rootLayout.setPadding(new Insets(5, 5, 5, 5));
 
         //StackPane leftPane = new StackPane();
-        Rectangle leftRect = new Rectangle(0, 0, 900, 800);
+        Rectangle leftRect = new Rectangle(0, 150, 900, 800);
         leftRect.setStroke(Color.BLACK);
         leftRect.setArcWidth(50);
         leftRect.setArcHeight(50);
@@ -73,12 +73,12 @@ public class PokerGameMain extends Application {
         rightRect.setArcHeight(50);
         rightRect.setFill(Color.DARKOLIVEGREEN);
 
-        StackPane bottomPane = new StackPane();
-        Rectangle bottomRect = new Rectangle(0, 800, 900, 150);
-        bottomRect.setStroke(Color.BLACK);
-        bottomRect.setArcWidth(50);
-        bottomRect.setArcHeight(50);
-        bottomRect.setFill(Color.DARKSEAGREEN);
+        //StackPane bottomPane = new StackPane();
+        Rectangle topRect = new Rectangle(0, 0, 900, 150);
+        topRect.setStroke(Color.BLACK);
+        topRect.setArcWidth(50);
+        topRect.setArcHeight(50);
+        topRect.setFill(Color.DARKSEAGREEN);
 
         VBox leftVBox = new VBox(50);
         leftVBox.setAlignment(Pos.CENTER);
@@ -105,9 +105,9 @@ public class PokerGameMain extends Application {
 
         toggle.selectToggle(checkBtn);
 
-        checkBtn.setUserData(bottomPane);
-        betBtn.setUserData(bottomPane);
-        foldBtn.setUserData(bottomPane);
+        //checkBtn.setUserData(bottomPane);
+        //betBtn.setUserData(bottomPane);
+        //foldBtn.setUserData(bottomPane);
 
         //HBox hbox = new HBox();
         //hbox.getChildren().addAll(checkBtn, betBtn, foldBtn);
@@ -115,10 +115,11 @@ public class PokerGameMain extends Application {
 
         //vbox.getChildren().addAll(hbox);
 
-        VBox bottomVbox = new VBox();
+        HBox topHbox = new HBox();
+        topHbox.getChildren().addAll(checkBtn, betBtn, foldBtn);
 
 
-        root.getChildren().addAll(leftRect, rightRect, bottomRect);
+        root.getChildren().addAll(leftRect, rightRect, new StackPane(topRect, topHbox));
 
         //Group group = new Group(leftPane, rightPane, bottomPane);
 
