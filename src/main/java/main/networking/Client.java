@@ -12,7 +12,8 @@
  * Package: main.networking
  * Class: Client
  *
- * Description:
+ * Description: Client methods for connecting
+ * to a remote host
  *
  * ****************************************
  */
@@ -20,10 +21,37 @@ package main.networking;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
     private static final int PORT = 12346;
     Socket socket;
+    private static Scanner scnr =  new Scanner(System.in);
+
+    public static void main(String[] args) {
+        System.out.println("Please enter your name");
+        String userName = scnr.next();
+        System.out.println("Will you host or join a game? Enter H or J.");
+        String willHost = scnr.next();
+        // User is the host
+        if (willHost.equals("H")) {
+            // Create new TCPServer object
+            Server host = new Server();
+            // Get client address
+            System.out.println(host.getAddress());
+            // Connect to client
+            System.out.println(host.connectToOtherPlayer(userName));
+        }
+        // User is the client
+        else if (willHost.equals("J")) {
+            System.out.println("Please enter host address.");
+            String hostAddress = scnr.next();
+            // Create new TCPClient object
+            Client client = new Client(hostAddress);
+            // Exchange names between server and client
+            System.out.println(client.exchangeNames(userName));
+        }
+    }
 
     /**
      * An object which handles the client side networking
