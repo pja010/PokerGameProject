@@ -36,7 +36,7 @@ public class PrototypeView {
         foldBtn = new Button("FOLD");
         raiseBtn = new Button("RAISE");
 
-        // todo - Include raise button only if not first move
+        // todo - Include raise button only if not first move, or have bet/raise button
         topPane.getChildren().addAll(betBtn, checkBtn, foldBtn, raiseBtn);
     }
 
