@@ -212,7 +212,6 @@ public class Round {
 
     }
 
-
     /**
      * Determine winner by finding the hand with the highest score.
      * @return winner is Player instance with winning hand.
@@ -238,6 +237,15 @@ public class Round {
 
     }
 
+    public static Player getPlayer(int playerNum) {
+        return playerList.get(playerNum - 1);
+    }
+
+//    public static void getMove(int playerNum) {
+//        PrototypeGUI.launch();
+//        return;
+//    }
+
     /**
      * Get the number of the current betting round.
      * @return roundNum is an integer between 1-4.
@@ -261,7 +269,8 @@ public class Round {
 //        Round testRound = new Round(p1,p2,p3,p4);
         Round testRound = new Round(playerList);
         testRound.startRound();
-
+//        p1 = playerList.get(1);
+        // Get move from GUI
 
 
     }
