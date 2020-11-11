@@ -34,7 +34,7 @@ public class Player {
     private PlayerAction action;
     private double actionAmount;
     private Chips chips;
-    private Score score;
+    private ScoreUpdate score;
     public boolean isPlaying;
 
     public Player(int playerNum) {
@@ -69,8 +69,8 @@ public class Player {
         this.playerHand.add(card);
     }
 
-    public int getScore() {
-        score = new Score(playerHand);
+    public int[] getScore() {
+        score = new ScoreUpdate(playerHand);
         return score.getScore();
     }
 
