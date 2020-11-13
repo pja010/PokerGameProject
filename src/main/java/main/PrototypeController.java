@@ -3,48 +3,43 @@ package main;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 
-import static main.PlayerAction.*;
-
 public class PrototypeController {
-    private PrototypeModel theModel;
     private PrototypeView theView;
-//    private static Player player;
+    private PlayerCopy player;
 
-    public PrototypeController(PrototypeModel theModel, PrototypeView theView, Player player) {
-        this.theModel = theModel;
+    public PrototypeController(PrototypeView theView, PlayerCopy player) {
+        this.player = player;
         this.theView = theView;
-
-//        Player player = new Player(1);
+        player.moveIsBetPropertyProperty().bind(theView.getBetBtn().defaultButtonProperty());
+        player.moveIsCheckMovePropertyProperty().bind(theView.getCheckBtn().defaultButtonProperty());
+        player.moveIsFoldPropertyProperty().bind(theView.getFoldBtn().defaultButtonProperty());
 
         theView.getBetBtn().setOnAction((ActionEvent event) -> {
             try {
                 String sUserBetAmount = theView.getTextFieldUserBetAmount().getText();
                 if (sUserBetAmount.length() > 0) {
                     double dUserBetAmount = Double.parseDouble(sUserBetAmount);
-                    System.out.println("Player amount before bet: " + player.getChips());
-                    player.move(BET, dUserBetAmount);
-                    System.out.println("Player amount after bet: " + player.getChips());
+
+                    if (dUserBetAmount <= player.getChips())
+                    player.makeBetMove(dUserBetAmount);
                 }
             }
             catch (NumberFormatException numberFormatException) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Illegal input!");
-                alert.setHeaderText("Illegal input specified.");
-                alert.setContentText(String.format("Can not convert \"%s\"",
+                alert.setHeaderText("Illegal input!");
+                alert.setContentText(String.format("Cannot bet \"%s\"",
                                                     theView.getTextFieldUserBetAmount().getText()));
                 alert.show();
             }
         });
 
         theView.getCheckBtn().setOnAction((ActionEvent event) -> {
-//            player.move(CHECK);
-            // ToDo - fix check move
+            player.makeCheckMove();
         });
 
         theView.getFoldBtn().setOnAction((ActionEvent event) -> {
-//            player.move(FOLD, 0);
-            // ToDo - fix fold move
-            player.isPlaying = false;
+            player.makeFoldMove();
         });
 
         // Enable betting and raising by clicking enter button, by tying events to current bet event handler
