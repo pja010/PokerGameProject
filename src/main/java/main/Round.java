@@ -212,7 +212,6 @@ public class Round {
 
     }
 
-
     /**
      * Determine winner by finding the hand with the highest score.
      * @return winner is Player instance with winning hand.
@@ -221,22 +220,31 @@ public class Round {
         Player winner = null;
 
         // Find max score among players
-        int max = playerList.get(0).getScore();
+        int max = playerList.get(0).getScore()[0];
         
         for (int i = 0; i < playerList.size(); ++i) {
-            if (playerList.get(i).getScore() > max) {
-                max = playerList.get(i).getScore();
+            if (playerList.get(i).getScore()[0] > max) {
+                max = playerList.get(i).getScore()[0];
             }
         }
         // Determine winner
         for (Player player : playerList) {
-            if (player.getScore() == max) {
+            if (player.getScore()[0] == max) {
                 winner = player;
             }
         }
         return winner;
 
     }
+
+    public static Player getPlayer(int playerNum) {
+        return playerList.get(playerNum - 1);
+    }
+
+//    public static void getMove(int playerNum) {
+//        PrototypeGUI.launch();
+//        return;
+//    }
 
     /**
      * Get the number of the current betting round.
@@ -261,7 +269,8 @@ public class Round {
 //        Round testRound = new Round(p1,p2,p3,p4);
         Round testRound = new Round(playerList);
         testRound.startRound();
-
+//        p1 = playerList.get(1);
+        // Get move from GUI
 
 
     }
