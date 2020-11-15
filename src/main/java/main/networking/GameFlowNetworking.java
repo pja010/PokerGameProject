@@ -37,7 +37,7 @@ public class GameFlowNetworking {
     private static Player player4;
     private static Scanner scnr = new Scanner(System.in);
     private static BufferedInputStream in;
-    private static int PORT = 12224;
+    private static int PORT = 12225;
     private static boolean isConnecting = true;
     private static ArrayList<ClientHandlerThread> clients = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(4);
@@ -97,6 +97,7 @@ public class GameFlowNetworking {
         String willHost = scnr.next();
         if (willHost.equals("H")) {
 
+            // Displays host's IP address to screen
             try {
                 address = InetAddress.getLocalHost();
             } catch (UnknownHostException e) {
@@ -108,7 +109,7 @@ public class GameFlowNetworking {
             Socket client;
             ServerSocket listener = new ServerSocket(PORT);
 
-            Thread t1;
+//            Thread t1;
 
             System.out.println("Server is waiting for client connection");
             while (isConnecting) {
@@ -146,7 +147,6 @@ public class GameFlowNetworking {
 
             // Allow for user input from the keyboard
             BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-
 
             while (true){
                 System.out.print("> ");
