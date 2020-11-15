@@ -20,10 +20,14 @@ import main.Player;
 import main.Round;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class GameFlowNetworking {
 
@@ -35,6 +39,10 @@ public class GameFlowNetworking {
     private static BufferedInputStream in;
     private static int PORT = 12224;
     private static boolean isConnecting = true;
+    private static ArrayList<ClientHandlerThread> clients = new ArrayList<>();
+    private static ExecutorService pool = Executors.newFixedThreadPool(4);
+    private static InetAddress address = null;
+
 
 //    public static void main(String[] args) {
 //
@@ -89,7 +97,14 @@ public class GameFlowNetworking {
         String willHost = scnr.next();
         if (willHost.equals("H")) {
 
-            ArrayList<Thread> clients = new ArrayList<>();
+            try {
+                address = InetAddress.getLocalHost();
+            } catch (UnknownHostException e) {
+                System.out.println("Oops");
+            }
+            System.out.println("" + address.getHostAddress());
+
+
             Socket client;
             ServerSocket listener = new ServerSocket(PORT);
 
@@ -100,20 +115,25 @@ public class GameFlowNetworking {
                 client = listener.accept();
                 System.out.println("Server connected to client");
 
-                // Creates new thread for each new client
-                t1 = new Thread(new ClientHandlerThread(client, userName));
-                clients.add(t1);
-                t1.start();
+                ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients);
+                clients.add(clientThread);
 
-                if (clients.size() == 4){
-                    isConnecting = false;
-                }
+                pool.execute(clientThread);
+
+//                if (clients.size() == 4){
+//                    isConnecting = false;
+//                }
             }
             listener.close();
         }
         else if (willHost.equals("J")) {
-            Socket client = new Socket("134.82.179.74", PORT);
-            // Transmit message from client
+            System.out.println("Please enter Host address");
+            String hostAddress = scnr.next();
+            Socket client = new Socket(hostAddress,PORT);
+
+//            Socket client = new Socket("134.82.179.74", PORT);
+
+            // Transmit message from client to server
             PrintWriter out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
             out.println(userName);
 
@@ -121,16 +141,32 @@ public class GameFlowNetworking {
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             System.out.println("Connected to: " + in.readLine());
 
+            // NEW STUFF
+            ServerConnection serverConnection = new ServerConnection(client);
+
             // Allow for user input from the keyboard
             BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+
+
             while (true){
                 System.out.print("> ");
-                String command = keyboard.readLine();
+                String clientCommand = keyboard.readLine();
 
-                if (command.equals("quit")) {
+                if (clientCommand.equals("quit")) {
+                    out.println(clientCommand);
                     break;
                 }
-                out.println(command);
+                // Send message to server
+                out.println(clientCommand);
+
+
+                //NEW STUFF
+                new Thread(serverConnection).start();
+
+                //THIS IS THE STUFF I'M EDITING
+                // Receive message from server
+//                String serverResponse = in.readLine();
+//                System.out.println(serverResponse);
             }
             client.close();
         }

@@ -31,28 +31,50 @@ public class ClientHandlerThread implements Runnable {
     private PrintWriter out;
     private Scanner scnr = new Scanner(System.in);
     private String userName;
-    private ArrayList<Thread> clients;
+//    private ArrayList<Thread> clients;
+    private  ArrayList<ClientHandlerThread> clients;
+    private String clientName;
 
 
-    public ClientHandlerThread(Socket clientSocket, String userName) throws IOException {
+    public ClientHandlerThread(Socket clientSocket, String userName, ArrayList<ClientHandlerThread> clients) throws IOException {
         this.client = clientSocket;
         this.userName = userName;
+        this.clients = clients;
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
     }
 
+    @Override
     public void run() {
         try {
             // Wait for message from client
-            String clientName = in.readLine();
+            clientName = in.readLine();
 
             // Transmit message from server
             out.println(this.userName);
             System.out.println("Connected to : " + clientName);
 
             while (true) {
-                String secondWord = in.readLine();
-                System.out.println(clientName + " says " + secondWord);
+                String clientResponse = in.readLine();
+
+                if (clientResponse.contains("quit")){
+                    break;
+                }
+                // Client wants to share message to everyone
+                else if (clientResponse.startsWith("say")){
+                    int firstSpace = clientResponse.indexOf(" ");
+                    outToAll(clientResponse.substring(firstSpace + 1));
+                    System.out.println("Group message: " + clientResponse.substring(firstSpace + 1));
+
+                }
+                // Otherwise, just send to server
+                else {
+                    // Server-side message
+                    System.out.println(clientName + " says " + clientResponse);
+                }
+
+                // Sends message to client
+                out.println("Thanks for responding, " + clientName);
             }
 
         } catch (IOException e) {
@@ -66,6 +88,12 @@ public class ClientHandlerThread implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void outToAll(String msg) {
+        for (ClientHandlerThread aClient : clients) {
+            aClient.out.println(clientName + " says " + msg);
         }
     }
 }
