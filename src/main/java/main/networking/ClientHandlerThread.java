@@ -18,6 +18,8 @@
  */
 package main.networking;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -47,6 +49,12 @@ public class ClientHandlerThread implements Runnable {
             // Transmit message from server
             out.println(this.userName);
             System.out.println("Connected to : " + clientName);
+
+            while (true) {
+                String secondWord = in.readLine();
+                System.out.println(clientName + " says " + secondWord);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Oopsie IO Exception");
