@@ -34,9 +34,10 @@ public class ServerConnection implements Runnable {
     public void run() {
             try {
                 while (true) {
-                    // Receive a message from the server
+                    // Receive a message from the server, the group message being received
                     String serverResponse = in.readLine();
-                    if (serverResponse == null) {break;}
+                    if (serverResponse == null) break;
+
                     System.out.println(serverResponse);
                 }
             } catch (IOException e) {

@@ -105,25 +105,20 @@ public class GameFlowNetworking {
             }
             System.out.println("" + address.getHostAddress());
 
-
             Socket client;
             ServerSocket listener = new ServerSocket(PORT);
-
-//            Thread t1;
 
             System.out.println("Server is waiting for client connection");
             while (isConnecting) {
                 client = listener.accept();
                 System.out.println("Server connected to client");
 
+                // Create Server thread responsible for keeping track of all client threads
                 ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients);
                 clients.add(clientThread);
 
+                // Run the threads
                 pool.execute(clientThread);
-
-//                if (clients.size() == 4){
-//                    isConnecting = false;
-//                }
             }
             listener.close();
         }
@@ -132,8 +127,6 @@ public class GameFlowNetworking {
             String hostAddress = scnr.next();
             Socket client = new Socket(hostAddress,PORT);
 
-//            Socket client = new Socket("134.82.179.74", PORT);
-
             // Transmit message from client to server
             PrintWriter out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
             out.println(userName);
@@ -141,15 +134,15 @@ public class GameFlowNetworking {
             // Get response from server
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             System.out.println("Connected to: " + in.readLine());
+            System.out.println("To send group message, type 'say' before message. Otherwise, just type message below");
 
-            // NEW STUFF
+            // Client thread
             ServerConnection serverConnection = new ServerConnection(client);
 
             // Allow for user input from the keyboard
             BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
 
             while (true){
-                System.out.print("> ");
                 String clientCommand = keyboard.readLine();
 
                 if (clientCommand.equals("quit")) {
@@ -159,14 +152,8 @@ public class GameFlowNetworking {
                 // Send message to server
                 out.println(clientCommand);
 
-
-                //NEW STUFF
+                // Start client thread
                 new Thread(serverConnection).start();
-
-                //THIS IS THE STUFF I'M EDITING
-                // Receive message from server
-//                String serverResponse = in.readLine();
-//                System.out.println(serverResponse);
             }
             client.close();
         }
