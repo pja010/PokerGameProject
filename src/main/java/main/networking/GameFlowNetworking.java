@@ -110,20 +110,6 @@ public class GameFlowNetworking {
                 }
             }
             listener.close();
-
-//            ClientHandlerThread clientThread = new ClientHandlerThread(client);
-//            clients.add(clientThread);
-
-//            PrintWriter out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()),true);
-//            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-//            // Wait for message from client
-//            String name = in.readLine();
-//            // Transmit message from server
-//            out.println(userName);
-//            System.out.println("Connected to : " + name);
-
-//            listener.close();
-//            client.close();
         }
         else if (willHost.equals("J")) {
             Socket client = new Socket("134.82.179.74", PORT);
@@ -134,6 +120,18 @@ public class GameFlowNetworking {
             // Get response from server
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             System.out.println("Connected to: " + in.readLine());
+
+            // Allow for user input from the keyboard
+            BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+            while (true){
+                System.out.print("> ");
+                String command = keyboard.readLine();
+
+                if (command.equals("quit")) {
+                    break;
+                }
+                out.println(command);
+            }
             client.close();
         }
     }
