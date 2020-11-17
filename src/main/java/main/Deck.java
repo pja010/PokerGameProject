@@ -99,5 +99,6 @@ public class Deck {
     public void setBackOfCard(Image backOfCard) {
         this.backOfCard = backOfCard;
     }
+
 }
     
