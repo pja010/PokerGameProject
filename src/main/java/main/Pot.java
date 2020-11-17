@@ -19,9 +19,13 @@
  */
 package main;
 
-public class Pot {
+import java.io.Serializable;
+
+public class Pot implements Serializable {
+
+
     /** Total amount of money in the pot */
-    public double totalAmount;
+    private double totalAmount;
 
     /**
      * General constructor for pot, initially, pot is empty

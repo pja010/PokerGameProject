@@ -19,6 +19,7 @@
 package main.networking;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import main.Table;
 
 import java.io.*;
 import java.net.Socket;
@@ -35,18 +36,27 @@ public class ClientHandlerThread implements Runnable {
     private  ArrayList<ClientHandlerThread> clients;
     private String clientName;
 
+    private ObjectOutputStream objOut;
+    private ObjectInputStream objIn;
+    private Table table;
 
-    public ClientHandlerThread(Socket clientSocket, String userName, ArrayList<ClientHandlerThread> clients) throws IOException {
+
+    public ClientHandlerThread(Socket clientSocket, String userName, ArrayList<ClientHandlerThread> clients, Table table) throws IOException {
         this.client = clientSocket;
         this.userName = userName;
         this.clients = clients;
+        this.table = table;
+
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
+
     }
 
     @Override
     public void run() {
         try {
+            objOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
+            objIn = new ObjectInputStream(new BufferedInputStream(client.getInputStream()));
             // Wait for message from client
             clientName = in.readLine();
 
@@ -66,15 +76,27 @@ public class ClientHandlerThread implements Runnable {
                     outToAll(clientResponse.substring(firstSpace + 1));
                     System.out.println("Group message: " + clientResponse.substring(firstSpace + 1));
 
+                    // Sends message to client
+                    out.println("Thanks for responding, " + clientName);
+
+                }
+                else if (clientResponse.startsWith("table")){
+                    // Sends message to client
+                    out.println("table");
+                    System.out.println("ClientHandler before readOBj");
+                    objOut.writeObject(table);
+                    System.out.println("ClientHandler after readOBj");
+
                 }
                 // Otherwise, just send to server
                 else {
                     // Server-side message
                     System.out.println(clientName + " says " + clientResponse);
+
+                    // Sends message to client
+                    out.println("Thanks for responding, " + clientName);
                 }
 
-                // Sends message to client
-                out.println("Thanks for responding, " + clientName);
             }
 
         } catch (IOException e) {
