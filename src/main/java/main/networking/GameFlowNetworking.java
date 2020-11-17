@@ -18,6 +18,7 @@ package main.networking;
 
 import main.Player;
 import main.Round;
+import main.Table;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -109,12 +110,14 @@ public class GameFlowNetworking {
             ServerSocket listener = new ServerSocket(PORT);
 
             System.out.println("Server is waiting for client connection");
+            Table table = new Table();
+
             while (isConnecting) {
                 client = listener.accept();
                 System.out.println("Server connected to client");
 
                 // Create Server thread responsible for keeping track of all client threads
-                ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients);
+                ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients, table);
                 clients.add(clientThread);
 
                 // Run the threads

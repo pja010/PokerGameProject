@@ -16,6 +16,7 @@
  */
 package main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -28,7 +29,8 @@ class EmptyDeckException extends Exception {
 /**
  * http://www.mathcs.emory.edu/~cheung/Courses/170/Syllabus/10/deck-of-cards.html
  */
-public class Deck {
+public class Deck implements Serializable{
+
 
     private ArrayList<Card> deckOfCards;
     private int cardsDealt;

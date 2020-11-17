@@ -16,13 +16,12 @@
  */
 package main;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
 /**
  * http://www.mathcs.emory.edu/~cheung/Courses/170/Syllabus/10/cards.html
  */
-public class Card {
+public class Card implements Serializable {
 
     public static final int SPADE = 4;
     public static final int HEART = 3;
