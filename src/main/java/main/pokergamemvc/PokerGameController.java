@@ -18,15 +18,19 @@
  */
 package main.pokergamemvc;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import main.Deck;
+import main.PlayerCopy;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class PokerGameController implements Initializable {
 
@@ -50,21 +54,17 @@ public class PokerGameController implements Initializable {
     @FXML
     private Button buttonCheck;
 
+    @FXML
+    private Button buttonFold;
+
+    @FXML
+    private TextField textFieldUserBetAmount;
+
     // The model for this view
-    private PokerGameModel theModel;
+//    private PokerGameModel theModel;
+    private PlayerCopy player;
 
     public PokerGameController() {
-    }
-
-    @FXML
-    void onMouseClickedBet(MouseEvent event) {
-        System.out.println("Bet clicked");
-
-    }
-
-    @FXML
-    void onMouseClickedCheck(MouseEvent event) {
-
     }
 
     @FXML
@@ -74,13 +74,51 @@ public class PokerGameController implements Initializable {
 
     }
 
-    void setModel(PokerGameModel theModel) {
-        this.theModel = theModel;
+    void setPlayer(PlayerCopy player) {
+        this.player = player;
+        System.out.println("Set player");
+        player.moveIsBetPropertyProperty().bind(buttonBet.defaultButtonProperty());
+        player.moveIsCheckMovePropertyProperty().bind(buttonCheck.defaultButtonProperty());
+        player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Deck deckOfCards = new Deck();
         DeckImageView.setImage(deckOfCards.getBackOfCard());
+        System.out.println("Initialize");
+    }
+
+    public void handleButtonBetAction(ActionEvent event) {
+        try {
+            String sUserBetAmount = textFieldUserBetAmount.getText();
+            if (sUserBetAmount.length() > 0) {
+                double dUserBetAmount = Double.parseDouble(sUserBetAmount);
+
+                if (dUserBetAmount <= player.getChips())
+                    player.makeBetMove(dUserBetAmount);
+            }
+        }
+        catch (NumberFormatException numberFormatException) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Illegal input!");
+            alert.setHeaderText("Illegal input!");
+            alert.setContentText(String.format("Cannot bet \"%s\"",
+                    textFieldUserBetAmount.getText()));
+            alert.show();
+        }
+    }
+
+    public void handleButtonCheckAction(ActionEvent event) {
+        player.makeCheckMove();
+
+    }
+
+    public void handleButtonFoldAction(ActionEvent event) {
+        player.makeFoldMove();
+    }
+
+    public void tieBetTextFieldToEnterButton(ActionEvent event) {
+        textFieldUserBetAmount.setOnAction(buttonBet.getOnAction());
     }
 }

@@ -84,12 +84,17 @@
         </AnchorPane>
         <AnchorPane layoutX="-1.0" layoutY="369.0" prefHeight="118.0" prefWidth="568.0">
             <children>
-                <TextField layoutX="101.0" layoutY="45.0" prefHeight="30.0" prefWidth="61.0" />
+                <TextField fx:id="textFieldUserBetAmount" layoutX="101.0" layoutY="45.0" prefHeight="30.0" prefWidth="61.0"
+                            onAction="#tieBetTextFieldToEnterButton"/>
                 <ButtonBar layoutX="168.0" layoutY="39.0" prefHeight="40.0" prefWidth="376.0">
                     <buttons>
-                        <Button mnemonicParsing="false" prefHeight="32.0" text="Bet" />
-                        <Button mnemonicParsing="false" text="Check" />
-                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="111.0" text="Fold" />
+                        <Button fx:id="buttonBet" mnemonicParsing="false" prefHeight="32.0" text="Bet"
+                                onAction="#handleButtonBetAction"/>
+                        <Button fx:id="buttonCheck" mnemonicParsing="false" text="Check"
+                                onAction="#handleButtonCheckAction"/>
+                        <Button fx:id="buttonFold" mnemonicParsing="false" prefHeight="32.0" prefWidth="111.0" text="Fold"
+                                onAction="#handleButtonFoldAction"/>
+
                     </buttons>
                 </ButtonBar>
                 <Text layoutX="41.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bet: $">
