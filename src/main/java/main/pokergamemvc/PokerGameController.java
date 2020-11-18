@@ -88,11 +88,14 @@ public class PokerGameController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         deckOfCards = new Deck();
+        deckOfCards.shuffle();
         DeckImageView.setImage(deckOfCards.getBackOfCard());
     }
 
     @FXML
     public void nextCardButtonPush() {
         FlopCard1.setImage(deckOfCards.deal().getImage());
+        FlopCard2.setImage(deckOfCards.deal().getImage());
+        FlopCard3.setImage(deckOfCards.deal().getImage());
     }
 }
