@@ -16,7 +16,8 @@
  */
 package main;
 
-import java.io.Serializable;
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -29,20 +30,27 @@ class EmptyDeckException extends Exception {
 /**
  * http://www.mathcs.emory.edu/~cheung/Courses/170/Syllabus/10/deck-of-cards.html
  */
-public class Deck implements Serializable{
-
+public class Deck {
 
     private ArrayList<Card> deckOfCards;
     private int cardsDealt;
+    private Image backOfCard;
+
+    public Deck(ArrayList<Card> deckOfCards) {
+        this.deckOfCards = deckOfCards;
+        backOfCard = new Image("/Users/Guillermo/Document/csci205FinalProject/src/main/resources/DeckOfCards/back_of_card.png");
+    }
 
     public Deck() {
         deckOfCards = new ArrayList<Card>();
-         for (int suit = Card.DIAMOND; suit <= Card.SPADE; suit ++) {
-             for (int rank = Card.TWO; rank <= Card.ACE; rank ++) {
-                 deckOfCards.add(new Card(rank,suit));
-             }
-         }
-         cardsDealt = 0;
+        for (int suit = Card.DIAMOND; suit <= Card.SPADE; suit ++) {
+            for (int rank = Card.TWO; rank <= Card.ACE; rank ++) {
+                deckOfCards.add(new Card(rank,suit));
+            }
+        }
+        cardsDealt = 0;
+        backOfCard = new Image(this.getClass().getResource("/DeckOfCards/back_of_card.png").toString());
+        //backOfCard = new Image("/Users/Guillermo/Document/csci205FinalProject/src/main/resources/DeckOfCards/back_of_card.png");
     }
 
     /**
@@ -77,6 +85,21 @@ public class Deck implements Serializable{
         }
     }
 
+    public ArrayList<Card> getDeckOfCards() {
+        return deckOfCards;
+    }
+
+    public void setDeckOfCards(ArrayList<Card> deckOfCards) {
+        this.deckOfCards = deckOfCards;
+    }
+
+    public Image getBackOfCard() {
+        return backOfCard;
+    }
+
+    public void setBackOfCard(Image backOfCard) {
+        this.backOfCard = backOfCard;
+    }
+
 
 }
-    
