@@ -12,7 +12,8 @@
  * Package: main.networking
  * Class: ServerConnection
  *
- * Description:
+ * Description: A thread for each of the individual clients
+ * so that each client can send or receive messages in any order
  *
  * ****************************************
  */
@@ -41,22 +42,28 @@ public class ServerConnection implements Runnable {
     @Override
     public void run() {
             try {
-                objOut = new ObjectOutputStream(new BufferedOutputStream(server.getOutputStream()));
-                objIn = new ObjectInputStream(new BufferedInputStream(server.getInputStream()));
+                objOut = new ObjectOutputStream(server.getOutputStream());
+                objIn = new ObjectInputStream((server.getInputStream()));
 
                 while (true) {
-                    // Receive a message from the server, the group message being received
+                    // Receive a message from the server which could be, "Thanks for responding" or the group message
                     String serverResponse = in.readLine();
-                    if (serverResponse == null) break;
-
-                    System.out.println(serverResponse);
-                    if (serverResponse.startsWith("table")){
-                        System.out.println("Server before readOBj");
-                        table = (Table) objIn.readObject();
-                        System.out.println("Server after readOBj");
+                    if (serverResponse.equals("quit")) {
+                        System.out.println("Thanks for connecting!");
+                        break;
                     }
+                    else if (serverResponse.startsWith("table")){
+                        System.out.println("Client before readOBj");
+                        table = (Table) objIn.readObject();
+                        System.out.println(table.getPot().getTotalAmount());
+                        System.out.println("Client after readOBj");
+                    }
+                    System.out.println(serverResponse);
                 }
+                this.server.close();
             } catch (IOException | ClassNotFoundException e) {
+//            } catch(IOException e) {
+                System.out.println("Exception in Server Connection");
                 e.printStackTrace();
             } finally {
                 try {
