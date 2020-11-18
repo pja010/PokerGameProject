@@ -48,15 +48,15 @@ public class ClientHandlerThread implements Runnable {
         this.table = table;
 
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
+        out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()),true);
 
     }
 
     @Override
     public void run() {
         try {
-            objOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
-            objIn = new ObjectInputStream(new BufferedInputStream(client.getInputStream()));
+
+
             // Wait for message from client
             clientName = in.readLine();
 
@@ -64,10 +64,16 @@ public class ClientHandlerThread implements Runnable {
             out.println(this.userName);
             System.out.println("Connected to : " + clientName);
 
+            objOut = new ObjectOutputStream(client.getOutputStream());
+            objIn = new ObjectInputStream(client.getInputStream());
+
             while (true) {
+                // Response from client
                 String clientResponse = in.readLine();
 
-                if (clientResponse.contains("quit")){
+                if (clientResponse.equals("quit")){
+                    out.println("quit");
+                    System.out.println(clientName + " has disconnected!");
                     break;
                 }
                 // Client wants to share message to everyone
@@ -75,11 +81,8 @@ public class ClientHandlerThread implements Runnable {
                     int firstSpace = clientResponse.indexOf(" ");
                     outToAll(clientResponse.substring(firstSpace + 1));
                     System.out.println("Group message: " + clientResponse.substring(firstSpace + 1));
-
-                    // Sends message to client
-                    out.println("Thanks for responding, " + clientName);
-
                 }
+                // Client wants to view the table
                 else if (clientResponse.startsWith("table")){
                     // Sends message to client
                     out.println("table");
@@ -104,9 +107,11 @@ public class ClientHandlerThread implements Runnable {
             System.out.println("Oopsie IO Exception");
         }
         finally {
-            out.close();;
+            out.close();
             try {
                 in.close();
+                objOut.reset();
+                objIn.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
