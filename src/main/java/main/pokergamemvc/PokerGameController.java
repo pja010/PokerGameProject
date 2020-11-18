@@ -42,6 +42,10 @@ public class PokerGameController implements Initializable {
     private ImageView FlopCard2;
     @FXML
     private ImageView FlopCard3;
+    @FXML
+    private ImageView TurnCard;
+    @FXML
+    private ImageView RiverCard;
 
     private Deck deckOfCards;
 
@@ -97,5 +101,8 @@ public class PokerGameController implements Initializable {
         FlopCard1.setImage(deckOfCards.deal().getImage());
         FlopCard2.setImage(deckOfCards.deal().getImage());
         FlopCard3.setImage(deckOfCards.deal().getImage());
+
+        TurnCard.setImage(deckOfCards.deal().getImage());
+        RiverCard.setImage(deckOfCards.deal().getImage());
     }
 }
