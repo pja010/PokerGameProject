@@ -34,9 +34,16 @@ public class PokerGameController implements Initializable {
     private ImageView DeckImageView;
     @FXML
     private HBox FlopCardsView;
-
     @FXML
     private Button nextCardButton;
+    @FXML
+    private ImageView FlopCard1;
+    @FXML
+    private ImageView FlopCard2;
+    @FXML
+    private ImageView FlopCard3;
+
+    private Deck deckOfCards;
 
     @FXML
     private ResourceBundle resources;
@@ -80,7 +87,12 @@ public class PokerGameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Deck deckOfCards = new Deck();
+        deckOfCards = new Deck();
         DeckImageView.setImage(deckOfCards.getBackOfCard());
+    }
+
+    @FXML
+    public void nextCardButtonPush() {
+        FlopCard1.setImage(deckOfCards.deal().getImage());
     }
 }

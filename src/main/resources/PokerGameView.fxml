@@ -74,12 +74,12 @@
                 <ImageView fx:id="DeckImageView" fitHeight="97.0" fitWidth="65.0" layoutX="32.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true" />
                 <HBox fx:id="FlopCardsView" layoutX="48.0" layoutY="53.0" spacing="20.0">
                     <children>
-                        <ImageView fitHeight="97.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fitHeight="97.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fitHeight="97.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="FlopCard1" fitHeight="97.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="FlopCard2" fitHeight="97.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="FlopCard3" fitHeight="97.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </HBox>
-                <Button fx:id="nextCardButton" layoutX="342.0" layoutY="185.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="82.0" text="Next Card" />
+                <Button fx:id="nextCardButton" layoutX="342.0" layoutY="185.0" mnemonicParsing="false" onAction="#nextCardButtonPush" prefHeight="38.0" prefWidth="82.0" text="Next Card" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="-1.0" layoutY="369.0" prefHeight="118.0" prefWidth="568.0">
