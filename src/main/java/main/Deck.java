@@ -72,7 +72,7 @@ public class Deck {
         cardsDealt = 0;
     }
 
-    public Card deal() throws EmptyDeckException{
+    public Card deal() {
         if (cardsDealt <= 52) {
             Card card = deckOfCards.get(0);
             deckOfCards.remove(0);
@@ -81,7 +81,7 @@ public class Deck {
             return card;
         }
         else {
-            throw new EmptyDeckException("Empty Deck!");
+            return null;
         }
     }
 

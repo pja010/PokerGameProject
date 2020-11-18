@@ -96,15 +96,10 @@ public class GameFlowNetworking {
         String userName = scnr.next();
         System.out.println("Will you host or join a game? Enter H or J.");
         String willHost = scnr.next();
-        if (willHost.equals("H")) {
+        if (willHost.equals("H") | willHost.equals("h")) {
 
-            // Displays host's IP address to screen
-            try {
-                address = InetAddress.getLocalHost();
-            } catch (UnknownHostException e) {
-                System.out.println("Oops");
-            }
-            System.out.println("" + address.getHostAddress());
+            // Display host's IP address to screen
+            getAddress();
 
             Socket client;
             ServerSocket listener = new ServerSocket(PORT);
@@ -113,6 +108,7 @@ public class GameFlowNetworking {
             Table table = new Table();
 
             while (isConnecting) {
+                // Connection is established
                 client = listener.accept();
                 System.out.println("Server connected to client");
 
@@ -125,9 +121,10 @@ public class GameFlowNetworking {
             }
             listener.close();
         }
-        else if (willHost.equals("J")) {
+        else if (willHost.equals("J") | willHost.equals("j")) {
             System.out.println("Please enter Host address");
             String hostAddress = scnr.next();
+            // Create new client socket connected to server socket
             Socket client = new Socket(hostAddress,PORT);
 
             // Transmit message from client to server
@@ -136,29 +133,38 @@ public class GameFlowNetworking {
 
             // Get response from server
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            System.out.println("Connected to: " + in.readLine());
+            String hostName = in.readLine();
+            System.out.println("Connected to: " + hostName);
             System.out.println("To send group message, type 'say' before message. Otherwise, just type message below");
 
-            // Client thread
+
+            // Client thread that allows messages to be sent and received in any particular order
             ServerConnection serverConnection = new ServerConnection(client);
 
             // Allow for user input from the keyboard
             BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
 
+            new Thread(serverConnection).start();
+
             while (true){
                 String clientCommand = keyboard.readLine();
 
-                if (clientCommand.equals("quit")) {
-                    out.println(clientCommand);
-                    break;
-                }
                 // Send message to server
                 out.println(clientCommand);
 
-                // Start client thread
-                new Thread(serverConnection).start();
+//                // Start client thread
+//                new Thread(serverConnection).start();
             }
-            client.close();
         }
+    }
+
+    private static void getAddress() {
+        // Displays host's IP address to screen
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            System.out.println("Oops");
+        }
+        System.out.println("" + address.getHostAddress());
     }
 }

@@ -38,9 +38,20 @@ public class PokerGameController implements Initializable {
     private ImageView DeckImageView;
     @FXML
     private HBox FlopCardsView;
-
     @FXML
     private Button nextCardButton;
+    @FXML
+    private ImageView FlopCard1;
+    @FXML
+    private ImageView FlopCard2;
+    @FXML
+    private ImageView FlopCard3;
+    @FXML
+    private ImageView TurnCard;
+    @FXML
+    private ImageView RiverCard;
+
+    private Deck deckOfCards;
 
     @FXML
     private ResourceBundle resources;
@@ -84,7 +95,8 @@ public class PokerGameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Deck deckOfCards = new Deck();
+        deckOfCards = new Deck();
+        deckOfCards.shuffle();
         DeckImageView.setImage(deckOfCards.getBackOfCard());
         System.out.println("Initialize");
     }
@@ -120,5 +132,15 @@ public class PokerGameController implements Initializable {
 
     public void tieBetTextFieldToEnterButton(ActionEvent event) {
         textFieldUserBetAmount.setOnAction(buttonBet.getOnAction());
+    }
+
+    @FXML
+    public void nextCardButtonPush() {
+        FlopCard1.setImage(deckOfCards.deal().getImage());
+        FlopCard2.setImage(deckOfCards.deal().getImage());
+        FlopCard3.setImage(deckOfCards.deal().getImage());
+
+        TurnCard.setImage(deckOfCards.deal().getImage());
+        RiverCard.setImage(deckOfCards.deal().getImage());
     }
 }

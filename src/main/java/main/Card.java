@@ -16,6 +16,8 @@
  */
 package main;
 
+import javafx.scene.image.Image;
+
 import java.io.Serializable;
 
 /**
@@ -45,9 +47,13 @@ public class Card implements Serializable {
     private int rank;
     private int suit;
 
+    private Image image;
+
     public Card(int rank, int suit) {
         this.rank = rank;
         this.suit = suit;
+        String filename = rank + "_" + suit + ".png";
+        image = new Image(this.getClass().getResource("/DeckOfCards/" + filename).toString());
     }
 
     @Override
@@ -64,6 +70,14 @@ public class Card implements Serializable {
 
     public int getSuit() {
         return suit;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }
     
