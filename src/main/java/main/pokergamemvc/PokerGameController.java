@@ -25,12 +25,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import main.Deck;
 
 public class PokerGameController implements Initializable {
 
-    @FXML private ImageView DeckImageView;
-    @FXML private ImageView FlopCardsView;
+    @FXML
+    private ImageView DeckImageView;
+    @FXML
+    private HBox FlopCardsView;
+
+    @FXML
+    private Button nextCardButton;
 
     @FXML
     private ResourceBundle resources;
@@ -46,6 +52,9 @@ public class PokerGameController implements Initializable {
 
     // The model for this view
     private PokerGameModel theModel;
+
+    public PokerGameController() {
+    }
 
     @FXML
     void onMouseClickedBet(MouseEvent event) {
@@ -72,7 +81,6 @@ public class PokerGameController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Deck deckOfCards = new Deck();
-
         DeckImageView.setImage(deckOfCards.getBackOfCard());
     }
 }
