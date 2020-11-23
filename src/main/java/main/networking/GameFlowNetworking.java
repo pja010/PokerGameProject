@@ -91,6 +91,10 @@ public class GameFlowNetworking {
     }
 
     public static void main(String[] args) throws IOException {
+        setUpNetworking();
+    }
+
+    private static void setUpNetworking() throws IOException {
         System.out.println("Please enter your name");
         String userName = scnr.next();
         System.out.println("Will you host or join a game? Enter H or J.");
@@ -134,7 +138,7 @@ public class GameFlowNetworking {
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             String hostName = in.readLine();
             System.out.println("Connected to: " + hostName);
-            System.out.println("To send group message, type 'say' before message. Otherwise, just type message below");
+            System.out.println("To send group message: type 'say' before message, to quit: type 'quit, or just type message below");
 
 
             // Client thread that allows messages to be sent and received in any particular order
@@ -151,8 +155,6 @@ public class GameFlowNetworking {
                 // Send message to server
                 out.println(clientCommand);
 
-//                // Start client thread
-//                new Thread(serverConnection).start();
             }
         }
     }

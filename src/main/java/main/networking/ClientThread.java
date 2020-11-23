@@ -47,18 +47,18 @@ public class ClientThread implements Runnable {
 
                 while (true) {
                     // Receive a message from the server which could be, "Thanks for responding" or the group message
-                    String serverResponse = in.readLine();
+                    String serverResponse = waitForMessage(in);
                     if (serverResponse.equals("quit")) {
-                        System.out.println("Thanks for connecting!");
+                        printToScreen("Thanks for connecting!");
                         break;
                     }
                     else if (serverResponse.startsWith("table")){
-                        System.out.println("Client before readOBj");
+                        printToScreen("Client before readOBj");
                         table = (Table) objIn.readObject();
                         System.out.println(table.getPot().getTotalAmount());
-                        System.out.println("Client after readOBj");
+                        printToScreen("Client after readOBj");
                     }
-                    System.out.println(serverResponse);
+                    printToScreen(serverResponse);
                 }
                 this.server.close();
             } catch (IOException | ClassNotFoundException e) {
@@ -73,4 +73,14 @@ public class ClientThread implements Runnable {
                 }
             }
         }
+
+    private void printToScreen(String msg) {
+        System.out.println(msg);
+    }
+
+    public String waitForMessage(BufferedReader in) throws IOException {
+        String sBuffer;
+        sBuffer = in.readLine();
+        return sBuffer;
+    }
     }

@@ -35,6 +35,7 @@ public class ClientHandlerThread implements Runnable {
 //    private ArrayList<Thread> clients;
     private  ArrayList<ClientHandlerThread> clients;
     private String clientName;
+    private String clientResponse;
 
     private ObjectOutputStream objOut;
     private ObjectInputStream objIn;
@@ -55,25 +56,24 @@ public class ClientHandlerThread implements Runnable {
     @Override
     public void run() {
         try {
-
-
             // Wait for message from client
-            clientName = in.readLine();
+            clientName = waitForMessage(in);
 
             // Transmit message from server
-            out.println(this.userName);
-            System.out.println("Connected to : " + clientName);
+            transmitMessage(out, this.userName);
+
+            printToScreen("Connected to : " + clientName);
 
             objOut = new ObjectOutputStream(client.getOutputStream());
             objIn = new ObjectInputStream(client.getInputStream());
 
             while (true) {
                 // Response from client
-                String clientResponse = in.readLine();
+                clientResponse = waitForMessage(in);
 
                 if (clientResponse.equals("quit")){
-                    out.println("quit");
-                    System.out.println(clientName + " has disconnected!");
+                    transmitMessage(out,"quit");
+                    printToScreen(clientName + " has disconnected!");
                     objOut.reset();
                     break;
                 }
@@ -81,24 +81,19 @@ public class ClientHandlerThread implements Runnable {
                 else if (clientResponse.startsWith("say")){
                     int firstSpace = clientResponse.indexOf(" ");
                     outToAll(clientResponse.substring(firstSpace + 1));
-                    System.out.println("Group message: " + clientResponse.substring(firstSpace + 1));
+                    printToScreen("Group message: " + clientResponse.substring(firstSpace + 1));
                 }
                 // Client wants to view the table
                 else if (clientResponse.startsWith("table")){
-                    // Sends message to client
-                    out.println("table");
-                    System.out.println("ClientHandler before readOBj");
+                    transmitMessage(out, "table");
+                    printToScreen("ClientHandler before readOBj");
                     objOut.writeObject(table);
-                    System.out.println("ClientHandler after readOBj");
-
+                    printToScreen("ClientHandler after readOBj");
                 }
                 // Otherwise, just send to server
                 else {
-                    // Server-side message
-                    System.out.println(clientName + " says " + clientResponse);
-
-                    // Sends message to client
-                    out.println("Thanks for responding, " + clientName);
+                    printToScreen(clientName + " says " + clientResponse);
+                    transmitMessage(out,"Thanks for responding, " + clientName );
                 }
 
             }
@@ -123,5 +118,20 @@ public class ClientHandlerThread implements Runnable {
         for (ClientHandlerThread aClient : clients) {
             aClient.out.println(clientName + " says " + msg);
         }
+    }
+
+    private void printToScreen(String msg) {
+        System.out.println(msg);
+    }
+
+    private void transmitMessage(PrintWriter out, String message) {
+        // Send as a sequence of bytes by using the getBytes
+        out.println(message);
+    }
+
+    public String waitForMessage(BufferedReader in) throws IOException {
+        String sBuffer;
+        sBuffer = in.readLine();
+        return sBuffer;
     }
 }
