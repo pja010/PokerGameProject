@@ -24,6 +24,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
@@ -36,7 +37,6 @@ public class GameFlowNetworking {
     private static Player player3;
     private static Player player4;
     private static Scanner scnr = new Scanner(System.in);
-    private static BufferedInputStream in;
     private static int PORT = 12225;
     private static boolean isConnecting = true;
     private static ArrayList<ClientHandlerThread> clients = new ArrayList<>();
@@ -100,63 +100,67 @@ public class GameFlowNetworking {
         System.out.println("Will you host or join a game? Enter H or J.");
         String willHost = scnr.next();
         if (willHost.equals("H") | willHost.equals("h")) {
-
-            // Display host's IP address to screen
-            getAddress();
-
-            Socket client;
-            ServerSocket listener = new ServerSocket(PORT);
-
-            System.out.println("Server is waiting for client connection");
-            Table table = new Table();
-
-            while (isConnecting) {
-                // Connection is established
-                client = listener.accept();
-                System.out.println("Server connected to client");
-
-                // Create Server thread responsible for keeping track of all client threads
-                ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients, table);
-                clients.add(clientThread);
-
-                // Run the threads
-                pool.execute(clientThread);
-            }
-            listener.close();
+            initServer(userName);
         }
         else if (willHost.equals("J") | willHost.equals("j")) {
-            System.out.println("Please enter Host address");
-            String hostAddress = scnr.next();
-            // Create new client socket connected to server socket
-            Socket client = new Socket(hostAddress,PORT);
-
-            // Transmit message from client to server
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
-            out.println(userName);
-
-            // Get response from server
-            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            String hostName = in.readLine();
-            System.out.println("Connected to: " + hostName);
-            System.out.println("To send group message: type 'say' before message, to quit: type 'quit, or just type message below");
-
-
-            // Client thread that allows messages to be sent and received in any particular order
-            ClientThread serverConnection = new ClientThread(client);
-
-            // Allow for user input from the keyboard
-            BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-
-            new Thread(serverConnection).start();
-
-            while (true){
-                String clientCommand = keyboard.readLine();
-
-                // Send message to server
-                out.println(clientCommand);
-
-            }
+            initClient(userName);
         }
+    }
+
+    private static void initClient(String userName) throws IOException {
+        System.out.println("Please enter Host address");
+        String hostAddress = scnr.next();
+        // Create new client socket connected to server socket
+        Socket client = new Socket(hostAddress,PORT);
+
+        // Transmit message from client to server
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
+        out.println(userName);
+
+        // Get response from server
+        BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        String hostName = in.readLine();
+        System.out.println("Connected to: " + hostName);
+        System.out.println("To send group message: type 'say' before message, to quit: type 'quit, or just type message below");
+
+        // Client thread that allows messages to be sent and received in any particular order
+        ClientThread serverConnection = new ClientThread(client);
+        // Start thread
+        new Thread(serverConnection).start();
+
+        // Allow for user input from the keyboard
+        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+
+        while (true){
+            String clientCommand = keyboard.readLine();
+            // Send message to server
+            out.println(clientCommand);
+        }
+    }
+
+    private static void initServer(String userName) throws IOException {
+        // Display host's IP address to screen
+        getAddress();
+
+        ServerSocket listener = new ServerSocket(PORT);
+
+        System.out.println("Server is waiting for client connection");
+        Table table = new Table();
+
+        Socket client;
+        while (isConnecting) {
+            // Connection is established
+            client = listener.accept();
+            System.out.println("Server connected to client");
+
+            // Create Server thread responsible for keeping track of all client threads
+            ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients, table);
+            clients.add(clientThread);
+
+            // Run the threads
+            pool.execute(clientThread);
+        }
+        listener.close();
     }
 
     private static void getAddress() {
