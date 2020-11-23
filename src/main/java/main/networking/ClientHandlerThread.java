@@ -74,6 +74,7 @@ public class ClientHandlerThread implements Runnable {
                 if (clientResponse.equals("quit")){
                     out.println("quit");
                     System.out.println(clientName + " has disconnected!");
+                    objOut.reset();
                     break;
                 }
                 // Client wants to share message to everyone
@@ -110,7 +111,7 @@ public class ClientHandlerThread implements Runnable {
             out.close();
             try {
                 in.close();
-                objOut.reset();
+//                objOut.reset();
                 objIn.close();
             } catch (IOException e) {
                 e.printStackTrace();

@@ -24,7 +24,7 @@ import main.Table;
 import java.io.*;
 import java.net.Socket;
 
-public class ServerConnection implements Runnable {
+public class ClientThread implements Runnable {
 
     private Table table;
 
@@ -33,7 +33,7 @@ public class ServerConnection implements Runnable {
     private ObjectOutputStream objOut;
     private ObjectInputStream objIn;
 
-    public ServerConnection(Socket serverSocket) throws IOException {
+    public ClientThread(Socket serverSocket) throws IOException {
         this.server = serverSocket;
         in = new BufferedReader(new InputStreamReader(server.getInputStream()));
 

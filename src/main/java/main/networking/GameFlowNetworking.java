@@ -17,7 +17,6 @@
 package main.networking;
 
 import main.Player;
-import main.Round;
 import main.Table;
 
 import java.io.*;
@@ -139,7 +138,7 @@ public class GameFlowNetworking {
 
 
             // Client thread that allows messages to be sent and received in any particular order
-            ServerConnection serverConnection = new ServerConnection(client);
+            ClientThread serverConnection = new ClientThread(client);
 
             // Allow for user input from the keyboard
             BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
