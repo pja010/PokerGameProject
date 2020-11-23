@@ -11,97 +11,105 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.pokergamemvc.PokerGameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1570.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.pokergamemvc.PokerGameController">
     <children>
-        <AnchorPane layoutX="563.0" prefHeight="490.0" prefWidth="340.0">
+        <AnchorPane fx:id="PokerHandsPane" layoutX="1005.0" prefHeight="800.0" prefWidth="600.0">
             <children>
-                <ImageView fitHeight="512.0" fitWidth="345.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="800.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@PokerHands.jpg" />
                     </image>
                 </ImageView>
             </children>
         </AnchorPane>
-        <AnchorPane layoutY="2.0" prefHeight="337.0" prefWidth="563.0">
+        <AnchorPane fx:id="TablePane" layoutY="2.0" prefHeight="500.0" prefWidth="600.0">
             <children>
-                <ImageView fitHeight="378.0" fitWidth="563.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="905.0" fitWidth="1175.0" layoutX="-170.0" layoutY="-180.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@PokerTableColor.jpg" />
                     </image>
                 </ImageView>
-                <Text fill="#fcfcfc" layoutX="117.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1's turn" wrappingWidth="120.01945495605469">
+                <Text fill="#fcfcfc" layoutX="201.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1's turn" wrappingWidth="260.87295646670896">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="35.0" />
                     </font>
                 </Text>
-                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="110.0" layoutX="23.0" layoutY="46.0" stroke="WHITE" strokeType="INSIDE" width="310.0" />
-                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="110.0" layoutX="358.0" layoutY="46.0" stroke="WHITE" strokeType="INSIDE" width="82.0" />
-                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="110.0" layoutX="465.0" layoutY="46.0" stroke="WHITE" strokeType="INSIDE" width="82.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006f18" height="140.0" layoutX="374.0" layoutY="228.0" stroke="WHITE" strokeType="INSIDE" width="190.0" />
-                <Text fill="WHITE" layoutX="397.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chip's amount: $120">
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Text>
-                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="110.0" layoutX="23.0" layoutY="167.0" stroke="WHITE" strokeType="INSIDE" width="82.0" />
-                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="110.0" layoutX="130.0" layoutY="167.0" stroke="WHITE" strokeType="INSIDE" width="82.0" />
-                <Button layoutX="235.0" layoutY="185.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="82.0" text="Shuffle" />
-                <Text fill="WHITE" layoutX="50.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1: Online">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Text>
-                <Text fill="WHITE" layoutX="215.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2: offline">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Text>
-                <Text fill="WHITE" layoutX="50.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 3: Offline">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Text>
-                <Text fill="WHITE" layoutX="215.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 4: Offline">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Text>
-                <Text fill="WHITE" layoutX="320.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Missing Checks: 4">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Text>
-                <ImageView fx:id="DeckImageView" fitHeight="97.0" fitWidth="65.0" layoutX="32.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true" />
-                <HBox fx:id="FlopCardsView" layoutX="48.0" layoutY="53.0" spacing="20.0">
+                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="41.0" layoutY="108.0" stroke="WHITE" strokeType="INSIDE" width="476.0" />
+                <HBox fx:id="FlopCardsView" layoutX="72.0" layoutY="113.0" prefHeight="176.0" prefWidth="455.0" spacing="20.0">
                     <children>
-                        <ImageView fx:id="FlopCard1" fitHeight="97.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="FlopCard2" fitHeight="97.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="FlopCard3" fitHeight="97.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="FlopCard1" fitHeight="190.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="FlopCard2" fitHeight="190.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="FlopCard3" fitHeight="190.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </HBox>
-                <Button fx:id="nextCardButton" layoutX="342.0" layoutY="185.0" mnemonicParsing="false" onAction="#nextCardButtonPush" prefHeight="38.0" prefWidth="82.0" text="Next Card" />
-            <ImageView fx:id="TurnCard" fitHeight="97.0" fitWidth="65.0" layoutX="367.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="RiverCard" fitHeight="97.0" fitWidth="65.0" layoutX="474.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" />
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="-1.0" layoutY="369.0" prefHeight="118.0" prefWidth="568.0">
-            <children>
-                <TextField fx:id="textFieldUserBetAmount" layoutX="101.0" layoutY="45.0" prefHeight="30.0" prefWidth="61.0"
-                            onAction="#tieBetTextFieldToEnterButton"/>
-                <ButtonBar layoutX="168.0" layoutY="39.0" prefHeight="40.0" prefWidth="376.0">
+                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="555.0" layoutY="108.0" stroke="WHITE" strokeType="INSIDE" width="189.0" />
+            <ImageView fx:id="TurnCard" fitHeight="190.0" fitWidth="140.0" layoutX="580.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="780.0" layoutY="108.0" stroke="WHITE" strokeType="INSIDE" width="189.0" />
+            <ImageView fx:id="RiverCard" fitHeight="190.0" fitWidth="140.0" layoutX="804.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="41.0" layoutY="342.0" stroke="WHITE" strokeType="INSIDE" width="168.0" />
+                <ImageView fx:id="DeckImageView" fitHeight="190.0" fitWidth="140.0" layoutX="55.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true" />
+                <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="275.0" layoutY="342.0" stroke="WHITE" strokeType="INSIDE" width="176.0" />
+                <Text fill="WHITE" layoutX="735.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1: Online">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Text>
+                <Text fill="WHITE" layoutX="735.0" layoutY="439.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2: offline">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Text>
+                <Text fill="WHITE" layoutX="735.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 3: Offline">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Text>
+                <Text fill="WHITE" layoutX="735.0" layoutY="559.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 4: Offline">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Text>
+                <Text fill="WHITE" layoutX="648.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Missing Checks: 4">
+                    <font>
+                        <Font size="35.0" />
+                    </font>
+                </Text>
+                <Button fx:id="nextCardButton" layoutX="526.0" layoutY="398.0" mnemonicParsing="false" onAction="#nextCardButtonPush" prefHeight="50.0" prefWidth="117.0" text="Next Card">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+                <ButtonBar layoutX="300.0" layoutY="555.0" prefHeight="200.0" prefWidth="320.0">
                     <buttons>
-                        <Button fx:id="buttonBet" mnemonicParsing="false" prefHeight="32.0" text="Bet"
-                                onAction="#handleButtonBetAction"/>
-                        <Button fx:id="buttonCheck" mnemonicParsing="false" text="Check"
-                                onAction="#handleButtonCheckAction"/>
-                        <Button fx:id="buttonFold" mnemonicParsing="false" prefHeight="32.0" prefWidth="111.0" text="Fold"
-                                onAction="#handleButtonFoldAction"/>
+                        <Button fx:id="buttonCheck" mnemonicParsing="false" onAction="#handleButtonCheckAction" prefHeight="57.0" prefWidth="191.0" text="Check">
+                     <font>
+                        <Font size="30.0" />
+                     </font></Button>
+                        <Button fx:id="buttonFold" mnemonicParsing="false" onAction="#handleButtonFoldAction" prefHeight="46.0" prefWidth="111.0" text="Fold">
+                     <font>
+                        <Font size="31.0" />
+                     </font></Button>
 
                     </buttons>
                 </ButtonBar>
-                <Text layoutX="41.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bet: $">
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="PlayerFunctionsPane" layoutY="605.0" prefHeight="285.0" prefWidth="1005.0">
+            <children>
+                <TextField fx:id="textFieldUserBetAmount" layoutX="154.0" layoutY="27.0" onAction="#tieBetTextFieldToEnterButton" prefHeight="48.0" prefWidth="135.0" />
+                  <Button fx:id="buttonBet" layoutX="117.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleButtonBetAction" prefHeight="55.0" prefWidth="181.0" text="Bet">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Button>
+                <Text layoutX="27.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bet: $">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="33.0" />
+                    </font>
+                </Text>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006f18" height="195.0" layoutX="688.0" stroke="WHITE" strokeType="INSIDE" width="317.0" />
+                <Text fill="WHITE" layoutX="735.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chip's amount: $120" wrappingWidth="241.61280038111113">
+                    <font>
+                        <Font size="24.0" />
                     </font>
                 </Text>
             </children>

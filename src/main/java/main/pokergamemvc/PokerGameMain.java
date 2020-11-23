@@ -53,7 +53,7 @@ public class PokerGameMain extends Application {
         controller.setPlayer(player);
 
         primaryStage.setTitle("Poker: Texas Holdem");
-        primaryStage.setScene(new Scene(root, 902, 486));
+        primaryStage.setScene(new Scene(root, 1570, 800));
         primaryStage.show();
     }
 
