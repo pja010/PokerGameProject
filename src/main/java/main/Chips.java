@@ -2,21 +2,20 @@
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King *
- * Name: Callie Valenti
- * Section: 11:30
+ * Name: Callie Valenti, Lindsay Knupp
+ * Section: 01 - 11:30am
  * Date: 11/2/20
  * Time: 12:53 PM
  *
  * Project: csci205FinalProject
  * Package: main * Class: Chips
  *
- * Description:
+ * Description: The betting chips used
+ * in a poker game.
  *
  * ****************************************
  */
 package main;
-
-import java.util.Scanner;
 
 public class Chips {
     /** Initial amount of chips player has */
@@ -24,8 +23,6 @@ public class Chips {
 
     /** Current value of total amount of chips */
     public double currAmount;
-
-    public boolean validAmount = false;
 
     /**
      * General constructor for amount of chips, setting initial and current amount to 0
@@ -37,29 +34,10 @@ public class Chips {
 
     /**
      * Subtracts amount player bets from their current amount
-     * @param betValue amount player bets
-     * *currently this checks the value a user inputs to make sure it is of correct value
-     * but this functionality can easily be removed
+     * @param value amount player bets
      */
-    public void subtractAmount(double betValue) {
-        Scanner scnr = new Scanner(System.in);
-    while (!validAmount) {
-        switch ((int) betValue) {
-            // Player bets valid chip amount
-            case 1:
-            case 5:
-            case 10:
-            case 25:
-            case 100:
-                // Subtract bet amount from player
-                this.currAmount -= betValue;
-                validAmount = true;
-                break;
-            default:
-                System.out.println("Please enter a valid poker chip amount to bet, (1), (5), (10), (25), or (100).");
-                betValue = scnr.nextDouble();
-        }
-    }
+    public void subtractAmount(double value) {
+        this.currAmount -= value;
     }
 
     /**
