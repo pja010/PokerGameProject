@@ -38,7 +38,7 @@ public class Deck {
 
     public Deck(ArrayList<Card> deckOfCards) {
         this.deckOfCards = deckOfCards;
-        backOfCard = new Image("/Users/Guillermo/Document/csci205FinalProject/src/main/resources/DeckOfCards/back_of_card.png");
+        backOfCard = new Image(this.getClass().getResource("/DeckOfCards/back_of_card.png").toString());
     }
 
     public Deck() {

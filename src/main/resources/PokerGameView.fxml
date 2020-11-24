@@ -43,9 +43,9 @@
                     </children>
                 </HBox>
                 <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="555.0" layoutY="108.0" stroke="WHITE" strokeType="INSIDE" width="189.0" />
-            <ImageView fx:id="TurnCard" fitHeight="190.0" fitWidth="140.0" layoutX="580.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="TurnCard" fitHeight="190.0" fitWidth="140.0" layoutX="580.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
                 <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="780.0" layoutY="108.0" stroke="WHITE" strokeType="INSIDE" width="189.0" />
-            <ImageView fx:id="RiverCard" fitHeight="190.0" fitWidth="140.0" layoutX="804.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="RiverCard" fitHeight="190.0" fitWidth="140.0" layoutX="804.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
                 <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="41.0" layoutY="342.0" stroke="WHITE" strokeType="INSIDE" width="168.0" />
                 <ImageView fx:id="DeckImageView" fitHeight="190.0" fitWidth="140.0" layoutX="55.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true" />
                 <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="275.0" layoutY="342.0" stroke="WHITE" strokeType="INSIDE" width="176.0" />
@@ -75,19 +75,19 @@
                     </font>
                 </Text>
                 <Button fx:id="nextCardButton" layoutX="526.0" layoutY="398.0" mnemonicParsing="false" onAction="#nextCardButtonPush" prefHeight="50.0" prefWidth="117.0" text="Next Card">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
+                    <font>
+                        <Font size="18.0" />
+                    </font></Button>
                 <ButtonBar layoutX="300.0" layoutY="555.0" prefHeight="200.0" prefWidth="320.0">
                     <buttons>
                         <Button fx:id="buttonCheck" mnemonicParsing="false" onAction="#handleButtonCheckAction" prefHeight="57.0" prefWidth="191.0" text="Check">
-                     <font>
-                        <Font size="30.0" />
-                     </font></Button>
+                            <font>
+                                <Font size="30.0" />
+                            </font></Button>
                         <Button fx:id="buttonFold" mnemonicParsing="false" onAction="#handleButtonFoldAction" prefHeight="46.0" prefWidth="111.0" text="Fold">
-                     <font>
-                        <Font size="31.0" />
-                     </font></Button>
+                            <font>
+                                <Font size="31.0" />
+                            </font></Button>
 
                     </buttons>
                 </ButtonBar>
@@ -96,11 +96,11 @@
         <AnchorPane fx:id="PlayerFunctionsPane" layoutY="605.0" prefHeight="285.0" prefWidth="1005.0">
             <children>
                 <TextField fx:id="textFieldUserBetAmount" layoutX="154.0" layoutY="27.0" onAction="#tieBetTextFieldToEnterButton" prefHeight="48.0" prefWidth="135.0" />
-                  <Button fx:id="buttonBet" layoutX="117.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleButtonBetAction" prefHeight="55.0" prefWidth="181.0" text="Bet">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Button>
+                <Button fx:id="buttonBet" layoutX="117.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleButtonBetAction" prefHeight="55.0" prefWidth="181.0" text="Bet">
+                    <font>
+                        <Font size="29.0" />
+                    </font>
+                </Button>
                 <Text layoutX="27.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bet: $">
                     <font>
                         <Font size="33.0" />
@@ -116,3 +116,4 @@
         </AnchorPane>
     </children>
 </AnchorPane>
+
