@@ -48,6 +48,23 @@ public class Chips {
         this.currAmount += value;
     }
 
+    /**
+     * @return  get the initial amount of chips
+     */
+    public double getInitAmount() {
+        return initAmount;
+    }
+
+    /**
+     * @return get the current amount of chips
+     */
+    public double getCurrAmount() {
+        return currAmount;
+    }
+
+    /**
+     * @return string representation of current amount of chips
+     */
     @Override
     public String toString() {
         return "$" + currAmount;
