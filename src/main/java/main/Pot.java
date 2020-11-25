@@ -39,8 +39,7 @@ public class Pot implements Serializable {
      * @param amount of chips that were bet
      */
     public void addToPot(double amount) {
-        totalAmount += amount;
-//        System.out.printf("%.2f dollars have been added to the pot. \n", amount);
+        this.totalAmount += amount;
     }
 
     /**
@@ -48,16 +47,21 @@ public class Pot implements Serializable {
      * @return true if there is no money in the pot
      */
     public boolean isEmpty(){
-        return totalAmount == 0;
+        return this.totalAmount == 0;
     }
 
-    /** @return the total amount of money in the pot*/
+    /**
+     * @return total amount in Pot
+     */
     public double getTotalAmount() {
-        return totalAmount;
+        return this.totalAmount;
     }
 
+    /**
+     * @return string representation of total amount in Pot
+     */
     @Override
     public String toString() {
-        return "Total Pot Amount is " + totalAmount;
+        return "Total Pot Amount is " + this.totalAmount;
     }
 }
