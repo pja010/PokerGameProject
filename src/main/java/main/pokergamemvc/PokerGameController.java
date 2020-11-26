@@ -26,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import main.Deck;
 import main.PlayerCopy;
 import main.Table;
@@ -61,6 +62,9 @@ public class PokerGameController implements Initializable {
     private URL location;
 
     @FXML
+    private Text playerChipsAmountText;
+
+    @FXML
     private Button buttonBet;
 
     @FXML
@@ -85,7 +89,6 @@ public class PokerGameController implements Initializable {
     void initialize() {
         assert buttonBet != null : "fx:id=\"buttonBet\" was not injected: check your FXML file 'PokerGameView.fxml'.";
         assert buttonCheck != null : "fx:id=\"buttonCheck\" was not injected: check your FXML file 'PokerGameView.fxml'.";
-
     }
 
     public void setPlayer(PlayerCopy player) {
@@ -131,6 +134,7 @@ public class PokerGameController implements Initializable {
 
     public void handleButtonCheckAction(ActionEvent event) {
         player.makeCheckMove();
+        playerChipsAmountText.setText("Chips amount: $" + player.getChipsAsString());
 
     }
 

@@ -19,17 +19,24 @@ package main;
 
 import java.io.Serializable;
 
-public class Chips implements Serializable {
+/**
+ * Class that encapsulates poker betting chips.
+ */
+ public class Chips implements Serializable {
+
     /** Initial amount of chips player has */
     public double initAmount;
 
-    /** Current value of total amount of chips */
+    /** Current value of total amount of chips. */
     public double currAmount;
 
+    /**
+     * Variable to determine whether a player's betting amount is valid.
+     */
     public boolean validAmount = false;
 
     /**
-     * General constructor for amount of chips, setting initial and current amount to 0
+     * General constructor for amount of chips, setting initial and current amount to 0.
      */
     public Chips() {
         this.initAmount = 0;
@@ -37,37 +44,37 @@ public class Chips implements Serializable {
     }
 
     /**
-     * Subtracts amount player bets from their current amount
-     * @param value amount player bets
+     * Subtracts amount player bets from their current amount.
+     * @param value amount player bets.
      */
     public void subtractAmount(double value) {
         this.currAmount -= value;
     }
 
     /**
-     * Adds more to player's current amount
-     * @param value amount of chips being added
+     * Adds more chips to the player's current amount.
+     * @param value the amount of chips being added.
      */
     public void addAmount(double value) {
         this.currAmount += value;
     }
 
     /**
-     * @return  get the initial amount of chips
+     * @return  get the initial amount of chips.
      */
     public double getInitAmount() {
         return initAmount;
     }
 
     /**
-     * @return get the current amount of chips
+     * @return get the current amount of chips.
      */
     public double getCurrAmount() {
         return currAmount;
     }
 
     /**
-     * @return string representation of current amount of chips
+     * @return string representation of current amount of chips.
      */
     @Override
     public String toString() {
