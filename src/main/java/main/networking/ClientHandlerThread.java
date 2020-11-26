@@ -19,6 +19,7 @@
 package main.networking;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import main.PlayerCopy;
 import main.Table;
 
 import java.io.*;
@@ -40,65 +41,47 @@ public class ClientHandlerThread implements Runnable {
     private ObjectOutputStream objOut;
     private ObjectInputStream objIn;
     private Table table;
+    private ArrayList<PlayerCopy> players;
+    private int playerNum;
 
 
-    public ClientHandlerThread(Socket clientSocket, String userName, ArrayList<ClientHandlerThread> clients, Table table) throws IOException {
+    public ClientHandlerThread(Socket clientSocket, String userName, ArrayList<ClientHandlerThread> clients, Table table, int playerNum) throws IOException {
         this.client = clientSocket;
         this.userName = userName;
         this.clients = clients;
         this.table = table;
+        this.playerNum = playerNum;
 
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()),true);
 
+        objOut = new ObjectOutputStream(client.getOutputStream());
+        objIn = new ObjectInputStream(client.getInputStream());
     }
 
     @Override
     public void run() {
         try {
-            // Wait for message from client
-            clientName = waitForMessage(in);
 
-            // Transmit message from server
-            transmitMessage(out, this.userName);
-
-            printToScreen("Connected to : " + clientName);
-
-            objOut = new ObjectOutputStream(client.getOutputStream());
-            objIn = new ObjectInputStream(client.getInputStream());
 
             while (true) {
                 // Response from client
                 clientResponse = waitForMessage(in);
+                transmitMessage(out, "table");
 
-                if (clientResponse.equals("quit")){
-                    transmitMessage(out,"quit");
-                    printToScreen(clientName + " has disconnected!");
-                    objOut.reset();
-                    break;
-                }
-                // Client wants to share message to everyone
-                else if (clientResponse.startsWith("say")){
-                    int firstSpace = clientResponse.indexOf(" ");
-                    outToAll(clientResponse.substring(firstSpace + 1));
-                    printToScreen("Group message: " + clientResponse.substring(firstSpace + 1));
-                }
-                // Client wants to view the table
-                else if (clientResponse.startsWith("table")){
-                    transmitMessage(out, "table");
-                    printToScreen("ClientHandler before readOBj");
-                    objOut.writeObject(table);
-                    printToScreen("ClientHandler after readOBj");
-                }
-                // Otherwise, just send to server
-                else {
-                    printToScreen(clientName + " says " + clientResponse);
-                    transmitMessage(out,"Thanks for responding, " + clientName );
-                }
+                printToScreen("ClientHandler before writeOBj");
+                objOutToAll();
+                printToScreen("ClientHandler after writeOBj");
+
+                printToScreen("ClientHandler before readOBj");
+                table = (Table) objIn.readObject();
+                printToScreen("ClientHandler after readOBj");
+
+                System.out.println(table.getTurn());
 
             }
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             System.out.println("Oopsie IO Exception");
         }
@@ -120,6 +103,13 @@ public class ClientHandlerThread implements Runnable {
         }
     }
 
+    private void objOutToAll() throws IOException {
+        for (ClientHandlerThread aClient : clients) {
+            aClient.objOut.writeObject(table);
+            //objOut.reset();
+        }
+    }
+
     private void printToScreen(String msg) {
         System.out.println(msg);
     }
@@ -133,5 +123,10 @@ public class ClientHandlerThread implements Runnable {
         String sBuffer;
         sBuffer = in.readLine();
         return sBuffer;
+    }
+
+    public void initCards(){
+        players.get(playerNum).setCard1(table.getDeck().deal());
+        players.get(playerNum).setCard2(table.getDeck().deal());
     }
 }

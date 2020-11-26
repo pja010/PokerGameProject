@@ -28,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import main.Deck;
 import main.PlayerCopy;
+import main.Table;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -75,6 +76,8 @@ public class PokerGameController implements Initializable {
 //    private PokerGameModel theModel;
     private PlayerCopy player;
 
+    private Table table;
+
     public PokerGameController() {
     }
 
@@ -85,13 +88,18 @@ public class PokerGameController implements Initializable {
 
     }
 
-    void setPlayer(PlayerCopy player) {
+    public void setPlayer(PlayerCopy player) {
         this.player = player;
         System.out.println("Set player");
         player.moveIsBetPropertyProperty().bind(buttonBet.defaultButtonProperty());
         player.moveIsCheckMovePropertyProperty().bind(buttonCheck.defaultButtonProperty());
         player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
     }
+
+    public void setTable(Table table){
+        this.table = table;
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -107,7 +115,7 @@ public class PokerGameController implements Initializable {
             if (sUserBetAmount.length() > 0) {
                 double dUserBetAmount = Double.parseDouble(sUserBetAmount);
 
-                if (dUserBetAmount <= player.getChips())
+                if (dUserBetAmount <= player.getChips() && dUserBetAmount >= table.getBetMin())
                     player.makeBetMove(dUserBetAmount);
             }
         }
@@ -136,11 +144,13 @@ public class PokerGameController implements Initializable {
 
     @FXML
     public void nextCardButtonPush() {
-        FlopCard1.setImage(deckOfCards.deal().getImage());
-        FlopCard2.setImage(deckOfCards.deal().getImage());
-        FlopCard3.setImage(deckOfCards.deal().getImage());
+        //FlopCard1.setImage(deckOfCards.deal().getImage());
+        //FlopCard2.setImage(deckOfCards.deal().getImage());
+        //FlopCard3.setImage(deckOfCards.deal().getImage());
 
-        TurnCard.setImage(deckOfCards.deal().getImage());
-        RiverCard.setImage(deckOfCards.deal().getImage());
+        //TurnCard.setImage(deckOfCards.deal().getImage());
+        //RiverCard.setImage(deckOfCards.deal().getImage());
     }
+
+
 }

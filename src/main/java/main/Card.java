@@ -47,13 +47,13 @@ public class Card implements Serializable {
     private int rank;
     private int suit;
 
-    private Image image;
+    //private Image image;
 
     public Card(int rank, int suit) {
         this.rank = rank;
         this.suit = suit;
-        String filename = rank + "_" + suit + ".png";
-        image = new Image(this.getClass().getResource("/DeckOfCards/" + filename).toString());
+        //String filename = rank + "_" + suit + ".png";
+        //image = new Image(this.getClass().getResource("/DeckOfCards/" + filename).toString());
     }
 
     @Override
@@ -72,12 +72,12 @@ public class Card implements Serializable {
         return suit;
     }
 
-    public Image getImage() {
-        return image;
-    }
+    //public Image getImage() {
+        //return image;
+    //}
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
+    //public void setImage(Image image) {
+        //this.image = image;
+    //}
 }
     

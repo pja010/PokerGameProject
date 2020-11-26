@@ -69,7 +69,7 @@ public class TestScore {
             //System.out.println(player4.getScore()[4]);
 
 
-            int[] score = {player1.getScore()[0],player2.getScore()[0], player3.getScore()[0], player4.getScore()[0]};
+            int[] score = {player1.getScore().getScore()[0],player2.getScore().getScore()[0], player3.getScore().getScore()[0], player4.getScore().getScore()[0]};
 
             for(int j = 0; j < score.length; j++){
                 if (score[j] > 900){

@@ -16,16 +16,10 @@
  */
 package main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-enum PlayerAction {
-    FOLD,
-    CHECK,
-    BET,
-    RAISE
-}
-
-public class Player {
+public class Player implements Serializable {
     private int playerNum;
     private boolean isDealer;
     public ArrayList<Card> playerHand = new ArrayList<Card>();
@@ -35,12 +29,34 @@ public class Player {
     private double actionAmount;
     private Chips chips;
     private ScoreUpdate score;
+    private double bet;
     public boolean isPlaying;
+
+    public PlayerAction getPlayerAction() {
+        return playerAction;
+    }
+
+    public void setPlayerAction(PlayerAction playerAction) {
+        this.playerAction = playerAction;
+    }
+
+    public PlayerAction playerAction;
+
+    public double getBet() {
+        return bet;
+    }
+
+    public void setBet(int bet) {
+        this.bet = bet;
+    }
+
 
     public Player(int playerNum) {
         this.playerNum = playerNum;
         this.chips = new Chips();
         this.isPlaying = true;
+        this.bet = 0;
+        this.playerAction = null;
 
     }
 
@@ -69,9 +85,9 @@ public class Player {
         this.playerHand.add(card);
     }
 
-    public int[] getScore() {
+    public ScoreUpdate getScore() {
         score = new ScoreUpdate(playerHand);
-        return score.getScore();
+        return score;
     }
 
     public void addChips(double amount){
@@ -82,8 +98,8 @@ public class Player {
         chips.currAmount -= amount;
     }
 
-    public double getChips(){
-        return chips.currAmount;
+    public Chips getChips(){
+        return chips;
     }
 
     public int getPlayerNum(){
@@ -96,6 +112,10 @@ public class Player {
 
     public ArrayList<Card> getPlayerHand() {
         return playerHand;
+    }
+
+    public boolean isDealer() {
+        return isDealer;
     }
 }
     

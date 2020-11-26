@@ -18,6 +18,7 @@ package main;
 
 import javafx.scene.image.Image;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,7 +31,7 @@ class EmptyDeckException extends Exception {
 /**
  * http://www.mathcs.emory.edu/~cheung/Courses/170/Syllabus/10/deck-of-cards.html
  */
-public class Deck {
+public class Deck implements Serializable {
 
     private ArrayList<Card> deckOfCards;
     private int cardsDealt;
@@ -38,7 +39,7 @@ public class Deck {
 
     public Deck(ArrayList<Card> deckOfCards) {
         this.deckOfCards = deckOfCards;
-        backOfCard = new Image("/Users/Guillermo/Document/csci205FinalProject/src/main/resources/DeckOfCards/back_of_card.png");
+        //backOfCard = new Image("/Users/Guillermo/Document/csci205FinalProject/src/main/resources/DeckOfCards/back_of_card.png");
     }
 
     public Deck() {
@@ -48,8 +49,12 @@ public class Deck {
                 deckOfCards.add(new Card(rank,suit));
             }
         }
-        cardsDealt = 0;
-        backOfCard = new Image(this.getClass().getResource("/DeckOfCards/back_of_card.png").toString());
+
+        for(int i = 0; i < 100; i++){
+            shuffle();
+        }
+
+        //backOfCard = new Image(this.getClass().getResource("/DeckOfCards/back_of_card.png").toString());
         //backOfCard = new Image("/Users/Guillermo/Document/csci205FinalProject/src/main/resources/DeckOfCards/back_of_card.png");
     }
 

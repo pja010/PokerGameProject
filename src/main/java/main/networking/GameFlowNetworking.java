@@ -16,8 +16,16 @@
  */
 package main.networking;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import main.Player;
+import main.PlayerCopy;
 import main.Table;
+import main.pokergamemvc.PokerGameController;
+import main.pokergamemvc.PokerGameMain;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -30,18 +38,22 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class GameFlowNetworking {
+public class GameFlowNetworking extends Application{
 
     private static Player player1;
     private static Player player2;
     private static Player player3;
     private static Player player4;
+    private static ArrayList<PlayerCopy> players;
     private static Scanner scnr = new Scanner(System.in);
     private static int PORT = 12225;
     private static boolean isConnecting = true;
     private static ArrayList<ClientHandlerThread> clients = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(4);
     private static InetAddress address = null;
+
+    private static PlayerCopy player;
+    private static Table table;
 
 
 //    public static void main(String[] args) {
@@ -90,11 +102,12 @@ public class GameFlowNetworking {
         player4.setChips(1600);
     }
 
-    public static void main(String[] args) throws IOException {
-        setUpNetworking();
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        setUpNetworking(args);
     }
 
-    private static void setUpNetworking() throws IOException {
+    private static void setUpNetworking(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Please enter your name");
         String userName = scnr.next();
         System.out.println("Will you host or join a game? Enter H or J.");
@@ -103,15 +116,19 @@ public class GameFlowNetworking {
             initServer(userName);
         }
         else if (willHost.equals("J") | willHost.equals("j")) {
-            initClient(userName);
+            initClient(userName, args);
         }
     }
 
-    private static void initClient(String userName) throws IOException {
+    private static void initClient(String userName, String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Please enter Host address");
         String hostAddress = scnr.next();
         // Create new client socket connected to server socket
         Socket client = new Socket(hostAddress,PORT);
+
+        ObjectOutputStream objOut = new ObjectOutputStream(client.getOutputStream());
+        ObjectInputStream objIn = new ObjectInputStream((client.getInputStream()));
+
 
         // Transmit message from client to server
         PrintWriter out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
@@ -123,22 +140,32 @@ public class GameFlowNetworking {
         System.out.println("Connected to: " + hostName);
         System.out.println("To send group message: type 'say' before message, to quit: type 'quit, or just type message below");
 
-        // Client thread that allows messages to be sent and received in any particular order
-        ClientThread serverConnection = new ClientThread(client);
-        // Start thread
-        new Thread(serverConnection).start();
+        while(true){
 
-        // Allow for user input from the keyboard
-        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Client before readOBj");
+            table = (Table) objIn.readObject();
+            System.out.println(table.getPot().getTotalAmount());
+            System.out.println("Client after readOBj");
+            player = new PlayerCopy(table.getPlayers().get(Integer.valueOf(hostName)-1));
+            System.out.println(player.getPlayerHand());
 
-        while (true){
-            String clientCommand = keyboard.readLine();
-            // Send message to server
-            out.println(clientCommand);
+            // Client thread that allows messages to be sent and received in any particular order
+            ClientThread serverConnection = new ClientThread(client, table, player);
+            // Start thread
+            new Thread(serverConnection).start();
+
+            launch(args);
+
+
         }
+
+
     }
 
     private static void initServer(String userName) throws IOException {
+        initPlayers();
+        setChips();
+
         // Display host's IP address to screen
         getAddress();
 
@@ -146,15 +173,47 @@ public class GameFlowNetworking {
 
         System.out.println("Server is waiting for client connection");
         Table table = new Table();
+        table.addPlayer(player1);
+        table.addPlayer(player2);
+        table.addPlayer(player3);
+        table.addPlayer(player4);
+
+        table.setPlayerCards();
+        table.setTableCards();
 
         Socket client;
+
+        int i = 0;
         while (isConnecting) {
+            i += 1;
             // Connection is established
             client = listener.accept();
             System.out.println("Server connected to client");
 
+
+            ObjectOutputStream objOut = new ObjectOutputStream(client.getOutputStream());
+            ObjectInputStream objIn = new ObjectInputStream(client.getInputStream());
+
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(client.getOutputStream()),true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+
+            // Wait for message from client
+            String clientName = in.readLine();;
+
+
+            // Transmit message from server
+            out.println(String.valueOf(i));
+
+            System.out.println("Connected to : " + clientName);
+
+            //Transmit Table
+            System.out.println("Server before writeOBj");
+            objOut.writeObject(table);
+            System.out.println("Server after writeOBj");
+
+
             // Create Server thread responsible for keeping track of all client threads
-            ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients, table);
+            ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients, table, i);
             clients.add(clientThread);
 
             // Run the threads
@@ -171,5 +230,30 @@ public class GameFlowNetworking {
             System.out.println("Oops");
         }
         System.out.println("" + address.getHostAddress());
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/PokerGameView.fxml"));
+        Parent root = loader.load();
+
+        // Retrieve the controller from the FXML
+        PokerGameController controller = loader.getController();
+
+        // Set the model up for the controller
+        controller.setPlayer(player);
+
+        // Set the table up for the controller
+        controller.setTable(table);
+
+        primaryStage.setTitle("Poker: Texas Holdem");
+        primaryStage.setScene(new Scene(root, 1570, 800));
+        primaryStage.show();
+    }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
     }
 }

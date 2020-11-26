@@ -25,14 +25,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.PlayerCopy;
+import main.Table;
+
 
 public class PokerGameMain extends Application {
 
     private PlayerCopy player;
+    private Table table;
 
     @Override
     public void init() throws Exception {
         super.init();
+        table = new Table();
         player = new PlayerCopy(1);
         player.addChips(50);
         System.out.println("init() called");
@@ -51,6 +55,9 @@ public class PokerGameMain extends Application {
 
         // Set the model up for the controller
         controller.setPlayer(player);
+
+        //
+        controller.setTable(table);
 
         primaryStage.setTitle("Poker: Texas Holdem");
         primaryStage.setScene(new Scene(root, 1570, 800));

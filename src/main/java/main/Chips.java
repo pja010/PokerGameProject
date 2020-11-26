@@ -16,9 +16,10 @@
  */
 package main;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Chips {
+public class Chips implements Serializable {
     /** Initial amount of chips player has */
     public double initAmount;
 
