@@ -10,7 +10,8 @@
  * Project: csci205FinalProject
  * Package: main * Class: Chips
  *
- * Description:
+ * Description: Poker chips object used by
+ * players to make bets in a game of poker.
  *
  * ****************************************
  */
@@ -18,17 +19,24 @@ package main;
 
 import java.util.Scanner;
 
+/**
+ * Class that encapsulates poker betting chips.
+ */
 public class Chips {
-    /** Initial amount of chips player has */
+
+    /** Initial amount of chips player has. */
     public double initAmount;
 
-    /** Current value of total amount of chips */
+    /** Current value of total amount of chips. */
     public double currAmount;
 
+    /**
+     * Variable to determine whether a player's betting amount is valid.
+     */
     public boolean validAmount = false;
 
     /**
-     * General constructor for amount of chips, setting initial and current amount to 0
+     * General constructor for amount of chips, setting initial and current amount to 0.
      */
     public Chips() {
         this.initAmount = 0;
@@ -36,10 +44,10 @@ public class Chips {
     }
 
     /**
-     * Subtracts amount player bets from their current amount
-     * @param betValue amount player bets
-     * *currently this checks the value a user inputs to make sure it is of correct value
-     * but this functionality can easily be removed
+     * Subtracts amount player bets from their current amount.
+     * @param betValue the amount a player bets.
+     * Currently this checks the value a user inputs to make sure it is of correct value
+     * but this functionality can easily be removed.
      */
     public void subtractAmount(double betValue) {
         Scanner scnr = new Scanner(System.in);
@@ -63,8 +71,8 @@ public class Chips {
     }
 
     /**
-     * Adds more to player's current amount
-     * @param value amount of chips being added
+     * Adds more chips to the player's current amount.
+     * @param value the amount of chips being added.
      */
     public void addAmount(double value) {
         this.currAmount += value;
