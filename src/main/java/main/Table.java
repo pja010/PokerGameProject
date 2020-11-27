@@ -52,7 +52,7 @@ public class Table implements Serializable {
 
 
     public Table(){
-//        deck = new Deck();
+        deck = new Deck();
         pot = new Pot();
         players = new ArrayList<Player>();
         tableCards = new ArrayList<Card>();
@@ -101,9 +101,34 @@ public class Table implements Serializable {
         for(int i = 0; i < players.size();i++){
             players.get(i).setCard1(deck.deal());
         }
-        for(int i = 0; i < players.size();i++){
+        for(int i = 0; i < players.size();i++) {
             players.get(i).setCard2(deck.deal());
         }
+    }
+
+    public String playerActionDescription() {
+        String playerActionDescription = null;
+        for (Player player : players) {
+            if (player.getPlayerAction() == PlayerAction.BET)
+                playerActionDescription = player.getUserName() + " raised by $" + player.getBet() + "";
+            else if (player.getPlayerAction() == PlayerAction.CHECK)
+                playerActionDescription = player.getUserName() + " checked";
+            else if (player.getPlayerAction() == PlayerAction.FOLD)
+                playerActionDescription = player.getUserName() + " folded";
+        }
+        return playerActionDescription;
+    }
+
+    public static void main(String[] args) {
+        Table testTable = new Table();
+        Player player1 = new Player(1);
+        Player player2 = new Player(2);
+        testTable.addPlayer(player1);
+        testTable.addPlayer(player2);
+        player1.setPlayerAction(PlayerAction.CHECK);
+        player2.setPlayerAction(PlayerAction.BET);
+        player2.setBet(20);
+        testTable.playerActionDescription();
     }
 
 }

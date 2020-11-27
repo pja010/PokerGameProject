@@ -77,6 +77,12 @@ public class PlayerCopy implements Serializable {
     private SimpleBooleanProperty moveIsFoldProperty;
     private double bet;
 
+    /**
+     * The player's user name.
+     * It will be displayed to other players in the game.
+     */
+    private String userName;
+
     public double getBet() {
         return bet;
     }
@@ -161,7 +167,6 @@ public class PlayerCopy implements Serializable {
         this.moveIsBetProperty = new SimpleBooleanProperty();
         this.moveIsCheckMoveProperty = new SimpleBooleanProperty();
         this.moveIsFoldProperty = new SimpleBooleanProperty();
-
     }
 
     /**
@@ -171,8 +176,7 @@ public class PlayerCopy implements Serializable {
     public void makeBetMove(double betAmount) {
         setPlayerAction(PlayerAction.BET);
         this.bet = betAmount;
-//        subtractChips(betAmount);
-        chips.subtractAmount(betAmount);
+        subtractChips(betAmount);
         System.out.println("Player" + playerNum + " made new bet of $" + betAmount);
     }
 
@@ -181,8 +185,6 @@ public class PlayerCopy implements Serializable {
      */
     public void makeCheckMove() {
         setPlayerAction(PlayerAction.CHECK);
-        // ToDo - get current bet amount from previous player and subtract
-//        subtractChips();
         System.out.println("Player" + playerNum + " checked.");
     }
 
@@ -202,6 +204,14 @@ public class PlayerCopy implements Serializable {
     public void setChips(double initAmount) {
         this.chips.initAmount = initAmount;
         this.chips.currAmount = initAmount;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public void setUserName(String newUserName) {
+        this.userName = newUserName;
     }
 
     /**

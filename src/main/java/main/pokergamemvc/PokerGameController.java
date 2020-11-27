@@ -25,13 +25,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import main.Deck;
-import main.PlayerCopy;
-import main.Table;
+import main.*;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PokerGameController implements Initializable {
@@ -81,6 +81,8 @@ public class PokerGameController implements Initializable {
     private PlayerCopy player;
 
     private Table table;
+    @FXML
+    private Text playerActionHubText;
 
     public PokerGameController() {
     }
@@ -99,8 +101,15 @@ public class PokerGameController implements Initializable {
         player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
     }
 
-    public void setTable(Table table){
+    public void setTable(Table table) {
         this.table = table;
+//        Player player1 = new Player(1);
+//        this.table.addPlayer(player1);
+//        player1.setPlayerAction(PlayerAction.BET);
+//        player1.setBet(20);
+//        player1.setUserName("Guillermo");
+        System.out.println("Set table");
+        table.setBetMin(1);
     }
 
 
@@ -111,6 +120,17 @@ public class PokerGameController implements Initializable {
         DeckImageView.setImage(deckOfCards.getBackOfCard());
         System.out.println("Initialize");
     }
+
+    public void updatePlayerActionHub() { // ToDo - perhaps pass player ID num as parameter to only update one player's move at a time
+        ArrayList<Player> players = this.table.getPlayers();
+        System.out.println("All players:" + players);
+        players.get(0).setPlayerAction(PlayerAction.BET);
+        String playerActionHub = players.get(0).playerActionDescription();
+        System.out.println("action: "+playerActionHub);
+//        String playerActionHub = this.table.playerActionDescription();
+        playerActionHubText.setText(playerActionHub);
+    }
+
 
     private void updateChipsAmountText() {
         String sChipsAmount = player.getChipsAsString();
@@ -124,8 +144,10 @@ public class PokerGameController implements Initializable {
                 double dUserBetAmount = Double.parseDouble(sUserBetAmount);
 
                 if (dUserBetAmount <= player.getChips() && dUserBetAmount >= table.getBetMin())
+                    player.setPlayerAction(PlayerAction.BET);
                     player.makeBetMove(dUserBetAmount);
                     updateChipsAmountText();
+                    updatePlayerActionHub();
             }
         }
         catch (NumberFormatException numberFormatException) {
@@ -142,10 +164,12 @@ public class PokerGameController implements Initializable {
         player.makeCheckMove();
         playerChipsAmountText.setText("Chips amount: $" + player.getChipsAsString());
         updateChipsAmountText();
+        updatePlayerActionHub();
     }
 
     public void handleButtonFoldAction(ActionEvent event) {
         player.makeFoldMove();
+        updatePlayerActionHub();
     }
 
     public void tieBetTextFieldToEnterButton(ActionEvent event) {
@@ -163,4 +187,6 @@ public class PokerGameController implements Initializable {
     }
 
 
+    public void updatePlayerActionHub(InputMethodEvent inputMethodEvent) {
+    }
 }

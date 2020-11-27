@@ -148,6 +148,7 @@ public class GameFlowNetworking extends Application{
             System.out.println("Client after readOBj");
             player = new PlayerCopy(table.getPlayers().get(Integer.valueOf(hostName)-1));
             System.out.println(player.getPlayerHand());
+            player.setUserName(userName);
 
             // Client thread that allows messages to be sent and received in any particular order
             ClientThread serverConnection = new ClientThread(client, table, player);
@@ -247,7 +248,7 @@ public class GameFlowNetworking extends Application{
         // Set the table up for the controller
         controller.setTable(table);
 
-        primaryStage.setTitle("Poker: Texas Holdem");
+        primaryStage.setTitle("Poker: Texas Hold'em");
         primaryStage.setScene(new Scene(root, 1570, 800));
         primaryStage.show();
     }
