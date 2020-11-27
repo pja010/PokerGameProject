@@ -112,6 +112,11 @@ public class PokerGameController implements Initializable {
         System.out.println("Initialize");
     }
 
+    private void updateChipsAmountText() {
+        String sChipsAmount = player.getChipsAsString();
+        playerChipsAmountText.setText(sChipsAmount);
+    }
+
     public void handleButtonBetAction(ActionEvent event) {
         try {
             String sUserBetAmount = textFieldUserBetAmount.getText();
@@ -120,6 +125,7 @@ public class PokerGameController implements Initializable {
 
                 if (dUserBetAmount <= player.getChips() && dUserBetAmount >= table.getBetMin())
                     player.makeBetMove(dUserBetAmount);
+                    updateChipsAmountText();
             }
         }
         catch (NumberFormatException numberFormatException) {
@@ -135,7 +141,7 @@ public class PokerGameController implements Initializable {
     public void handleButtonCheckAction(ActionEvent event) {
         player.makeCheckMove();
         playerChipsAmountText.setText("Chips amount: $" + player.getChipsAsString());
-
+        updateChipsAmountText();
     }
 
     public void handleButtonFoldAction(ActionEvent event) {
