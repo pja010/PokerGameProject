@@ -19,6 +19,7 @@
  */
 package main.networking;
 
+import main.Player;
 import main.PlayerAction;
 import main.PlayerCopy;
 import main.Table;
@@ -75,15 +76,20 @@ public class ClientThread implements Runnable {
 
                             System.out.println(player.getPlayerAction());
 
+                            table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction(player.getPlayerAction());
+
                             if (player.getPlayerAction() == PlayerAction.BET) {
                                 table.setBetMin(player.getBet());
                                 table.getPot().addToPot(player.getBet());
-                                table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.BET);
+                                table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction(PlayerAction.BET);
+                                table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().set(table.getBet(),true);
                             } else if (player.getPlayerAction() == PlayerAction.CHECK) {
                                 table.getPot().addToPot(table.getBetMin());
-                                table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.CHECK);
+                                table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction(PlayerAction.CHECK);
+                                table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().set(table.getBet(),true);
                             } else if (player.getPlayerAction() == PlayerAction.FOLD) {
-                                table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.FOLD);
+                                table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction(PlayerAction.FOLD);
+                                table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().set(table.getBet(),true);
                             }
 
                             printToScreen("PLAYER before writeOBj");

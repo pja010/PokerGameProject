@@ -19,6 +19,7 @@
 package main.networking;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import main.Player;
 import main.PlayerCopy;
 import main.Table;
 
@@ -79,6 +80,19 @@ public class ClientHandlerThread implements Runnable {
                     table = (Table) objIn.readObject();
                     System.out.println(table.getPot().getTotalAmount());
                     printToScreen("PLAYER after readOBj");
+
+
+                    boolean roundOver = true;
+                    for (Player player: table.getPlayers()) {
+                        if (!player.getIsRoundDone().get(table.getBet())){
+                            roundOver = false;
+                        }
+                    }
+
+                    if (roundOver) {
+                        table.setTurn(1);
+                        table.setBet(table.getBet()+1);
+                    }
 
                     printToScreen("OUT TO ALL before writeOBj");
                     System.out.println(table.getPot().getTotalAmount());
