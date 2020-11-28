@@ -24,11 +24,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import main.*;
+import main.Deck;
+import main.PlayerCopy;
+import main.Table;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -52,6 +55,10 @@ public class PokerGameController implements Initializable {
     private ImageView TurnCard;
     @FXML
     private ImageView RiverCard;
+    @FXML
+    private ImageView PlayerCard1;
+    @FXML
+    private ImageView PlayerCard2;
 
     private Deck deckOfCards;
 
@@ -146,8 +153,6 @@ public class PokerGameController implements Initializable {
 
                 if (dUserBetAmount <= player.getChips() && dUserBetAmount >= table.getBetMin())
                     player.makeBetMove(dUserBetAmount);
-                    updateChipsAmountText();
-                    updatePlayerActionHub();
             }
         }
         catch (NumberFormatException numberFormatException) {
@@ -178,11 +183,16 @@ public class PokerGameController implements Initializable {
 
     @FXML
     public void nextCardButtonPush() {
-        //FlopCard1.setImage(deckOfCards.deal().getImage());
+        String filename1 = table.getTableCards().get(0).getRank() + "_" + table.getTableCards().get(0).getSuit() + ".png";
+        Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
+        FlopCard1.setImage(image1);
+
         //FlopCard2.setImage(deckOfCards.deal().getImage());
         //FlopCard3.setImage(deckOfCards.deal().getImage());
 
         //TurnCard.setImage(deckOfCards.deal().getImage());
         //RiverCard.setImage(deckOfCards.deal().getImage());
     }
+
+
 }

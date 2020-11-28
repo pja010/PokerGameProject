@@ -16,11 +16,12 @@
  */
 package main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class ScoreUpdate {
+public class ScoreUpdate implements Serializable {
 
     private int[] score;
 

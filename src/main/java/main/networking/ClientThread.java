@@ -43,6 +43,7 @@ public class ClientThread implements Runnable {
         this.table = table;
         this.player = player;
 
+
     }
 
     @Override
@@ -56,55 +57,59 @@ public class ClientThread implements Runnable {
                 objOut = new ObjectOutputStream(server.getOutputStream());
                 objIn = new ObjectInputStream((server.getInputStream()));
 
+                printToScreen("entered run loop");
+
+
                 while (true) {
-                    printToScreen("entered run loop");
-                    String clientCommand = keyboard.readLine();
-                    // Send message to server
-                    out.println(clientCommand);
 
-                    // Receive a message from the server which could be, "Thanks for responding" or the group message
-                    String serverResponse = waitForMessage(in);
 
-                    if (serverResponse.equals("quit")) {
-                        printToScreen("Thanks for connecting!");
-                        break;
-                    }
-                    else if (serverResponse.startsWith("table")){
-
-                        printToScreen("Client before readOBj");
-                        table = (Table) objIn.readObject();
-                        System.out.println(table.getPot().getTotalAmount());
-                        printToScreen("Client after readOBj");
-
-                        if (player.getPlayerNum() == table.getTurn()){
+                        if (player.getPlayerNum() == table.getTurn()) {
                             table.setTurn(table.getTurn() + 1);
+
+                            String clientCommand = keyboard.readLine();
+                            // Send message to server
+                            out.println(clientCommand);
+                            // Receive a message from the server which could be, "Thanks for responding" or the group message
+                            String serverResponse = waitForMessage(in);
+                            printToScreen(serverResponse);
 
                             System.out.println(player.getPlayerAction());
 
-                            if (player.getPlayerAction() == PlayerAction.BET){
+                            if (player.getPlayerAction() == PlayerAction.BET) {
                                 table.setBetMin(player.getBet());
                                 table.getPot().addToPot(player.getBet());
                                 table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.BET);
-                            }
-                            else if (player.getPlayerAction() == PlayerAction.CHECK){
+                            } else if (player.getPlayerAction() == PlayerAction.CHECK) {
                                 table.getPot().addToPot(table.getBetMin());
                                 table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.CHECK);
-                            }
-                            else if (player.getPlayerAction() == PlayerAction.FOLD){
+                            } else if (player.getPlayerAction() == PlayerAction.FOLD) {
                                 table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.FOLD);
                             }
 
+                            printToScreen("PLAYER before writeOBj");
+                            System.out.println(table.getPot().getTotalAmount());
+                            objOut.flush();
+                            objOut.writeObject(table);
+                            printToScreen("PLAYER after writeOBj");
+                            objOut.reset();
                         }
 
 
-                        printToScreen("Client before writeOBj");
-                        objOut.writeObject(table);
-                        System.out.println(table.getPot().getTotalAmount());
-                        printToScreen("Client after writeOBj");
-                    }
-                    printToScreen(serverResponse);
+                    printToScreen("OUT TO ALL before readOBj");
+                    table = (Table) objIn.readObject();
+                    System.out.println(table.getPot().getTotalAmount());
+                    printToScreen("OUT TO ALL after readOBj");
+
+                    printToScreen("1Client before writeObj");
+                    System.out.println(table.getPot().getTotalAmount());
+                    objOut.flush();
+                    objOut.writeObject(table);
+                    printToScreen("1Client after writeObj");
+                    objOut.reset();
+                    objOut.flush();
+
                 }
-                this.server.close();
+                //this.server.close();
             } catch (IOException | ClassNotFoundException e) {
 //            } catch(IOException e) {
                 System.out.println("Exception in Server Connection");
@@ -112,6 +117,8 @@ public class ClientThread implements Runnable {
             } finally {
                 try {
                     in.close();
+                    objIn.close();
+                    objOut.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

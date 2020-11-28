@@ -23,12 +23,11 @@ import java.util.ArrayList;
 public class Table implements Serializable {
 
 
-    public static final long serialVersionUID = 41L;
-
     private Deck deck;
     private Pot pot;
     private ArrayList<Card> tableCards;
     private ArrayList<Player> players;
+    private int round;
 
     public double getBetMin() {
         return betMin;
@@ -49,6 +48,7 @@ public class Table implements Serializable {
     }
 
     private int turn;
+    private int bet;
 
 
     public Table(){
@@ -58,6 +58,8 @@ public class Table implements Serializable {
         tableCards = new ArrayList<Card>();
         turn = 1;
         this.betMin = 0;
+        this.round = 1;
+        this.bet = 0;
     }
 
     public Deck getDeck() {
@@ -106,6 +108,46 @@ public class Table implements Serializable {
         }
     }
 
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public ArrayList<Player> getWinner(){
+        ArrayList<Player> winner = players;
+
+        for(Player player : winner){
+            if (player.isPlaying == false){
+                winner.remove(player);
+            }
+        }
+
+        for(int i = 0; i < 5;i++) {
+            int maxScore = 0;
+            for (Player player : winner) {
+                if (player.getScore().getScore()[i] > maxScore) {
+                    maxScore = player.getScore().getScore()[i];
+                }
+            }
+            for (Player player : winner) {
+                if (player.getScore().getScore()[i] < maxScore) {
+                    winner.remove(player);
+                }
+            }
+        }
+        return winner;
+    }
+
+    public int getBet() {
+        return bet;
+    }
+
+    public void setBet(int bet) {
+        this.bet = bet;
+    }
     public String playerActionDescription() {
         String playerActionDescription = null;
         for (Player player : players) {

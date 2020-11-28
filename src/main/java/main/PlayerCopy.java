@@ -21,6 +21,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,6 +47,7 @@ public class PlayerCopy implements Serializable {
      * The player's hand represented as a list containing Card objects.
      */
     public ArrayList<Card> playerHand = new ArrayList<>();
+
     private Card card1;
     private Card card2;
 
@@ -76,6 +78,7 @@ public class PlayerCopy implements Serializable {
     private SimpleBooleanProperty moveIsCheckMoveProperty;
     private SimpleBooleanProperty moveIsFoldProperty;
     private double bet;
+    private ArrayList<Boolean> isRoundDone;
 
     /**
      * The player's user name.
@@ -91,55 +94,10 @@ public class PlayerCopy implements Serializable {
         this.bet = bet;
     }
 
-    /**
-     * A factory to generate unique IDs in a safe way
-     * From callie's lab06
-     */
-    private static class IDFactory {
 
-        /** Collection of unique Employee IDs generated / assigned */
-        private static HashSet<Integer> setOfAssignedIDs = new HashSet<>();
 
-        /**
-         * Method to assign a new ID number to an employee in the case that
-         * the one provided in the constructor is less than zero or already taken
-         *
-         * @return id number that has not been used yet
-         */
-        private static Integer generateID() {
-            Integer id = 1;
-            for (int i = id; setOfAssignedIDs.contains(i); i++) {
-                id = i + 1;
-            }
-            return id;
-        }
-
-        /**
-         * Program to determine how to assign an ID to an employee
-         *
-         * @param idToCheck Integer ID
-         * @return ID assigned to employee
-         */
-        private static Integer safeToUse(Integer idToCheck) {
-            Integer empID;
-            if (idToCheck <= 0 || setOfAssignedIDs.contains(idToCheck)){
-                empID = IDFactory.generateID();
-            }
-            else {
-                empID = idToCheck;
-            }
-            setOfAssignedIDs.add(empID);
-            System.out.println("IDgen: " + empID);
-            return empID;
-        }
-    }
-
-    /**
-     * Overloaded constructor that initializes the player's properties.
-     * @param playerNum the player's game identification number.
-     */
     public PlayerCopy(int playerNum) {
-        this.playerNum = IDFactory.safeToUse(playerNum);
+        this.playerNum = playerNum;
         this.chips = new Chips();
         this.isPlaying = true;
         this.playerAction = null;
@@ -147,11 +105,12 @@ public class PlayerCopy implements Serializable {
         this.moveIsCheckMoveProperty = new SimpleBooleanProperty();
         this.moveIsFoldProperty = new SimpleBooleanProperty();
         this.bet = 0;
+        this.isRoundDone = new ArrayList<Boolean>();
 
     }
 
     public PlayerCopy(Player player) {
-        this.playerNum = IDFactory.safeToUse(player.getPlayerNum());
+        this.playerNum = player.getPlayerNum();
         this.chips = player.getChips();
         this.isPlaying = player.isPlaying;
         this.isDealer = player.isDealer();
@@ -161,6 +120,7 @@ public class PlayerCopy implements Serializable {
         this.chips = player.getChips();
         this.score = player.getScore();
         this.bet = player.getBet();
+        this.isRoundDone = player.getIsRoundDone();
 
 
         this.playerAction = null;
@@ -322,4 +282,21 @@ public class PlayerCopy implements Serializable {
     public void setMoveIsFoldProperty(boolean moveIsFoldProperty) {
         this.moveIsFoldProperty.set(moveIsFoldProperty);
     }
+
+    public ArrayList<Boolean> getIsRoundDone() {
+        return isRoundDone;
+    }
+
+    public void setIsRoundDone(ArrayList<Boolean> isRoundDone) {
+        this.isRoundDone = isRoundDone;
+    }
+
+    public Card getCard1() {
+        return card1;
+    }
+
+    public Card getCard2() {
+        return card2;
+    }
+
 }

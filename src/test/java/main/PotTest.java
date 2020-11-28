@@ -65,6 +65,17 @@ class PotTest {
     }
 
     /**
+     * A test to make sure the total amount in the Pot is correct
+     */
+    @Test
+    void getTotalAmount(){
+        // Add $5 to the pot
+        pot.addToPot(5);
+
+        assertEquals(5,pot.getTotalAmount());
+    }
+
+    /**
      * A test to test toString method for total pot amount
      */
     @Test
