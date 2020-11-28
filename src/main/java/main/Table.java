@@ -23,8 +23,6 @@ import java.util.ArrayList;
 public class Table implements Serializable {
 
 
-    public static final long serialVersionUID = 41L;
-
     private Deck deck;
     private Pot pot;
     private ArrayList<Card> tableCards;

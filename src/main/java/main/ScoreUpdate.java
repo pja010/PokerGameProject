@@ -23,8 +23,6 @@ import java.util.Collections;
 
 public class ScoreUpdate implements Serializable {
 
-    public static final long serialVersionUID = 41L;
-
     private int[] score;
 
 
