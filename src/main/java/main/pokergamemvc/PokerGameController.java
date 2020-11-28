@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -52,6 +53,10 @@ public class PokerGameController implements Initializable {
     private ImageView TurnCard;
     @FXML
     private ImageView RiverCard;
+    @FXML
+    private ImageView PlayerCard1;
+    @FXML
+    private ImageView PlayerCard2;
 
     private Deck deckOfCards;
 
@@ -97,10 +102,47 @@ public class PokerGameController implements Initializable {
         player.moveIsBetPropertyProperty().bind(buttonBet.defaultButtonProperty());
         player.moveIsCheckMovePropertyProperty().bind(buttonCheck.defaultButtonProperty());
         player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
+
+        String filename1 = player.getCard1().getRank() + "_" + player.getCard1().getSuit() + ".png";
+        Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
+        PlayerCard1.setImage(image1);
+
+        String filename2 = player.getCard2().getRank() + "_" + player.getCard2().getSuit() + ".png";
+        Image image2 = new Image(this.getClass().getResource("/DeckOfCards/" + filename2).toString());
+        PlayerCard2.setImage(image2);
     }
 
     public void setTable(Table table){
+
         this.table = table;
+
+        if (table.getBet() > 0){
+            String filename1 = table.getTableCards().get(0).getRank() + "_" + table.getTableCards().get(0).getSuit() + ".png";
+            Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
+            FlopCard1.setImage(image1);
+
+            String filename2 = table.getTableCards().get(1).getRank() + "_" + table.getTableCards().get(1).getSuit() + ".png";
+            Image image2 = new Image(this.getClass().getResource("/DeckOfCards/" + filename2).toString());
+            FlopCard2.setImage(image2);
+
+            String filename3 = table.getTableCards().get(2).getRank() + "_" + table.getTableCards().get(2).getSuit() + ".png";
+            Image image3 = new Image(this.getClass().getResource("/DeckOfCards/" + filename3).toString());
+            FlopCard3.setImage(image3);
+
+            if (table.getBet() > 1){
+                String filename4 = table.getTableCards().get(3).getRank() + "_" + table.getTableCards().get(3).getSuit() + ".png";
+                Image image4 = new Image(this.getClass().getResource("/DeckOfCards/" + filename4).toString());
+                TurnCard.setImage(image4);
+
+                if (table.getBet() > 2){
+                    String filename5 = table.getTableCards().get(4).getRank() + "_" + table.getTableCards().get(4).getSuit() + ".png";
+                    Image image5 = new Image(this.getClass().getResource("/DeckOfCards/" + filename5).toString());
+                    RiverCard.setImage(image5);
+                }
+            }
+        }
+
+
     }
 
 
@@ -109,6 +151,7 @@ public class PokerGameController implements Initializable {
         deckOfCards = new Deck();
         deckOfCards.shuffle();
         DeckImageView.setImage(deckOfCards.getBackOfCard());
+
         System.out.println("Initialize");
     }
 
@@ -148,7 +191,10 @@ public class PokerGameController implements Initializable {
 
     @FXML
     public void nextCardButtonPush() {
-        //FlopCard1.setImage(deckOfCards.deal().getImage());
+        String filename1 = table.getTableCards().get(0).getRank() + "_" + table.getTableCards().get(0).getSuit() + ".png";
+        Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
+        FlopCard1.setImage(image1);
+
         //FlopCard2.setImage(deckOfCards.deal().getImage());
         //FlopCard3.setImage(deckOfCards.deal().getImage());
 

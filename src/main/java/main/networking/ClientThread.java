@@ -85,7 +85,7 @@ public class ClientThread implements Runnable {
                             } else if (player.getPlayerAction() == PlayerAction.FOLD) {
                                 table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.FOLD);
                             }
-                            printToScreen("ISSUE IS HAPPENING");
+
                             printToScreen("PLAYER before writeOBj");
                             System.out.println(table.getPot().getTotalAmount());
                             objOut.flush();

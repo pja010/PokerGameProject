@@ -48,6 +48,7 @@ public class Table implements Serializable {
     }
 
     private int turn;
+    private int bet;
 
 
     public Table(){
@@ -58,6 +59,7 @@ public class Table implements Serializable {
         turn = 1;
         this.betMin = 0;
         this.round = 1;
+        this.bet = 0;
     }
 
     public Deck getDeck() {
@@ -137,6 +139,14 @@ public class Table implements Serializable {
             }
         }
         return winner;
+    }
+
+    public int getBet() {
+        return bet;
+    }
+
+    public void setBet(int bet) {
+        this.bet = bet;
     }
 }
     

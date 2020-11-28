@@ -47,6 +47,7 @@ public class PlayerCopy implements Serializable {
      * The player's hand represented as a list containing Card objects.
      */
     public ArrayList<Card> playerHand = new ArrayList<>();
+
     private Card card1;
     private Card card2;
 
@@ -279,4 +280,13 @@ public class PlayerCopy implements Serializable {
     public void setIsRoundDone(ArrayList<Boolean> isRoundDone) {
         this.isRoundDone = isRoundDone;
     }
+
+    public Card getCard1() {
+        return card1;
+    }
+
+    public Card getCard2() {
+        return card2;
+    }
+
 }

@@ -75,8 +75,6 @@ public class ClientHandlerThread implements Runnable {
                     clientResponse = waitForMessage(in);
                     transmitMessage(out, clientResponse);
 
-
-                    printToScreen("ISSUE IS HAPPENING");
                     printToScreen("PLAYER before readOBj");
                     table = (Table) objIn.readObject();
                     System.out.println(table.getPot().getTotalAmount());
