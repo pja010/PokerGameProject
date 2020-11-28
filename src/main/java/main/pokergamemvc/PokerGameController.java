@@ -29,9 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import main.Deck;
-import main.PlayerCopy;
-import main.Table;
+import main.*;
 
 import java.net.URL;
 import java.util.ArrayList;
