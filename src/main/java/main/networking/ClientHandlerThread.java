@@ -65,13 +65,18 @@ public class ClientHandlerThread implements Runnable {
 
 
             while (true) {
-                // Response from client
-                clientResponse = waitForMessage(in);
-                transmitMessage(out, clientResponse);
 
-                if (clientResponse.startsWith("table")) {
+
+                if (table.getTurn() == playerNum) {
+                    printToScreen(String.valueOf(playerNum) + " : " + String.valueOf(table.getTurn()));
+
+                    // Response from client
+                    clientResponse = waitForMessage(in);
+                    transmitMessage(out, clientResponse);
+
                     printToScreen("ClientHandler before readOBj");
                     table = (Table) objIn.readObject();
+                    System.out.println(table.getPot().getTotalAmount());
                     printToScreen("ClientHandler after readOBj");
 
                     printToScreen("ClientHandler before writeOBj");
@@ -80,8 +85,9 @@ public class ClientHandlerThread implements Runnable {
                 }
 
 
-
-                System.out.println(table.getTurn());
+                printToScreen("ClientHandler before writeOBj");
+                table = (Table) objIn.readObject();
+                printToScreen("ClientHandler after writeOBj");
 
             }
 

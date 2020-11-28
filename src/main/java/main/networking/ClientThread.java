@@ -58,56 +58,51 @@ public class ClientThread implements Runnable {
 
                 while (true) {
                     printToScreen("entered run loop");
-                    String clientCommand = keyboard.readLine();
-                    // Send message to server
-                    out.println(clientCommand);
-
-                    // Receive a message from the server which could be, "Thanks for responding" or the group message
-                    String serverResponse = waitForMessage(in);
-
-                    printToScreen(serverResponse);
 
 
-                    if (serverResponse.equals("quit")) {
-                        printToScreen("Thanks for connecting!");
-                        break;
-                    }
-                    else if (serverResponse.startsWith("table")){
-
-
-                        if (player.getPlayerNum() == table.getTurn()){
+                        if (player.getPlayerNum() == table.getTurn()) {
                             table.setTurn(table.getTurn() + 1);
+
+                            String clientCommand = keyboard.readLine();
+                            // Send message to server
+                            out.println(clientCommand);
+                            // Receive a message from the server which could be, "Thanks for responding" or the group message
+                            String serverResponse = waitForMessage(in);
+                            printToScreen(serverResponse);
 
                             System.out.println(player.getPlayerAction());
 
-                            if (player.getPlayerAction() == PlayerAction.BET){
+                            if (player.getPlayerAction() == PlayerAction.BET) {
                                 table.setBetMin(player.getBet());
                                 table.getPot().addToPot(player.getBet());
                                 table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.BET);
-                            }
-                            else if (player.getPlayerAction() == PlayerAction.CHECK){
+                            } else if (player.getPlayerAction() == PlayerAction.CHECK) {
                                 table.getPot().addToPot(table.getBetMin());
                                 table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.CHECK);
-                            }
-                            else if (player.getPlayerAction() == PlayerAction.FOLD){
+                            } else if (player.getPlayerAction() == PlayerAction.FOLD) {
                                 table.getPlayers().get(player.getPlayerNum()).setPlayerAction(PlayerAction.FOLD);
                             }
 
+                            printToScreen("Client before writeOBj");
+                            objOut.writeObject(table);
+                            System.out.println(table.getPot().getTotalAmount());
+                            printToScreen("Client after writeOBj");
                         }
 
-
-                        printToScreen("Client before writeOBj");
-                        objOut.writeObject(table);
-                        System.out.println(table.getPot().getTotalAmount());
-                        printToScreen("Client after writeOBj");
-                    }
 
                     printToScreen("Client before readOBj");
                     table = (Table) objIn.readObject();
                     System.out.println(table.getPot().getTotalAmount());
                     printToScreen("Client after readOBj");
+
+
+                    printToScreen("Client before writeObj");
+                    objOut.writeObject(table);
+                    System.out.println(table.getPot().getTotalAmount());
+                    printToScreen("Client after writeObj");
+
                 }
-                this.server.close();
+                //this.server.close();
             } catch (IOException | ClassNotFoundException e) {
 //            } catch(IOException e) {
                 System.out.println("Exception in Server Connection");
