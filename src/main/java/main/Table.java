@@ -10,7 +10,8 @@
  * Project: csci205FinalProject
  * Package: main * Class: Table
  *
- * Description:
+ * Description: Poker table that contains
+ * objects to be used in a round of poker.
  *
  * ****************************************
  */
@@ -20,47 +21,52 @@ package main;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Poker table that encapsulates the deck, the community cards,
+ * the pot and the players in the game to allow for a round of poker.
+ */
 public class Table implements Serializable {
 
-
-    private String playerActionText;
+    /**
+     * Deck of cards.
+     */
     private Deck deck;
+
+    /**
+     * The chips pot consists of all players' bets.
+     */
     private Pot pot;
+
+    /**
+     * The community cards.
+     */
     private ArrayList<Card> tableCards;
+
+    /**
+     * The players in the round.
+     */
     private ArrayList<Player> players;
+
+    /**
+     * The round.
+     */
     private int round;
 
-    public double getBetMin() {
-        return betMin;
-    }
+    /**
+     * The text to display player's betting actions.
+     */
+    private String playerActionText;
 
-    public void setBetMin(double betMin) {
-        this.betMin = betMin;
-    }
-
+    /**
+     * The minimum allowed bet.
+     */
     private double betMin;
 
-    public int getTurn() {
-        return turn;
-    }
-
-    public void setTurn(int turn){
-        this.turn = turn;
-    }
-
-    private int turn;
-    private int bet;
-
-
-    public String getPlayerActionText() {
-        return playerActionText;
-    }
-
-    public void setPlayerActionText(String playerActionText) {
-        this.playerActionText = playerActionText;
-    }
-
-    public Table(){
+    /**
+     * Constructor initializes the fields.
+     * The minimum allowed betting amount is set to 0.
+     */
+    public Table() {
         deck = new Deck();
         pot = new Pot();
         players = new ArrayList<Player>();
@@ -72,18 +78,10 @@ public class Table implements Serializable {
         this.playerActionText = null;
     }
 
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public Pot getPot() {
-        return pot;
-    }
-
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
+    /**
+     * Sets the Flop, Turn and River Cards on the table,
+     * and adds these to the player's hands.
+     */
     public void setTableCards() {
         deck.deal();
         tableCards.add(deck.deal());
@@ -94,48 +92,53 @@ public class Table implements Serializable {
         deck.deal();
         tableCards.add(deck.deal());
 
-        for(int i = 0; i < players.size(); i++){
-            for(int j = 0; j < tableCards.size(); j++){
+        for (int i = 0; i < players.size(); i++) {
+            for (int j = 0; j < tableCards.size(); j++) {
                 players.get(i).addCard(tableCards.get(j));
             }
         }
     }
 
-    public ArrayList<Card> getTableCards(){
+    public ArrayList<Card> getTableCards() {
         return tableCards;
     }
 
-    public void addPlayer(Player player){
+    /**
+     * Adds new player to the game.
+     * @param player the player to be added.
+     */
+    public void addPlayer(Player player) {
         players.add(player);
     }
 
-    public void setPlayerCards(){
-        for(int i = 0; i < players.size();i++){
+    /**
+     * Deals two cards to each player in the game.
+     */
+    public void setPlayerCards() {
+        for (int i = 0; i < players.size(); i++) {
             players.get(i).setCard1(deck.deal());
         }
-        for(int i = 0; i < players.size();i++) {
+        for (int i = 0; i < players.size(); i++) {
             players.get(i).setCard2(deck.deal());
         }
     }
 
-    public int getRound() {
-        return round;
-    }
-
-    public void setRound(int round) {
-        this.round = round;
-    }
-
-    public ArrayList<Player> getWinner(){
+    /**
+     * Determines the winner of the round by calculating
+     * the player with the highest scoring hand.
+     *
+     * @return the winning player.
+     */
+    public ArrayList<Player> getWinner() {
         ArrayList<Player> winner = players;
 
-        for(Player player : winner){
-            if (player.isPlaying == false){
+        for (Player player : winner) {
+            if (player.isPlaying == false) {
                 winner.remove(player);
             }
         }
 
-        for(int i = 0; i < 5;i++) {
+        for (int i = 0; i < 5; i++) {
             int maxScore = 0;
             for (Player player : winner) {
                 if (player.getScore().getScore()[i] > maxScore) {
@@ -151,6 +154,54 @@ public class Table implements Serializable {
         return winner;
     }
 
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public double getBetMin() {
+        return betMin;
+    }
+
+    public void setBetMin(double betMin) {
+        this.betMin = betMin;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
+    private int turn;
+    private int bet;
+
+
+    public String getPlayerActionText() {
+        return playerActionText;
+    }
+
+    public void setPlayerActionText(String playerActionText) {
+        this.playerActionText = playerActionText;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public Pot getPot() {
+        return pot;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     public int getBet() {
         return bet;
     }
@@ -158,30 +209,5 @@ public class Table implements Serializable {
     public void setBet(int bet) {
         this.bet = bet;
     }
-    public String playerActionDescription() {
-        String playerActionDescription = null;
-        for (Player player : players) {
-            if (player.getPlayerAction() == PlayerAction.BET)
-                playerActionDescription = player.getUserName() + " raised by $" + player.getBet() + "";
-            else if (player.getPlayerAction() == PlayerAction.CHECK)
-                playerActionDescription = player.getUserName() + " checked";
-            else if (player.getPlayerAction() == PlayerAction.FOLD)
-                playerActionDescription = player.getUserName() + " folded";
-        }
-        return playerActionDescription;
-    }
-
-    public static void main(String[] args) {
-        Table testTable = new Table();
-        Player player1 = new Player(1);
-        Player player2 = new Player(2);
-        testTable.addPlayer(player1);
-        testTable.addPlayer(player2);
-        player1.setPlayerAction(PlayerAction.CHECK);
-        player2.setPlayerAction(PlayerAction.BET);
-        player2.setBet(20);
-        testTable.playerActionDescription();
-    }
-
 }
     

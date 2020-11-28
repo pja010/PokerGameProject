@@ -157,6 +157,10 @@ public class PlayerCopy implements Serializable {
         System.out.println("Player" + playerNum + " folded.");
     }
 
+    /**
+     * Gets the appropriate description of the player's betting action.
+     * @return the description of the player's move.
+     */
     public String playerActionDescription() {
         String playerActionDescription = null;
         if (this.getPlayerAction() == PlayerAction.BET)
@@ -167,6 +171,7 @@ public class PlayerCopy implements Serializable {
             playerActionDescription = this.getUserName() + " folded.";
         return playerActionDescription;
     }
+
     /**
      * Sets the player's amount of chips to a specified number.
      * @param initAmount the initial number of chips.
