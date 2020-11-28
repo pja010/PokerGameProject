@@ -122,9 +122,10 @@ public class PokerGameController implements Initializable {
     }
 
     public void updatePlayerActionHub() { // ToDo - perhaps pass player ID num as parameter to only update one player's move at a time
-        ArrayList<Player> players = this.table.getPlayers();
+        ArrayList<Player> players = table.getPlayers();
         System.out.println("All players:" + players);
         players.get(0).setPlayerAction(PlayerAction.BET);
+        System.out.println("Name is: " + players.get(0).getUserName());
         String playerActionHub = players.get(0).playerActionDescription();
         System.out.println("action: "+playerActionHub);
 //        String playerActionHub = this.table.playerActionDescription();
@@ -137,14 +138,13 @@ public class PokerGameController implements Initializable {
         playerChipsAmountText.setText(sChipsAmount);
     }
 
-    public void handleButtonBetAction(ActionEvent event) {
+    public void handleButtonBetAction() {
         try {
             String sUserBetAmount = textFieldUserBetAmount.getText();
             if (sUserBetAmount.length() > 0) {
                 double dUserBetAmount = Double.parseDouble(sUserBetAmount);
 
                 if (dUserBetAmount <= player.getChips() && dUserBetAmount >= table.getBetMin())
-                    player.setPlayerAction(PlayerAction.BET);
                     player.makeBetMove(dUserBetAmount);
                     updateChipsAmountText();
                     updatePlayerActionHub();
@@ -164,12 +164,12 @@ public class PokerGameController implements Initializable {
         player.makeCheckMove();
         playerChipsAmountText.setText("Chips amount: $" + player.getChipsAsString());
         updateChipsAmountText();
-        updatePlayerActionHub();
+//        updatePlayerActionHub();
     }
 
     public void handleButtonFoldAction(ActionEvent event) {
         player.makeFoldMove();
-        updatePlayerActionHub();
+//        updatePlayerActionHub();
     }
 
     public void tieBetTextFieldToEnterButton(ActionEvent event) {
@@ -184,9 +184,5 @@ public class PokerGameController implements Initializable {
 
         //TurnCard.setImage(deckOfCards.deal().getImage());
         //RiverCard.setImage(deckOfCards.deal().getImage());
-    }
-
-
-    public void updatePlayerActionHub(InputMethodEvent inputMethodEvent) {
     }
 }
