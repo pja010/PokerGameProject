@@ -53,7 +53,7 @@ public class Table implements Serializable {
 
 
     public Table(){
-        deck = new Deck();
+//        deck = new Deck();
         pot = new Pot();
         players = new ArrayList<Player>();
         tableCards = new ArrayList<Card>();

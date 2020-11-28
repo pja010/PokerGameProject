@@ -10,7 +10,8 @@
  * Project: csci205FinalProject
  * Package: main * Class: Card
  *
- * Description:
+ * Description: Playing card object to be
+ * used in a game of poker.
  *
  * ****************************************
  */
@@ -21,15 +22,23 @@ import javafx.scene.image.Image;
 import java.io.Serializable;
 
 /**
- * http://www.mathcs.emory.edu/~cheung/Courses/170/Syllabus/10/cards.html
+ * Class that encapsulates a playing card from a standard 52-deck of cards.
+ * Encapsulates a card's rank and suit. The card is visually represented by a png image.
+ * Based on ideas from: http://www.mathcs.emory.edu/~cheung/Courses/170/Syllabus/10/cards.html
  */
 public class Card implements Serializable {
 
+    /**
+     * The 4 possible suits and their relative values.
+     */
     public static final int SPADE = 4;
     public static final int HEART = 3;
     public static final int CLUB = 2;
     public static final int DIAMOND = 1;
 
+    /**
+     * The 13 possible ranks and their values.
+     */
     public static final int TWO = 2;
     public static final int THREE = 3;
     public static final int FOUR = 4;
@@ -44,11 +53,23 @@ public class Card implements Serializable {
     public static final int KING = 13;
     public static final int ACE = 14;
 
+    /**
+     * The rank and suit are encapsulated as integers.
+     */
     private int rank;
     private int suit;
 
     //private Image image;
+    /**
+     * The png image of the card.
+     */
+    private Image image;
 
+    /**
+     * The general constructor for a playing card.
+     * @param rank the rank of the card.
+     * @param suit the suit of the card.
+     */
     public Card(int rank, int suit) {
         this.rank = rank;
         this.suit = suit;
