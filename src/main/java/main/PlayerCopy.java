@@ -157,6 +157,16 @@ public class PlayerCopy implements Serializable {
         System.out.println("Player" + playerNum + " folded.");
     }
 
+    public String playerActionDescription() {
+        String playerActionDescription = null;
+        if (this.getPlayerAction() == PlayerAction.BET)
+            playerActionDescription = this.getUserName() + " raised by $" + this.getBet() + ".";
+        else if (this.getPlayerAction() == PlayerAction.CHECK)
+            playerActionDescription = this.getUserName() + " checked.";
+        else if (this.getPlayerAction() == PlayerAction.FOLD)
+            playerActionDescription = this.getUserName() + " folded.";
+        return playerActionDescription;
+    }
     /**
      * Sets the player's amount of chips to a specified number.
      * @param initAmount the initial number of chips.

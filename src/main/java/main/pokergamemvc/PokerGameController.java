@@ -127,13 +127,14 @@ public class PokerGameController implements Initializable {
     }
 
     public void updatePlayerActionHub() { // ToDo - perhaps pass player ID num as parameter to only update one player's move at a time
-        ArrayList<Player> players = table.getPlayers();
-        System.out.println("All players:" + players);
-        players.get(0).setPlayerAction(PlayerAction.BET);
-        System.out.println("Name is: " + players.get(0).getUserName());
-        String playerActionHub = players.get(0).playerActionDescription();
-        System.out.println("action: "+playerActionHub);
+//        ArrayList<Player> players = table.getPlayers();
+//        System.out.println("All players:" + players);
+//        players.get(0).setPlayerAction(PlayerAction.BET);
+//        System.out.println("Name is: " + players.get(0).getUserName());
+//        String playerActionHub = players.get(0).playerActionDescription();
+//        System.out.println("action: "+playerActionHub);
 //        String playerActionHub = this.table.playerActionDescription();
+        String playerActionHub = player.playerActionDescription();
         playerActionHubText.setText(playerActionHub);
     }
 
@@ -149,8 +150,11 @@ public class PokerGameController implements Initializable {
             if (sUserBetAmount.length() > 0) {
                 double dUserBetAmount = Double.parseDouble(sUserBetAmount);
 
-                if (dUserBetAmount <= player.getChips() && dUserBetAmount >= table.getBetMin())
+                if (dUserBetAmount <= player.getChips() && dUserBetAmount >= table.getBetMin()) {
                     player.makeBetMove(dUserBetAmount);
+                    updateChipsAmountText();
+                    updatePlayerActionHub();
+                }
             }
         }
         catch (NumberFormatException numberFormatException) {
@@ -163,16 +167,16 @@ public class PokerGameController implements Initializable {
         }
     }
 
-    public void handleButtonCheckAction(ActionEvent event) {
+    public void handleButtonCheckAction() {
         player.makeCheckMove();
         playerChipsAmountText.setText("Chips amount: $" + player.getChipsAsString());
         updateChipsAmountText();
-//        updatePlayerActionHub();
+        updatePlayerActionHub();
     }
 
-    public void handleButtonFoldAction(ActionEvent event) {
+    public void handleButtonFoldAction() {
         player.makeFoldMove();
-//        updatePlayerActionHub();
+        updatePlayerActionHub();
     }
 
     public void tieBetTextFieldToEnterButton(ActionEvent event) {
