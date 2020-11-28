@@ -53,7 +53,7 @@ public class Table implements Serializable {
 
 
     public Table(){
-//        deck = new Deck();
+        deck = new Deck();
         pot = new Pot();
         players = new ArrayList<Player>();
         tableCards = new ArrayList<Card>();
@@ -116,9 +116,9 @@ public class Table implements Serializable {
         this.round = round;
     }
 
-/*    public ArrayList<Player> getWinner(){
+    public ArrayList<Player> getWinner(){
         ArrayList<Player> winner = players;
-        int maxScore = 0;
+
         for(Player player : winner){
             if (player.isPlaying == false){
                 winner.remove(player);
@@ -126,6 +126,7 @@ public class Table implements Serializable {
         }
 
         for(int i = 0; i < 5;i++) {
+            int maxScore = 0;
             for (Player player : winner) {
                 if (player.getScore().getScore()[i] > maxScore) {
                     maxScore = player.getScore().getScore()[i];
@@ -138,6 +139,6 @@ public class Table implements Serializable {
             }
         }
         return winner;
-    }*/
+    }
 }
     

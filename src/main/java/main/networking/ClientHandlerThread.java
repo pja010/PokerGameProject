@@ -67,15 +67,19 @@ public class ClientHandlerThread implements Runnable {
             while (true) {
                 // Response from client
                 clientResponse = waitForMessage(in);
-                transmitMessage(out, "table");
+                transmitMessage(out, clientResponse);
 
-                printToScreen("ClientHandler before writeOBj");
-                objOutToAll();
-                printToScreen("ClientHandler after writeOBj");
+                if (clientResponse.startsWith("table")) {
+                    printToScreen("ClientHandler before readOBj");
+                    table = (Table) objIn.readObject();
+                    printToScreen("ClientHandler after readOBj");
 
-                printToScreen("ClientHandler before readOBj");
-                table = (Table) objIn.readObject();
-                printToScreen("ClientHandler after readOBj");
+                    printToScreen("ClientHandler before writeOBj");
+                    objOutToAll();
+                    printToScreen("ClientHandler after writeOBj");
+                }
+
+
 
                 System.out.println(table.getTurn());
 

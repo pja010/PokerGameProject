@@ -65,16 +65,15 @@ public class ClientThread implements Runnable {
                     // Receive a message from the server which could be, "Thanks for responding" or the group message
                     String serverResponse = waitForMessage(in);
 
+                    printToScreen(serverResponse);
+
+
                     if (serverResponse.equals("quit")) {
                         printToScreen("Thanks for connecting!");
                         break;
                     }
                     else if (serverResponse.startsWith("table")){
 
-                        printToScreen("Client before readOBj");
-                        table = (Table) objIn.readObject();
-                        System.out.println(table.getPot().getTotalAmount());
-                        printToScreen("Client after readOBj");
 
                         if (player.getPlayerNum() == table.getTurn()){
                             table.setTurn(table.getTurn() + 1);
@@ -102,7 +101,11 @@ public class ClientThread implements Runnable {
                         System.out.println(table.getPot().getTotalAmount());
                         printToScreen("Client after writeOBj");
                     }
-                    printToScreen(serverResponse);
+
+                    printToScreen("Client before readOBj");
+                    table = (Table) objIn.readObject();
+                    System.out.println(table.getPot().getTotalAmount());
+                    printToScreen("Client after readOBj");
                 }
                 this.server.close();
             } catch (IOException | ClassNotFoundException e) {
