@@ -114,7 +114,7 @@ public class PokerGameController implements Initializable {
 //        player1.setBet(20);
 //        player1.setUserName("Guillermo");
         System.out.println("Set table");
-        table.setBetMin(1);
+//        table.setBetMin(1);
     }
 
 
@@ -126,18 +126,14 @@ public class PokerGameController implements Initializable {
         System.out.println("Initialize");
     }
 
-    public void updatePlayerActionHub() { // ToDo - perhaps pass player ID num as parameter to only update one player's move at a time
-//        ArrayList<Player> players = table.getPlayers();
-//        System.out.println("All players:" + players);
-//        players.get(0).setPlayerAction(PlayerAction.BET);
-//        System.out.println("Name is: " + players.get(0).getUserName());
-//        String playerActionHub = players.get(0).playerActionDescription();
-//        System.out.println("action: "+playerActionHub);
-//        String playerActionHub = this.table.playerActionDescription();
-        String playerActionHub = player.playerActionDescription();
+    public void updatePlayerActionHub() {
+        String playerActionHub = table.getPlayerActionText();
         playerActionHubText.setText(playerActionHub);
     }
 
+    public void passPlayerActionTextToTable(String textToDisplay) {
+        table.setPlayerActionText(textToDisplay);
+    }
 
     private void updateChipsAmountText() {
         String sChipsAmount = player.getChipsAsString();
@@ -153,6 +149,7 @@ public class PokerGameController implements Initializable {
                 if (dUserBetAmount <= player.getChips() && dUserBetAmount >= table.getBetMin()) {
                     player.makeBetMove(dUserBetAmount);
                     updateChipsAmountText();
+                    passPlayerActionTextToTable(player.playerActionDescription());
                     updatePlayerActionHub();
                 }
             }
@@ -171,11 +168,13 @@ public class PokerGameController implements Initializable {
         player.makeCheckMove();
         playerChipsAmountText.setText("Chips amount: $" + player.getChipsAsString());
         updateChipsAmountText();
+        passPlayerActionTextToTable(player.playerActionDescription());
         updatePlayerActionHub();
     }
 
     public void handleButtonFoldAction() {
         player.makeFoldMove();
+        passPlayerActionTextToTable(player.playerActionDescription());
         updatePlayerActionHub();
     }
 

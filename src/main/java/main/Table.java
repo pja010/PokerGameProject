@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class Table implements Serializable {
 
 
+    private String playerActionText;
     private Deck deck;
     private Pot pot;
     private ArrayList<Card> tableCards;
@@ -51,6 +52,14 @@ public class Table implements Serializable {
     private int bet;
 
 
+    public String getPlayerActionText() {
+        return playerActionText;
+    }
+
+    public void setPlayerActionText(String playerActionText) {
+        this.playerActionText = playerActionText;
+    }
+
     public Table(){
         deck = new Deck();
         pot = new Pot();
@@ -60,6 +69,7 @@ public class Table implements Serializable {
         this.betMin = 0;
         this.round = 1;
         this.bet = 0;
+        this.playerActionText = null;
     }
 
     public Deck getDeck() {
