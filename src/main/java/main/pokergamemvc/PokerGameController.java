@@ -124,6 +124,12 @@ public class PokerGameController implements Initializable {
         System.out.println("Set table");
         table.setBetMin(1);
 
+        updateTable();
+
+
+    }
+
+    public void updateTable(){
         if (table.getBet() > 0){
             String filename1 = table.getTableCards().get(0).getRank() + "_" + table.getTableCards().get(0).getSuit() + ".png";
             Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
@@ -152,7 +158,6 @@ public class PokerGameController implements Initializable {
 
 
         }
-
 
     }
 
