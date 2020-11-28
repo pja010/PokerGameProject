@@ -43,6 +43,9 @@ public class ClientThread implements Runnable {
         this.table = table;
         this.player = player;
 
+        objOut = new ObjectOutputStream(server.getOutputStream());
+        objIn = new ObjectInputStream((server.getInputStream()));
+
     }
 
     @Override
@@ -52,9 +55,6 @@ public class ClientThread implements Runnable {
                 BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
                 PrintWriter out = new PrintWriter(new OutputStreamWriter(server.getOutputStream()), true);
 
-
-                objOut = new ObjectOutputStream(server.getOutputStream());
-                objIn = new ObjectInputStream((server.getInputStream()));
 
                 while (true) {
                     printToScreen("entered run loop");

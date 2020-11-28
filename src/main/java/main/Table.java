@@ -29,6 +29,7 @@ public class Table implements Serializable {
     private Pot pot;
     private ArrayList<Card> tableCards;
     private ArrayList<Player> players;
+    private int round;
 
     public double getBetMin() {
         return betMin;
@@ -58,6 +59,7 @@ public class Table implements Serializable {
         tableCards = new ArrayList<Card>();
         turn = 1;
         this.betMin = 0;
+        this.round = 1;
     }
 
     public Deck getDeck() {
@@ -106,5 +108,36 @@ public class Table implements Serializable {
         }
     }
 
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+/*    public ArrayList<Player> getWinner(){
+        ArrayList<Player> winner = players;
+        int maxScore = 0;
+        for(Player player : winner){
+            if (player.isPlaying == false){
+                winner.remove(player);
+            }
+        }
+
+        for(int i = 0; i < 5;i++) {
+            for (Player player : winner) {
+                if (player.getScore().getScore()[i] > maxScore) {
+                    maxScore = player.getScore().getScore()[i];
+                }
+            }
+            for (Player player : winner) {
+                if (player.getScore().getScore()[i] < maxScore) {
+                    winner.remove(player);
+                }
+            }
+        }
+        return winner;
+    }*/
 }
     

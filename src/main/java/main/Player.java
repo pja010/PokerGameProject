@@ -32,6 +32,9 @@ public class Player implements Serializable {
     private double bet;
     public boolean isPlaying;
 
+
+    private ArrayList<Boolean> isRoundDone;
+
     public PlayerAction getPlayerAction() {
         return playerAction;
     }
@@ -57,6 +60,7 @@ public class Player implements Serializable {
         this.isPlaying = true;
         this.bet = 0;
         this.playerAction = null;
+        this.isRoundDone = new ArrayList<Boolean>();
 
     }
 
@@ -116,6 +120,14 @@ public class Player implements Serializable {
 
     public boolean isDealer() {
         return isDealer;
+    }
+
+    public ArrayList<Boolean> getIsRoundDone() {
+        return isRoundDone;
+    }
+
+    public void setIsRoundDone(ArrayList<Boolean> isRoundDone) {
+        this.isRoundDone = isRoundDone;
     }
 }
     
