@@ -49,17 +49,17 @@
                 <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="41.0" layoutY="342.0" stroke="WHITE" strokeType="INSIDE" width="168.0" />
                 <ImageView fx:id="DeckImageView" fitHeight="190.0" fitWidth="140.0" layoutX="55.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true" />
                 <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#006f18" height="200.0" layoutX="275.0" layoutY="342.0" stroke="WHITE" strokeType="INSIDE" width="176.0" />
-                <Text fill="WHITE" layoutX="735.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1: Online">
+                <Text fill="WHITE" layoutX="727.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1: Online">
                     <font>
                         <Font size="23.0" />
                     </font>
                 </Text>
-                <Text fill="WHITE" layoutX="735.0" layoutY="439.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2: offline">
+                <Text fill="WHITE" layoutX="728.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2: offline">
                     <font>
                         <Font size="23.0" />
                     </font>
                 </Text>
-                <Text fill="WHITE" layoutX="735.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 3: Offline">
+                <Text fill="WHITE" layoutX="735.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 3: Offline">
                     <font>
                         <Font size="23.0" />
                     </font>
@@ -78,8 +78,13 @@
                     <font>
                         <Font size="18.0" />
                     </font></Button>
-                <ButtonBar layoutX="300.0" layoutY="555.0" prefHeight="200.0" prefWidth="320.0">
+                <ButtonBar layoutX="150.0" layoutY="620.0" prefHeight="200.0" prefWidth="470.0">
                     <buttons>
+                        <Button fx:id="buttonBet" mnemonicParsing="false" onAction="#handleButtonBetAction" prefHeight="55.0" prefWidth="181.0" text="Bet">
+                            <font>
+                                <Font size="29.0" />
+                            </font>
+                        </Button>
                         <Button fx:id="buttonCheck" mnemonicParsing="false" onAction="#handleButtonCheckAction" prefHeight="57.0" prefWidth="191.0" text="Check">
                             <font>
                                 <Font size="30.0" />
@@ -91,16 +96,26 @@
 
                     </buttons>
                 </ButtonBar>
+                <Text fill="WHITE" layoutX="714.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pot: $">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Text>
+                <Text fx:id="PotAmount" fill="WHITE" layoutX="804.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Text>
+                <Button fx:id="UpdatePot" layoutX="878.0" layoutY="340.0" mnemonicParsing="false" onAction="#updatePotAmount" text="Update">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Button>
             </children>
         </AnchorPane>
         <AnchorPane fx:id="PlayerFunctionsPane" layoutY="605.0" prefHeight="285.0" prefWidth="1005.0">
             <children>
-                <TextField fx:id="textFieldUserBetAmount" layoutX="154.0" layoutY="27.0" onAction="#tieBetTextFieldToEnterButton" prefHeight="48.0" prefWidth="135.0" />
-                <Button fx:id="buttonBet" layoutX="117.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleButtonBetAction" prefHeight="55.0" prefWidth="181.0" text="Bet">
-                    <font>
-                        <Font size="29.0" />
-                    </font>
-                </Button>
+                <TextField fx:id="textFieldUserBetAmount" layoutX="170.0" layoutY="27.0" onAction="#tieBetTextFieldToEnterButton" prefHeight="48.0" prefWidth="135.0" />
                 <Text layoutX="27.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bet: $">
                     <font>
                         <Font size="33.0" />
@@ -112,8 +127,13 @@
                         <Font size="24.0" />
                     </font>
                 </Text>
+                <HBox layoutX="692.0" layoutY="28.0" prefHeight="162.0" prefWidth="322.0" spacing="20.0">
+                    <children>
+                        <ImageView fx:id="PlayerCard1" fitHeight="164.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="PlayerCard2" fitHeight="164.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" />
+                    </children>
+                </HBox>
             </children>
         </AnchorPane>
     </children>
 </AnchorPane>
-
