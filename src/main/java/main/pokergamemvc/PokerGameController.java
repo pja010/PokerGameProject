@@ -41,6 +41,8 @@ import java.util.ResourceBundle;
  */
 public class PokerGameController implements Initializable {
 
+    public Text playerActionHubText1;
+    public Text playerActionHubText2;
     @FXML
     private ImageView DeckImageView;
     @FXML
@@ -149,7 +151,7 @@ public class PokerGameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         deckOfCards = new Deck();
         deckOfCards.shuffle();
-        DeckImageView.setImage(deckOfCards.getBackOfCard());
+//        DeckImageView.setImage(deckOfCards.getBackOfCard());
         System.out.println("Initialize");
     }
 
@@ -158,7 +160,7 @@ public class PokerGameController implements Initializable {
      */
     public void updatePlayerActionHub() {
         String playerActionHub = table.getPlayerActionText();
-        playerActionHubText.setText(playerActionHub);
+        playerActionHubText1.setText(playerActionHub);
     }
 
     /**
@@ -179,6 +181,7 @@ public class PokerGameController implements Initializable {
 
     /**
      * Handles a bet action.
+     * Catches @NumberFormatException if input is not a number.
      */
     public void handleButtonBetAction() {
         try {

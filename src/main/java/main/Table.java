@@ -190,6 +190,11 @@ public class Table implements Serializable {
         this.playerActionText = playerActionText;
     }
 
+    public void setPlayerActionText(String playerActionText, int playerNum) {
+        if (playerNum == 1)
+        this.playerActionText = playerActionText;
+    }
+
     public Deck getDeck() {
         return deck;
     }
