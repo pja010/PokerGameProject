@@ -54,22 +54,22 @@
                         <Font size="23.0" />
                     </font>
                 </Text>
-                <Text fx:id="playerActionHubText1" fill="WHITE" layoutX="19.0" layoutY="430.0" onInputMethodTextChanged="#updatePlayerActionHub" strokeType="OUTSIDE" strokeWidth="0.0" text="field1" wrappingWidth="432.970703125">
+                <Text fx:id="playerActionHubText1" fill="WHITE" layoutX="15.0" layoutY="430.0" onInputMethodTextChanged="#updatePlayerActionHub" strokeType="OUTSIDE" strokeWidth="0.0" text="field1" wrappingWidth="432.970703125">
                     <font>
                         <Font size="23.0" />
                     </font>
                 </Text>
-                <Text fx:id="playerActionHubText2" fill="WHITE" layoutX="19.0" layoutY="470.0" onInputMethodTextChanged="#updatePlayerActionHub" strokeType="OUTSIDE" strokeWidth="0.0" text="field2">
+                <Text fx:id="playerActionHubText2" fill="WHITE" layoutX="15.0" layoutY="470.0" onInputMethodTextChanged="#updatePlayerActionHub" strokeType="OUTSIDE" strokeWidth="0.0" text="field2">
                     <font>
                         <Font size="23.0" />
                     </font>
                 </Text>
-                <Text fx:id="playerActionHubText3" fill="WHITE" layoutX="15.0" layoutY="492.0" strokeType="OUTSIDE" onInputMethodTextChanged="#updatePlayerActionHub" strokeWidth="0.0" text="field3">
+                <Text fx:id="playerActionHubText3" fill="WHITE" layoutX="15.0" layoutY="510.0" strokeType="OUTSIDE" onInputMethodTextChanged="#updatePlayerActionHub" strokeWidth="0.0" text="field3">
                     <font>
                         <Font size="23.0" />
                     </font>
                 </Text>
-                <Text fx:id="playerActionHubText4" fill="WHITE" layoutX="15.0" layoutY="531.0" strokeType="OUTSIDE" onInputMethodTextChanged="#updatePlayerActionHub" strokeWidth="0.0" text="field4">
+                <Text fx:id="playerActionHubText4" fill="WHITE" layoutX="15.0" layoutY="550.0" strokeType="OUTSIDE" onInputMethodTextChanged="#updatePlayerActionHub" strokeWidth="0.0" text="field4">
                     <font>
                         <Font size="23.0" />
                     </font>
@@ -96,7 +96,7 @@
                         <Font size="23.0" />
                     </font>
                 </Text>
-                <Text fx:id="PotAmount" fill="WHITE" layoutX="804.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                <Text fx:id="PotAmount" fill="WHITE" layoutX="804.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                     <font>
                         <Font size="23.0" />
                     </font>

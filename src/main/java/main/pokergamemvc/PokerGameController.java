@@ -47,7 +47,6 @@ public class PokerGameController implements Initializable {
     public Text playerActionHubText2;
     public Text playerActionHubText4;
     public Text playerActionHubText3;
-    public Text playerTurnText;
     @FXML
     private ImageView DeckImageView;
     @FXML
@@ -111,6 +110,9 @@ public class PokerGameController implements Initializable {
     @FXML
     private Text playerActionHubText;
 
+    @FXML
+    private Text playerTurnText;
+
     /**
      *  Default constructor.
      */
@@ -156,6 +158,8 @@ public class PokerGameController implements Initializable {
 //        table.setBetMin(1);
 
         updateTable();
+        playerTurnText.setText(table.getPlayerTurnMessage());
+        updatePlayerActionHub();
 
     }
 
