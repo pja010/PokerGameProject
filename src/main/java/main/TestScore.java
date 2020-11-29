@@ -69,34 +69,38 @@ public class TestScore {
             //System.out.println(player4.getScore()[4]);
 
 
-            int[] score = {player1.getScore().getScore()[0],player2.getScore().getScore()[0], player3.getScore().getScore()[0], player4.getScore().getScore()[0]};
+            ArrayList<Integer> score = new ArrayList<Integer>();
+            score.add(player1.getScore().getScore().get(0));
+            score.add(player2.getScore().getScore().get(0));
+            score.add(player3.getScore().getScore().get(0));
+            score.add(player4.getScore().getScore().get(0));
 
-            for(int j = 0; j < score.length; j++){
-                if (score[j] > 900){
+            for(int j = 0; j < score.size(); j++){
+                if (score.get(j) > 900){
                     probs[8] += 1;
                 }
-                else if (score[j] > 800){
+                else if (score.get(j) > 800){
                     probs[7] += 1;
                 }
-                else if (score[j] > 700){
+                else if (score.get(j) > 700){
                     probs[6] += 1;
                 }
-                else if (score[j] > 600){
+                else if (score.get(j) > 600){
                     probs[5] += 1;
                 }
-                else if (score[j] > 500){
+                else if (score.get(j) > 500){
                     probs[4] += 1;
                 }
-                else if (score[j] > 400){
+                else if (score.get(j) > 400){
                     probs[3] += 1;
                 }
-                else if (score[j] > 300){
+                else if (score.get(j) > 300){
                     probs[2] += 1;
                 }
-                else if (score[j] > 200){
+                else if (score.get(j) > 200){
                     probs[1] += 1;
                 }
-                else if (score[j] > 100){
+                else if (score.get(j) > 100){
                     probs[0] += 1;
                 }
             }

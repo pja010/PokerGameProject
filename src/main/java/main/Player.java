@@ -31,16 +31,8 @@ public class Player implements Serializable {
     private ScoreUpdate score;
     private double bet;
     public boolean isPlaying;
+    public String userName;
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    private String userName;
 
     private ArrayList<Boolean> isRoundDone;
 
@@ -77,6 +69,12 @@ public class Player implements Serializable {
 
     }
 
+    public void move(PlayerAction action, double actionAmount) {
+        this.action = action;
+        this.actionAmount = actionAmount;
+        chips.subtractAmount(actionAmount);
+    }
+
     public void setChips(double initAmount) {
         this.chips.initAmount = initAmount;
         this.chips.currAmount = initAmount;
@@ -99,6 +97,25 @@ public class Player implements Serializable {
     public ScoreUpdate getScore() {
         score = new ScoreUpdate(playerHand);
         return score;
+    }
+
+    public String playerActionDescription() {
+        String playerActionDescription = null;
+            if (this.getPlayerAction() == PlayerAction.BET)
+                playerActionDescription = this + " raised by $" + this.getBet() + ".";
+            else if (this.getPlayerAction() == PlayerAction.CHECK)
+                playerActionDescription = this + " checked.";
+            else if (this.getPlayerAction() == PlayerAction.FOLD)
+                playerActionDescription = this + " folded.";
+        return playerActionDescription;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public void setUserName(String newUserName) {
+        this.userName = newUserName;
     }
 
     public void addChips(double amount){
@@ -127,6 +144,12 @@ public class Player implements Serializable {
 
     public boolean isDealer() {
         return isDealer;
+    }
+
+    public static void main(String[] args) {
+        Player player1 = new Player(1);
+        player1.setPlayerAction(PlayerAction.CHECK);
+        System.out.print("Test: " + player1.playerActionDescription());
     }
 
     public ArrayList<Boolean> getIsRoundDone() {

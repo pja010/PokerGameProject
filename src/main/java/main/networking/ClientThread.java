@@ -105,7 +105,6 @@ public class ClientThread implements Runnable {
 
                             printToScreen("PLAYER before writeOBj");
                             System.out.println(table.getPot().getTotalAmount());
-                            objOut.flush();
                             objOut.writeObject(table);
                             printToScreen("PLAYER after writeOBj");
                             objOut.reset();
@@ -122,11 +121,9 @@ public class ClientThread implements Runnable {
 
                     printToScreen("1Client before writeObj");
                     System.out.println(table.getPot().getTotalAmount());
-                    objOut.flush();
                     objOut.writeObject(table);
                     printToScreen("1Client after writeObj");
                     objOut.reset();
-                    objOut.flush();
 
                 }
                 //this.server.close();

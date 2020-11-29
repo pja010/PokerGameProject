@@ -23,35 +23,47 @@ import java.util.Collections;
 
 public class ScoreUpdate implements Serializable {
 
-    private int[] score;
+    private ArrayList<Integer> score;
 
 
     public ScoreUpdate(ArrayList<Card> playerHand) {
-        this.score = new int[5];
+        this.score = new ArrayList<Integer>(5);
+        score.add(0);
+        score.add(0);
+        score.add(0);
+        score.add(0);
+        score.add(0);
+
         for (int i = 0; i < playerHand.size(); i++){
             for (int j = i+1; j < playerHand.size(); j++) {
                 for (int k = j+1; k < playerHand.size(); k++){
                     for (int p = k+1; p < playerHand.size(); p++) {
                         for (int q = p+1; q < playerHand.size(); q++) {
-                            int[] tempScore = evaluate(playerHand.get(i), playerHand.get(j), playerHand.get(k), playerHand.get(p), playerHand.get(q));
-                            if (tempScore[0] >= this.score[0]) {
-                                if (tempScore[0] > this.score[0]) {
+                            ArrayList<Integer> tempScore = new ArrayList<Integer>();
+                            Card card1 = playerHand.get(i);
+                            Card card2 = playerHand.get(j);
+                            Card card3 = playerHand.get(k);
+                            Card card4 = playerHand.get(p);
+                            Card card5 = playerHand.get(q);
+                            tempScore.addAll(evaluate(card1, card2, card3, card4, card5));
+                            if (tempScore.get(0) >= this.score.get(0)) {
+                                if (tempScore.get(0) > this.score.get(0)) {
                                     this.score = tempScore;
                                 }
-                                else if (tempScore[1] >= this.score[1]){
-                                    if (tempScore[1] > this.score[1]) {
+                                else if (tempScore.get(1) >= this.score.get(1)){
+                                    if (tempScore.get(1) > this.score.get(1)) {
                                         this.score = tempScore;
                                     }
-                                    else if (tempScore[2] >= this.score[2]){
-                                        if (tempScore[2] > this.score[2]){
+                                    else if (tempScore.get(2) >= this.score.get(2)){
+                                        if (tempScore.get(2) > this.score.get(2)){
                                             this.score = tempScore;
                                         }
-                                        else if(tempScore[3] >= this.score[3]){
-                                            if (tempScore[3] > this.score[3]){
+                                        else if(tempScore.get(3) >= this.score.get(3)){
+                                            if (tempScore.get(3) > this.score.get(3)){
                                                 this.score = tempScore;
                                             }
-                                            else if(tempScore[4] >= this.score[4]){
-                                                if (tempScore[4] > this.score[4]) {
+                                            else if(tempScore.get(4) >= this.score.get(4)){
+                                                if (tempScore.get(4) > this.score.get(4)) {
                                                     this.score = tempScore;
                                                 }
                                             }
@@ -67,7 +79,7 @@ public class ScoreUpdate implements Serializable {
         }
     }
 
-    public int[] evaluate(Card card1, Card card2, Card card3, Card card4, Card card5){
+    public ArrayList<Integer> evaluate(Card card1, Card card2, Card card3, Card card4, Card card5){
         ArrayList<Integer> ranks = new ArrayList<Integer>();
         ranks.add(card1.getRank());
         ranks.add(card2.getRank());
@@ -81,85 +93,90 @@ public class ScoreUpdate implements Serializable {
         suits.add(card4.getSuit());
         suits.add(card5.getSuit());
 
-        int[] tempScore = new int[5];
+        ArrayList<Integer> tempScore = new ArrayList<Integer>(5);
+        tempScore.add(0);
+        tempScore.add(0);
+        tempScore.add(0);
+        tempScore.add(0);
+        tempScore.add(0);
 
         if (flush(ranks, suits) != 0 && straight(ranks) != 0){
-            tempScore[0] = flush(ranks, suits) + 300;
+            tempScore.set(0,flush(ranks, suits) + 300);
         }
         else if (kind(ranks) > 800){
-            tempScore[0] = kind(ranks);
-            ranks.remove(ranks.indexOf(tempScore[0]-800));
-            ranks.remove(ranks.indexOf(tempScore[0]-800));
-            ranks.remove(ranks.indexOf(tempScore[0]-800));
-            ranks.remove(ranks.indexOf(tempScore[0]-800));
-            tempScore[1] = getMax(ranks);
+            tempScore.set(0,kind(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-800));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-800));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-800));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-800));
+            tempScore.set(1,getMax(ranks));
         }
         else if (fullHouse(ranks) != 0) {
-            tempScore[0] = fullHouse(ranks);
-            ranks.remove(ranks.indexOf(tempScore[0]-700));
-            ranks.remove(ranks.indexOf(tempScore[0]-700));
-            ranks.remove(ranks.indexOf(tempScore[0]-700));
-            tempScore[1] = getMax(ranks);
+            tempScore.set(0,fullHouse(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-700));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-700));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-700));
+            tempScore.set(1,getMax(ranks));
         }
         else if (flush(ranks,suits) != 0){
-            tempScore[0] = flush(ranks,suits);
-            ranks.remove(ranks.indexOf(tempScore[0]-600));
-            tempScore[1] = getMax(ranks);
-            ranks.remove(ranks.indexOf(tempScore[1]));
-            tempScore[2] = getMax(ranks);
-            ranks.remove(ranks.indexOf(tempScore[2]));
-            tempScore[3] = getMax(ranks);
-            ranks.remove(ranks.indexOf(tempScore[3]));
-            tempScore[4] = getMax(ranks);
+            tempScore.set(0,flush(ranks,suits));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-600));
+            tempScore.set(1,getMax(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(1)));
+            tempScore.set(2,getMax(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(2)));
+            tempScore.set(3,getMax(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(3)));
+            tempScore.set(4,getMax(ranks));
         }
         else if (straight(ranks) != 0) {
-            tempScore[0] = straight(ranks);
+            tempScore.set(0,straight(ranks));
         }
         else if (kind(ranks) > 400){
-            tempScore[0] = kind(ranks);
-            ranks.remove(ranks.indexOf(tempScore[0]-400));
-            ranks.remove(ranks.indexOf(tempScore[0]-400));
-            ranks.remove(ranks.indexOf(tempScore[0]-400));
-            tempScore[1] = getMax(ranks);
-            ranks.remove(ranks.indexOf(tempScore[1]));
-            tempScore[2] = getMax(ranks);
+            tempScore.set(0,kind(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-400));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-400));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-400));
+            tempScore.set(1,getMax(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(1)));
+            tempScore.set(2,getMax(ranks));
         }
         else if (twoPair(ranks) != 0){
-            tempScore[0] = twoPair(ranks);
-            ranks.remove(ranks.indexOf(tempScore[0]-300));
-            ranks.remove(ranks.indexOf(tempScore[0]-300));
-            tempScore[1] = kind(ranks)-200;
-            ranks.remove(ranks.indexOf(tempScore[1]));
-            ranks.remove(ranks.indexOf(tempScore[1]));
-            tempScore[2] = getMax(ranks);
+            tempScore.set(0,twoPair(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-300));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-300));
+            tempScore.set(1,kind(ranks)-200);
+            ranks.remove(ranks.indexOf(tempScore.get(1)));
+            ranks.remove(ranks.indexOf(tempScore.get(1)));
+            tempScore.set(2,getMax(ranks));
         }
         else if (kind(ranks) > 200){
-            tempScore[0] = kind(ranks);
-            ranks.remove(ranks.indexOf(tempScore[0]-200));
-            ranks.remove(ranks.indexOf(tempScore[0]-200));
-            tempScore[1] = getMax(ranks);
-            ranks.remove(ranks.indexOf(tempScore[1]));
-            tempScore[2] = getMax(ranks);
-            ranks.remove(ranks.indexOf(tempScore[2]));
-            tempScore[3] = getMax(ranks);
+            tempScore.set(0,kind(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-200));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-200));
+            tempScore.set(1,getMax(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(1)));
+            tempScore.set(2,getMax(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(2)));
+            tempScore.set(3,getMax(ranks));
         }
         else {
-            tempScore[0] = kind(ranks);
-            ranks.remove(ranks.indexOf(tempScore[0]-100));
-            tempScore[1] = getMax(ranks);
-            ranks.remove(ranks.indexOf(tempScore[1]));
-            tempScore[2] = getMax(ranks);
-            ranks.remove(ranks.indexOf(tempScore[2]));
-            tempScore[3] = getMax(ranks);
-            ranks.remove(ranks.indexOf(tempScore[3]));
-            tempScore[4] = getMax(ranks);
+            tempScore.set(0,kind(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(0)-100));
+            tempScore.set(1,getMax(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(1)));
+            tempScore.set(2,getMax(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(2)));
+            tempScore.set(3,getMax(ranks));
+            ranks.remove(ranks.indexOf(tempScore.get(3)));
+            tempScore.set(4,getMax(ranks));
         }
 
 
         return tempScore;
     }
 
-    public int[] getScore() {
+    public ArrayList<Integer> getScore() {
         return score;
     }
 
@@ -258,6 +275,32 @@ public class ScoreUpdate implements Serializable {
             }
         }
         return count;
+    }
+
+    public static ArrayList<Player> getWinner(ArrayList<Player> players){
+        ArrayList<Player> winner = new ArrayList<Player>();
+        winner.addAll(players);
+
+        for(Player player : winner){
+            if (player.isPlaying == false){
+                winner.remove(player);
+            }
+        }
+
+        for(int i = 0; i < 5;i++) {
+            int maxScore = 0;
+            for (Player player : winner) {
+                if (player.getScore().getScore().get(i) > maxScore) {
+                    maxScore = player.getScore().getScore().get(i);
+                }
+            }
+            for (Player player : winner) {
+                if (player.getScore().getScore().get(i) < maxScore) {
+                    winner.remove(player);
+                }
+            }
+        }
+        return winner;
     }
 
 
