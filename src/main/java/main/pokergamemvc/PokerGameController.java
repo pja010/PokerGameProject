@@ -214,8 +214,6 @@ public class PokerGameController implements Initializable {
      * Updates the text display on the view for players' actions.
      */
     public void updatePlayerActionHub() {
-//        String playerActionHub = table.getPlayerActionText();
-//        playerActionHubText1.setText(playerActionHub);
         playerActionHubText1.setText(table.getPlayerActionText1());
         playerActionHubText2.setText(table.getPlayerActionText2());
         playerActionHubText3.setText(table.getPlayerActionText3());
@@ -240,6 +238,7 @@ public class PokerGameController implements Initializable {
 
     public void writePlayerTurnMessage(int playerNum) {
         Player thisPlayer = table.getPlayers().get(playerNum);
+        passPlayerNameToTable(player.getUserName(), playerNum);
         String turnMessage = thisPlayer.getUserName() + "'s turn.";
         table.setPlayerTurnMessage(turnMessage);
         updatePlayerTurnText();
