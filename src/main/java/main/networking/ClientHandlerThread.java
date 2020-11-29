@@ -90,7 +90,7 @@ public class ClientHandlerThread implements Runnable {
                     }
 
                     if (roundOver) {
-                        if (table.getBet() == 4){
+                        if (table.getBet() == 3){
                             ArrayList<Player> winners = table.getWinner();
                             for (Player player: winners){
                                 player.addChips(table.getPot().getTotalAmount()/winners.size());
