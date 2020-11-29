@@ -19,12 +19,9 @@ package main;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Class that models a player in a game of poker.
@@ -77,7 +74,15 @@ public class PlayerCopy implements Serializable {
     private SimpleBooleanProperty moveIsBetProperty;
     private SimpleBooleanProperty moveIsCheckMoveProperty;
     private SimpleBooleanProperty moveIsFoldProperty;
+
+    /**
+     * The amount of the player's bet.
+     */
     private double bet;
+
+    /**
+     * Boolean to determine whether player is still active in round.
+     */
     private ArrayList<Boolean> isRoundDone;
 
     /**
@@ -86,16 +91,10 @@ public class PlayerCopy implements Serializable {
      */
     private String userName;
 
-    public double getBet() {
-        return bet;
-    }
-
-    public void setBet(double bet) {
-        this.bet = bet;
-    }
-
-
-
+    /**
+     * Constructor initializes the player's fields.
+     * @param playerNum the player's identification number.
+     */
     public PlayerCopy(int playerNum) {
         this.playerNum = playerNum;
         this.chips = new Chips();
@@ -105,10 +104,14 @@ public class PlayerCopy implements Serializable {
         this.moveIsCheckMoveProperty = new SimpleBooleanProperty();
         this.moveIsFoldProperty = new SimpleBooleanProperty();
         this.bet = 0;
-        this.isRoundDone = new ArrayList<Boolean>();
-
+        this.isRoundDone = new ArrayList<>();
     }
 
+    /**
+     * A second constructor that takes a simplified version of player
+     * that can be passed in a networking thread, as an argument.
+     * @param player the player object.
+     */
     public PlayerCopy(Player player) {
         this.playerNum = player.getPlayerNum();
         this.chips = player.getChips();
@@ -158,20 +161,27 @@ public class PlayerCopy implements Serializable {
     }
 
     /**
+     * Gets the appropriate description of the player's betting action.
+     * @return the description of the player's move.
+     */
+    public String playerActionDescription() {
+        String playerActionDescription = null;
+        if (this.getPlayerAction() == PlayerAction.BET)
+            playerActionDescription = this.getUserName() + " raised by $" + this.getBet() + ".";
+        else if (this.getPlayerAction() == PlayerAction.CHECK)
+            playerActionDescription = this.getUserName() + " checked.";
+        else if (this.getPlayerAction() == PlayerAction.FOLD)
+            playerActionDescription = this.getUserName() + " folded.";
+        return playerActionDescription;
+    }
+
+    /**
      * Sets the player's amount of chips to a specified number.
      * @param initAmount the initial number of chips.
      */
     public void setChips(double initAmount) {
         this.chips.initAmount = initAmount;
         this.chips.currAmount = initAmount;
-    }
-
-    public String getUserName() {
-        return this.userName;
-    }
-
-    public void setUserName(String newUserName) {
-        this.userName = newUserName;
     }
 
     /**
@@ -204,7 +214,7 @@ public class PlayerCopy implements Serializable {
      * Gets the total score of the player's current hand.
      * @return the total score.
      */
-    public ArrayList<Integer> getScore() {
+    public ArrayList<Integer>  getScore() {
         score = new ScoreUpdate(playerHand);
         return score.getScore();
     }
@@ -230,10 +240,23 @@ public class PlayerCopy implements Serializable {
     }
 
     public String getChipsAsString() {
-        String sChips = String.valueOf(chips.currAmount);
-        return sChips;
+        return String.valueOf(chips.currAmount);
     }
 
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public void setUserName(String newUserName) {
+        this.userName = newUserName;
+    }
+    public double getBet() {
+        return bet;
+    }
+
+    public void setBet(double bet) {
+        this.bet = bet;
+    }
     public int getPlayerNum(){
         return playerNum;
     }
