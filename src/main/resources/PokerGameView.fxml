@@ -30,7 +30,7 @@
                         <Image url="@PokerTableColor.jpg" />
                     </image>
                 </ImageView>
-                <Text fill="#fcfcfc" layoutX="201.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1's turn" wrappingWidth="260.87295646670896">
+                <Text fx:id="PlayerTurn" fill="#fcfcfc" layoutX="201.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player  turn" wrappingWidth="260.87295646670896">
                     <font>
                         <Font size="35.0" />
                     </font>
