@@ -12,7 +12,8 @@
  * Package: main.PokerGameVisuals
  * Class: PokerGameController
  *
- * Description:
+ * Description: Controller class for the
+ * Poker game GUI.
  *
  * ****************************************
  */
@@ -26,15 +27,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import main.*;
-
+import main.Deck;
+import main.PlayerCopy;
+import main.Table;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class that binds PokerGameView.java, an FXML file,
+ * with the models PlayerCopy.java and Table.java.
+ */
 public class PokerGameController implements Initializable {
 
     @FXML
@@ -43,6 +47,10 @@ public class PokerGameController implements Initializable {
     private HBox FlopCardsView;
     @FXML
     private Button nextCardButton;
+
+    /**
+     * png images for the cards on the table and the player's hand.
+     */
     @FXML
     private ImageView FlopCard1;
     @FXML
@@ -66,6 +74,9 @@ public class PokerGameController implements Initializable {
     @FXML
     private URL location;
 
+    /**
+     * The player action buttons and corresponding texts.
+     */
     @FXML
     private Text playerChipsAmountText;
 
@@ -81,23 +92,37 @@ public class PokerGameController implements Initializable {
     @FXML
     private TextField textFieldUserBetAmount;
 
-    // The model for this view
-//    private PokerGameModel theModel;
+    /**
+     * The models for the view.
+     */
     private PlayerCopy player;
-
     private Table table;
+
+    /**
+     * Text to display all player's actions on the table.
+     */
     @FXML
     private Text playerActionHubText;
 
+    /**
+     *  Default constructor.
+     */
     public PokerGameController() {
     }
 
+    /**
+     * Initialize the buttons from the FXML view.
+     */
     @FXML
     void initialize() {
         assert buttonBet != null : "fx:id=\"buttonBet\" was not injected: check your FXML file 'PokerGameView.fxml'.";
         assert buttonCheck != null : "fx:id=\"buttonCheck\" was not injected: check your FXML file 'PokerGameView.fxml'.";
     }
 
+    /**
+     * Set the player model.
+     * @param player the player model
+     */
     public void setPlayer(PlayerCopy player) {
         this.player = player;
         System.out.println("Set player");
@@ -106,18 +131,20 @@ public class PokerGameController implements Initializable {
         player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
     }
 
+    /**
+     * Set the table model.
+     * @param table the table model.
+     */
     public void setTable(Table table) {
         this.table = table;
-//        Player player1 = new Player(1);
-//        this.table.addPlayer(player1);
-//        player1.setPlayerAction(PlayerAction.BET);
-//        player1.setBet(20);
-//        player1.setUserName("Guillermo");
         System.out.println("Set table");
-//        table.setBetMin(1);
     }
 
-
+    /**
+     * Initialize the card deck, shuffle it and provide an image.
+     * @param location the location of the png image.
+     * @param resources the image resource bundle.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         deckOfCards = new Deck();
@@ -126,20 +153,33 @@ public class PokerGameController implements Initializable {
         System.out.println("Initialize");
     }
 
+    /**
+     * Updates the text display on the view for players' actions.
+     */
     public void updatePlayerActionHub() {
         String playerActionHub = table.getPlayerActionText();
         playerActionHubText.setText(playerActionHub);
     }
 
+    /**
+     * Sends a description of the player's action to the table.
+     * @param textToDisplay the action description.
+     */
     public void passPlayerActionTextToTable(String textToDisplay) {
         table.setPlayerActionText(textToDisplay);
     }
 
+    /**
+     * Updates the player's amount of chips on the view.
+     */
     private void updateChipsAmountText() {
         String sChipsAmount = player.getChipsAsString();
         playerChipsAmountText.setText(sChipsAmount);
     }
 
+    /**
+     * Handles a bet action.
+     */
     public void handleButtonBetAction() {
         try {
             String sUserBetAmount = textFieldUserBetAmount.getText();
@@ -164,6 +204,9 @@ public class PokerGameController implements Initializable {
         }
     }
 
+    /**
+     * Handles a check action.
+     */
     public void handleButtonCheckAction() {
         player.makeCheckMove();
         playerChipsAmountText.setText("Chips amount: $" + player.getChipsAsString());
@@ -172,13 +215,19 @@ public class PokerGameController implements Initializable {
         updatePlayerActionHub();
     }
 
+    /**
+     * Handles a fold action.
+     */
     public void handleButtonFoldAction() {
         player.makeFoldMove();
         passPlayerActionTextToTable(player.playerActionDescription());
         updatePlayerActionHub();
     }
 
-    public void tieBetTextFieldToEnterButton(ActionEvent event) {
+    /**
+     * Ties the keyboard enter button to the bet action button.
+     */
+    public void tieBetTextFieldToEnterButton() {
         textFieldUserBetAmount.setOnAction(buttonBet.getOnAction());
     }
 
