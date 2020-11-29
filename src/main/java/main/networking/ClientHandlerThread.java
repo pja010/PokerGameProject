@@ -19,6 +19,7 @@
 package main.networking;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import main.Player;
 import main.PlayerCopy;
 import main.Table;
 
@@ -79,6 +80,37 @@ public class ClientHandlerThread implements Runnable {
                     table = (Table) objIn.readObject();
                     System.out.println(table.getPot().getTotalAmount());
                     printToScreen("PLAYER after readOBj");
+
+
+                    boolean roundOver = true;
+                    for (Player player: table.getPlayers()) {
+                        if (!player.getIsRoundDone().get(table.getBet())){
+                            roundOver = false;
+                        }
+                    }
+
+                    if (roundOver) {
+                        if (table.getBet() == 3){
+                            ArrayList<Player> winners = table.getWinner();
+                            for (Player player: winners){
+                                player.addChips(table.getPot().getTotalAmount()/winners.size());
+                            }
+                            table.getPot().setTotalAmount(0);
+                            table.getTableCards().clear();
+                            initPlayers();
+                            setChips();
+                            table.setPlayerCards();
+                            table.setTableCards();
+                            table.setBetMin(1);
+                            table.setBet(0);
+                            table.setTurn(1);
+                            table.setRound(table.getRound()+1);
+                        }
+                        else {
+                            table.setTurn(1);
+                            table.setBet(table.getBet() + 1);
+                        }
+                    }
 
                     printToScreen("OUT TO ALL before writeOBj");
                     System.out.println(table.getPot().getTotalAmount());
@@ -143,5 +175,19 @@ public class ClientHandlerThread implements Runnable {
     public void initCards(){
         players.get(playerNum).setCard1(table.getDeck().deal());
         players.get(playerNum).setCard2(table.getDeck().deal());
+    }
+
+    private void initPlayers() {
+        table.getPlayers().set(0, new Player(1));
+        table.getPlayers().set(1, new Player(2));
+        table.getPlayers().set(2, new Player(3));
+        table.getPlayers().set(3, new Player(4));
+    }
+
+    private void setChips() {
+        table.getPlayers().get(0).setChips(1600);
+        table.getPlayers().get(1).setChips(1600);
+        table.getPlayers().get(2).setChips(1600);
+        table.getPlayers().get(3).setChips(1600);
     }
 }

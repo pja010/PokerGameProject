@@ -5,12 +5,12 @@
  *
  * Name: Lindsay Knupp
  * Section: 01 - 11:30am
- * Date: 11/3/2020
+ * Date: 11/27/2020
  * Time: 1:00 PM
  *
  * Project: csci205FinalProject
  * Package: main
- * Class: Pot
+ * Class: PotTest
  *
  * Description: A test class for the Pot
  * object

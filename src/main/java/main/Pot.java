@@ -61,6 +61,15 @@ public class Pot implements Serializable {
         return this.totalAmount;
     }
 
+
+    /**
+     * Sets the amount of the pot
+     * @param amount the amount the pot will be set to
+     */
+    public void setTotalAmount(double amount) {
+        this.totalAmount = amount;
+    }
+
     /**
      * @return string representation of total amount in Pot
      */

@@ -60,6 +60,10 @@ public class Player implements Serializable {
         this.bet = 0;
         this.playerAction = null;
         this.isRoundDone = new ArrayList<Boolean>();
+        this.isRoundDone.add(false);
+        this.isRoundDone.add(false);
+        this.isRoundDone.add(false);
+        this.isRoundDone.add(false);
 
     }
 
