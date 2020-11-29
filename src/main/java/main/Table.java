@@ -58,12 +58,25 @@ public class Table implements Serializable {
      * The text to display player's betting actions.
      */
     private String playerActionText;
+    private String playerActionText1;
+    private String playerActionText2;
+    private String playerActionText3;
+    private String playerActionText4;
 
     /**
      * The minimum allowed bet.
      */
     private double betMin;
 
+    public String getPlayerTurnMessage() {
+        return playerTurnMessage;
+    }
+
+    public void setPlayerTurnMessage(String playerTurnMessage) {
+        this.playerTurnMessage = playerTurnMessage;
+    }
+
+    private String playerTurnMessage;
 
     /**
      * Constructor initializes the fields.
@@ -195,8 +208,19 @@ public class Table implements Serializable {
     }
 
     public void setPlayerActionText(String playerActionText, int playerNum) {
-        if (playerNum == 1)
-        this.playerActionText = playerActionText;
+        if (playerNum == 1) {
+            this.playerActionText1 = playerActionText;
+        }
+        else if (playerNum == 2) {
+            this.playerActionText2 = playerActionText;
+        }
+        else if (playerNum == 3) {
+            this.playerActionText3 = playerActionText;
+        }
+
+        else if (playerNum == 4) {
+            this.playerActionText4 = playerActionText;
+        }
     }
 
     public Deck getDeck() {
@@ -218,5 +242,37 @@ public class Table implements Serializable {
     public void setBet(int bet) {
         this.bet = bet;
     }
+    public String getPlayerActionText1() {
+        return playerActionText1;
+    }
+
+    public void setPlayerActionText1(String playerActionText1) {
+        this.playerActionText1 = playerActionText1;
+    }
+
+    public String getPlayerActionText2() {
+        return playerActionText2;
+    }
+
+    public void setPlayerActionText2(String playerActionText2) {
+        this.playerActionText2 = playerActionText2;
+    }
+
+    public String getPlayerActionText3() {
+        return playerActionText3;
+    }
+
+    public void setPlayerActionText3(String playerActionText3) {
+        this.playerActionText3 = playerActionText3;
+    }
+
+    public String getPlayerActionText4() {
+        return playerActionText4;
+    }
+
+    public void setPlayerActionText4(String playerActionText4) {
+        this.playerActionText4 = playerActionText4;
+    }
+
 }
     

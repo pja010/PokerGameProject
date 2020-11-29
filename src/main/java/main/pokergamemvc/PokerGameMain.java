@@ -47,7 +47,7 @@ public class PokerGameMain extends Application {
     public void init() throws Exception {
         super.init();
         table = new Table();
-        player = new PlayerCopy(1);
+        player = new PlayerCopy(4);
         player.addChips(50);
         System.out.println("init() called");
     }

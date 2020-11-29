@@ -27,9 +27,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import main.Deck;
+import main.Player;
 import main.PlayerCopy;
 import main.Table;
 import java.net.URL;
@@ -43,6 +45,9 @@ public class PokerGameController implements Initializable {
 
     public Text playerActionHubText1;
     public Text playerActionHubText2;
+    public Text playerActionHubText4;
+    public Text playerActionHubText3;
+    public Text playerTurnText;
     @FXML
     private ImageView DeckImageView;
     @FXML
@@ -205,8 +210,12 @@ public class PokerGameController implements Initializable {
      * Updates the text display on the view for players' actions.
      */
     public void updatePlayerActionHub() {
-        String playerActionHub = table.getPlayerActionText();
-        playerActionHubText1.setText(playerActionHub);
+//        String playerActionHub = table.getPlayerActionText();
+//        playerActionHubText1.setText(playerActionHub);
+        playerActionHubText1.setText(table.getPlayerActionText1());
+        playerActionHubText2.setText(table.getPlayerActionText2());
+        playerActionHubText3.setText(table.getPlayerActionText3());
+        playerActionHubText4.setText(table.getPlayerActionText4());
     }
 
     /**
@@ -214,7 +223,26 @@ public class PokerGameController implements Initializable {
      * @param textToDisplay the action description.
      */
     public void passPlayerActionTextToTable(String textToDisplay) {
-        table.setPlayerActionText(textToDisplay);
+        table.setPlayerActionText(textToDisplay,player.getPlayerNum());
+    }
+
+    public void passPlayerNameToTable(String playerName, int playerID) {
+        for (Player player: table.getPlayers() ) {
+            if (player.getPlayerNum() == playerID) {
+                player.setUserName(playerName);
+            }
+        }
+    }
+
+    public void writePlayerTurnMessage(int playerNum) {
+        Player thisPlayer = table.getPlayers().get(playerNum);
+        String turnMessage = thisPlayer.getUserName() + "'s turn.";
+        table.setPlayerTurnMessage(turnMessage);
+        updatePlayerTurnText();
+    }
+
+    public void updatePlayerTurnText() {
+        playerTurnText.setText(table.getPlayerTurnMessage());
     }
 
     /**
@@ -292,6 +320,5 @@ public class PokerGameController implements Initializable {
         //TurnCard.setImage(deckOfCards.deal().getImage());
         //RiverCard.setImage(deckOfCards.deal().getImage());
     }
-
 
 }

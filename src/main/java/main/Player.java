@@ -32,6 +32,16 @@ public class Player implements Serializable {
     private double bet;
     public boolean isPlaying;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    private String userName;
+
     private ArrayList<Boolean> isRoundDone;
 
     public PlayerAction getPlayerAction() {

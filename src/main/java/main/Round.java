@@ -17,6 +17,8 @@
  */
 package main;
 
+import main.pokergamemvc.PokerGameController;
+
 import java.util.ArrayList;
 
 /**
@@ -24,6 +26,7 @@ import java.util.ArrayList;
  * consisting of up to 4 "betting-rounds".
  */
 public class Round {
+    private static PokerGameController theController;
     /**
      * The number of the betting-round
      */
@@ -152,6 +155,7 @@ public class Round {
      */
     private static void getBets() {
         for (Player player : playerList) {
+            theController.writePlayerTurnMessage(player.getPlayerNum());
             bet = 100;
             player.subChips(bet);
             pot.addToPot(bet);
