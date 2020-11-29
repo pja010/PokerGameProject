@@ -23,6 +23,8 @@ import main.Player;
 import main.PlayerAction;
 import main.PlayerCopy;
 import main.Table;
+import main.pokergamemvc.PokerGameController;
+import main.pokergamemvc.PokerGameMain;
 
 import java.io.*;
 import java.net.Socket;
@@ -37,12 +39,14 @@ public class ClientThread implements Runnable {
     private BufferedReader in;
     private ObjectOutputStream objOut;
     private ObjectInputStream objIn;
+    private PokerGameController controller;
 
-    public ClientThread(Socket serverSocket, Table table, PlayerCopy player) throws IOException {
+    public ClientThread(Socket serverSocket, Table table, PlayerCopy player, PokerGameController controller) throws IOException {
         this.server = serverSocket;
         in = new BufferedReader(new InputStreamReader(server.getInputStream()));
         this.table = table;
         this.player = player;
+        this.controller = controller;
 
 
     }
@@ -50,6 +54,13 @@ public class ClientThread implements Runnable {
     @Override
     public void run() {
             try {
+
+                // Set the model up for the controller
+                controller.setPlayer(player);
+
+                // Set the table up for the controller
+                controller.setTable(table);
+
                 // Allow for user input from the keyboard
                 BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
                 PrintWriter out = new PrintWriter(new OutputStreamWriter(server.getOutputStream()), true);
@@ -105,6 +116,9 @@ public class ClientThread implements Runnable {
                     table = (Table) objIn.readObject();
                     System.out.println(table.getPot().getTotalAmount());
                     printToScreen("OUT TO ALL after readOBj");
+
+                    // Set the table up for the controller
+                    controller.setTable(table);
 
                     printToScreen("1Client before writeObj");
                     System.out.println(table.getPot().getTotalAmount());

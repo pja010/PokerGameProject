@@ -54,6 +54,9 @@ public class GameFlowNetworking extends Application{
 
     private static PlayerCopy player;
     private static Table table;
+    private static PokerGameController controller;
+    private static FXMLLoader loader;
+    private static Parent root;
 
 
 //    public static void main(String[] args) {
@@ -150,8 +153,16 @@ public class GameFlowNetworking extends Application{
             System.out.println(player.getPlayerHand());
             player.setUserName(userName);
 
+            loader = new FXMLLoader();
+            loader.setLocation(GameFlowNetworking.class.getResource("/PokerGameView.fxml"));
+            root = loader.load();
+
+            // Retrieve the controller from the FXML
+            controller = loader.getController();
+
+
             // Client thread that allows messages to be sent and received in any particular order
-            ClientThread serverConnection = new ClientThread(client, table, player);
+            ClientThread serverConnection = new ClientThread(client, table, player, controller);
             // Start thread
             new Thread(serverConnection).start();
 
@@ -235,18 +246,18 @@ public class GameFlowNetworking extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/PokerGameView.fxml"));
-        Parent root = loader.load();
+        //FXMLLoader loader = new FXMLLoader();
+        //loader.setLocation(getClass().getResource("/PokerGameView.fxml"));
+        //Parent root = loader.load();
 
         // Retrieve the controller from the FXML
-        PokerGameController controller = loader.getController();
+        //controller = loader.getController();
 
         // Set the model up for the controller
-        controller.setPlayer(player);
+        //controller.setPlayer(player);
 
         // Set the table up for the controller
-        controller.setTable(table);
+        //controller.setTable(table);
 
         primaryStage.setTitle("Poker: Texas Hold'em");
         primaryStage.setScene(new Scene(root, 1570, 800));

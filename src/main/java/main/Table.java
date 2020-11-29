@@ -28,6 +28,9 @@ public class Table implements Serializable {
     private ArrayList<Card> tableCards;
     private ArrayList<Player> players;
     private int round;
+    private int turn;
+    private int bet;
+    private double betMin;
 
     public double getBetMin() {
         return betMin;
@@ -37,7 +40,6 @@ public class Table implements Serializable {
         this.betMin = betMin;
     }
 
-    private double betMin;
 
     public int getTurn() {
         return turn;
@@ -47,8 +49,6 @@ public class Table implements Serializable {
         this.turn = turn;
     }
 
-    private int turn;
-    private int bet;
 
 
     public Table(){
@@ -75,6 +75,7 @@ public class Table implements Serializable {
     }
 
     public void setTableCards() {
+        deck.shuffle();
         deck.deal();
         tableCards.add(deck.deal());
         tableCards.add(deck.deal());
