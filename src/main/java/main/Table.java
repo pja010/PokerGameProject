@@ -53,6 +53,7 @@ public class Table implements Serializable {
     private int round;
     private int turn;
     private int bet;
+    private double betMin;
 
     /**
      * The text to display player's betting actions.
@@ -66,7 +67,9 @@ public class Table implements Serializable {
     /**
      * The minimum allowed bet.
      */
-    private double betMin;
+    public void setBetMin(double betMin) {
+        this.betMin = betMin;
+    }
 
     public String getPlayerTurnMessage() {
         return playerTurnMessage;
@@ -82,9 +85,6 @@ public class Table implements Serializable {
      * Constructor initializes the fields.
      * The minimum allowed betting amount is set to 0.
      */
-//    public Table() {}
-
-
     public Table(){
         deck = new Deck();
         pot = new Pot();
@@ -186,10 +186,6 @@ public class Table implements Serializable {
         return betMin;
     }
 
-    public void setBetMin(double betMin) {
-        this.betMin = betMin;
-    }
-
     public int getTurn() {
         return turn;
     }
@@ -197,7 +193,6 @@ public class Table implements Serializable {
     public void setTurn(int turn) {
         this.turn = turn;
     }
-
 
     public String getPlayerActionText() {
         return playerActionText;
