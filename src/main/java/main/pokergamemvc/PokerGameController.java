@@ -88,6 +88,9 @@ public class PokerGameController implements Initializable {
     @FXML
     private Text playerActionHubText;
 
+    @FXML
+    private Text PotAmount;
+
 
     public PokerGameController() {
     }
@@ -121,6 +124,9 @@ public class PokerGameController implements Initializable {
 //        player1.setPlayerAction(PlayerAction.BET);
 //        player1.setBet(20);
 //        player1.setUserName("Guillermo");
+
+        PotAmount.setText(String.valueOf(table.getPot().getTotalAmount()));
+
         System.out.println("Set table");
         table.setBetMin(1);
 
@@ -131,13 +137,13 @@ public class PokerGameController implements Initializable {
     public void updateTable(){
 
         if (table.getBet() == 1) {
-            String filename1 = table.getTableCards().get(0).getRank() + "_" + table.getTableCards().get(0).getSuit() + ".png";
+            String filename1 = String.valueOf(table.getTableCards().get(0).getRank()) + "_" + String.valueOf(table.getTableCards().get(0).getSuit()) + ".png";
             Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
 
-            String filename2 = table.getTableCards().get(1).getRank() + "_" + table.getTableCards().get(1).getSuit() + ".png";
+            String filename2 = String.valueOf(table.getTableCards().get(1).getRank()) + "_" + String.valueOf(table.getTableCards().get(1).getSuit()) + ".png";
             Image image2 = new Image(this.getClass().getResource("/DeckOfCards/" + filename2).toString());
 
-            String filename3 = table.getTableCards().get(2).getRank() + "_" + table.getTableCards().get(2).getSuit() + ".png";
+            String filename3 = String.valueOf(table.getTableCards().get(2).getRank()) + "_" + String.valueOf(table.getTableCards().get(2).getSuit()) + ".png";
             Image image3 = new Image(this.getClass().getResource("/DeckOfCards/" + filename3).toString());
 
 
@@ -147,13 +153,13 @@ public class PokerGameController implements Initializable {
             FlopCard3.setImage(image3);
         }
         if(table.getBet() == 2){
-            String filename4 = table.getTableCards().get(3).getRank() + "_" + table.getTableCards().get(3).getSuit() + ".png";
+            String filename4 = String.valueOf(table.getTableCards().get(3).getRank()) + "_" + String.valueOf(table.getTableCards().get(3).getSuit()) + ".png";
             Image image4 = new Image(this.getClass().getResource("/DeckOfCards/" + filename4).toString());
 
             TurnCard.setImage(image4);
         }
         if(table.getBet() == 3){
-            String filename5 = table.getTableCards().get(4).getRank() + "_" + table.getTableCards().get(4).getSuit() + ".png";
+            String filename5 = String.valueOf(table.getTableCards().get(4).getRank()) + "_" + String.valueOf(table.getTableCards().get(4).getSuit()) + ".png";
             Image image5 = new Image(this.getClass().getResource("/DeckOfCards/" + filename5).toString());
 
             RiverCard.setImage(image5);

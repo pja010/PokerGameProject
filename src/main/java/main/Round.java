@@ -220,16 +220,16 @@ public class Round {
         Player winner = null;
 
         // Find max score among players
-        int max = playerList.get(0).getScore().getScore()[0];
+        int max = playerList.get(0).getScore().getScore().get(0);
         
         for (int i = 0; i < playerList.size(); ++i) {
-            if (playerList.get(i).getScore().getScore()[0] > max) {
-                max = playerList.get(i).getScore().getScore()[0];
+            if (playerList.get(i).getScore().getScore().get(0) > max) {
+                max = playerList.get(i).getScore().getScore().get(0);
             }
         }
         // Determine winner
         for (Player player : playerList) {
-            if (player.getScore().getScore()[0] == max) {
+            if (player.getScore().getScore().get(0) == max) {
                 winner = player;
             }
         }

@@ -204,7 +204,7 @@ public class PlayerCopy implements Serializable {
      * Gets the total score of the player's current hand.
      * @return the total score.
      */
-    public int[] getScore() {
+    public ArrayList<Integer> getScore() {
         score = new ScoreUpdate(playerHand);
         return score.getScore();
     }

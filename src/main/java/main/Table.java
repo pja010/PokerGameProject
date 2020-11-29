@@ -19,6 +19,7 @@ package main;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Table implements Serializable {
 
@@ -92,6 +93,24 @@ public class Table implements Serializable {
         }
     }
 
+    public void changeTableCards() {
+        deck.shuffle();
+        deck.deal();
+        tableCards.set(0,deck.deal());
+        tableCards.set(1,deck.deal());
+        tableCards.set(2,deck.deal());
+        deck.deal();
+        tableCards.set(3,deck.deal());
+        deck.deal();
+        tableCards.set(4,deck.deal());
+
+        for(int i = 0; i < players.size(); i++){
+            for(int j = 0; j < tableCards.size(); j++){
+                players.get(i).addCard(tableCards.get(j));
+            }
+        }
+    }
+
     public ArrayList<Card> getTableCards(){
         return tableCards;
     }
@@ -109,6 +128,12 @@ public class Table implements Serializable {
         }
     }
 
+    public void reSetPlayerHands(){
+        for (int i = 0; i < players.size(); i++){
+            players.get(i).getPlayerHand().clear();
+        }
+    }
+
     public int getRound() {
         return round;
     }
@@ -117,30 +142,6 @@ public class Table implements Serializable {
         this.round = round;
     }
 
-    public ArrayList<Player> getWinner(){
-        ArrayList<Player> winner = players;
-
-        for(Player player : winner){
-            if (player.isPlaying == false){
-                winner.remove(player);
-            }
-        }
-
-        for(int i = 0; i < 5;i++) {
-            int maxScore = 0;
-            for (Player player : winner) {
-                if (player.getScore().getScore()[i] > maxScore) {
-                    maxScore = player.getScore().getScore()[i];
-                }
-            }
-            for (Player player : winner) {
-                if (player.getScore().getScore()[i] < maxScore) {
-                    winner.remove(player);
-                }
-            }
-        }
-        return winner;
-    }
 
     public int getBet() {
         return bet;

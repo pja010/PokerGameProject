@@ -222,7 +222,6 @@ public class GameFlowNetworking extends Application{
             System.out.println("Server before writeOBj");
             objOut.writeObject(table);
             System.out.println("Server after writeOBj");
-            objOut.reset();
 
             // Create Server thread responsible for keeping track of all client threads
             ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients, table, i);
