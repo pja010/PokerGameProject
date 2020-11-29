@@ -132,13 +132,13 @@ public class PokerGameController implements Initializable {
         player.moveIsCheckMovePropertyProperty().bind(buttonCheck.defaultButtonProperty());
         player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
 
-        String filename1 = player.getCard1().getRank() + "_" + player.getCard1().getSuit() + ".png";
-        Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
-        PlayerCard1.setImage(image1);
-
-        String filename2 = player.getCard2().getRank() + "_" + player.getCard2().getSuit() + ".png";
-        Image image2 = new Image(this.getClass().getResource("/DeckOfCards/" + filename2).toString());
-        PlayerCard2.setImage(image2);
+//        String filename1 = player.getCard1().getRank() + "_" + player.getCard1().getSuit() + ".png";
+//        Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
+//        PlayerCard1.setImage(image1);
+//
+//        String filename2 = player.getCard2().getRank() + "_" + player.getCard2().getSuit() + ".png";
+//        Image image2 = new Image(this.getClass().getResource("/DeckOfCards/" + filename2).toString());
+//        PlayerCard2.setImage(image2);
     }
 
     /**
@@ -148,7 +148,7 @@ public class PokerGameController implements Initializable {
     public void setTable(Table table) {
         this.table = table;
         System.out.println("Set table");
-//        table.setBetMin(1);
+        table.setBetMin(1);
 
         updateTable();
 
