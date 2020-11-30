@@ -18,20 +18,10 @@
  */
 package main;
 
-import javafx.scene.image.Image;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Exception class handles an empty deck.
- */
-class EmptyDeckException extends Exception {
-    public EmptyDeckException(String message) {
-        super(message);
-    }
-}
 
 /**
  * Class that encapsulates a deck of playing cards.
@@ -40,6 +30,8 @@ class EmptyDeckException extends Exception {
  * Design based on: http://www.mathcs.emory.edu/~cheung/Courses/170/Syllabus/10/deck-of-cards.html
  */
 public class Deck implements Serializable {
+
+    //private static final long serialVersionUID = 42L;
 
     public static final int NUMBER_OF_CARDS_IN_DECK = 52;
     /**
@@ -52,10 +44,6 @@ public class Deck implements Serializable {
      */
     private int cardsDealt;
 
-    /**
-     * A png image that visually represents a deck in 2D.
-     */
-    private Image backOfCard;
 
     /**
      * Constructor that instantiates a new deck from a list of given cards.
@@ -63,7 +51,6 @@ public class Deck implements Serializable {
      */
     public Deck(ArrayList<Card> deckOfCards) {
         this.deckOfCards = deckOfCards;
-        //backOfCard = new Image(this.getClass().getResource("/DeckOfCards/back_of_card.png").toString());
     }
 
     /**
@@ -81,9 +68,6 @@ public class Deck implements Serializable {
         for(int i = 0; i < 100; i++){
             shuffle();
         }
-
-        //backOfCard = new Image(this.getClass().getResource("/DeckOfCards/back_of_card.png").toString());
-        //backOfCard = new Image("/Users/Guillermo/Document/csci205FinalProject/src/main/resources/DeckOfCards/back_of_card.png");
     }
 
     /**
@@ -128,14 +112,6 @@ public class Deck implements Serializable {
 
     public void setDeckOfCards(ArrayList<Card> deckOfCards) {
         this.deckOfCards = deckOfCards;
-    }
-
-    public Image getBackOfCard() {
-        return backOfCard;
-    }
-
-    public void setBackOfCard(Image backOfCard) {
-        this.backOfCard = backOfCard;
     }
 
 

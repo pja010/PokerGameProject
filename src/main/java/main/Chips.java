@@ -24,6 +24,8 @@ import java.io.Serializable;
  */
  public class Chips implements Serializable {
 
+    //private static final long serialVersionUID = 42L;
+
     /** Initial amount of chips player has */
     public double initAmount;
 

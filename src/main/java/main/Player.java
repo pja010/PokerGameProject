@@ -20,15 +20,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Player implements Serializable {
+
+    //private static final long serialVersionUID = 42L;
+
     private int playerNum;
     private boolean isDealer;
     public ArrayList<Card> playerHand = new ArrayList<Card>();
     private Card card1;
     private Card card2;
-    private PlayerAction action;
+    private String playerAction;
     private double actionAmount;
     private Chips chips;
-    private ScoreUpdate score;
+    //private ScoreUpdate score;
     private double bet;
     public boolean isPlaying;
     public String userName;
@@ -36,21 +39,20 @@ public class Player implements Serializable {
 
     private ArrayList<Boolean> isRoundDone;
 
-    public PlayerAction getPlayerAction() {
+    public String getPlayerAction() {
         return playerAction;
     }
 
-    public void setPlayerAction(PlayerAction playerAction) {
+    public void setPlayerAction(String playerAction) {
         this.playerAction = playerAction;
     }
 
-    public PlayerAction playerAction;
 
     public double getBet() {
         return bet;
     }
 
-    public void setBet(int bet) {
+    public void setBet(double bet) {
         this.bet = bet;
     }
 
@@ -69,8 +71,8 @@ public class Player implements Serializable {
 
     }
 
-    public void move(PlayerAction action, double actionAmount) {
-        this.action = action;
+    public void move(String action, double actionAmount) {
+        this.playerAction = action;
         this.actionAmount = actionAmount;
         chips.subtractAmount(actionAmount);
     }
@@ -94,18 +96,18 @@ public class Player implements Serializable {
         this.playerHand.add(card);
     }
 
-    public ScoreUpdate getScore() {
-        score = new ScoreUpdate(playerHand);
-        return score;
-    }
+    //public ScoreUpdate getScore() {
+    //    score = new ScoreUpdate(playerHand);
+    //    return score;
+    //}
 
     public String playerActionDescription() {
         String playerActionDescription = null;
-            if (this.getPlayerAction() == PlayerAction.BET)
+            if (this.getPlayerAction().equals("Bet"))
                 playerActionDescription = this + " raised by $" + this.getBet() + ".";
-            else if (this.getPlayerAction() == PlayerAction.CHECK)
+            else if (this.getPlayerAction().equals("Check"))
                 playerActionDescription = this + " checked.";
-            else if (this.getPlayerAction() == PlayerAction.FOLD)
+            else if (this.getPlayerAction().equals("Fold"))
                 playerActionDescription = this + " folded.";
         return playerActionDescription;
     }
@@ -148,7 +150,7 @@ public class Player implements Serializable {
 
     public static void main(String[] args) {
         Player player1 = new Player(1);
-        player1.setPlayerAction(PlayerAction.CHECK);
+        player1.setPlayerAction("Check");
         System.out.print("Test: " + player1.playerActionDescription());
     }
 
@@ -156,8 +158,8 @@ public class Player implements Serializable {
         return isRoundDone;
     }
 
-    public void setIsRoundDone(ArrayList<Boolean> isRoundDone) {
-        this.isRoundDone = isRoundDone;
+    public void setIsRoundDone(int i, Boolean isRoundDone) {
+        this.isRoundDone.set(i,isRoundDone);
     }
 }
     

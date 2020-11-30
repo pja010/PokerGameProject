@@ -20,13 +20,14 @@ package main;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Poker table that encapsulates the deck, the community cards,
  * the pot and the players in the game to allow for a round of poker.
  */
 public class Table implements Serializable {
+
+    //private static final long serialVersionUID = 42L;
 
     /**
      * Deck of cards.
@@ -210,36 +211,7 @@ public class Table implements Serializable {
         this.bet = bet;
     }
 
-    /**
-     * Determines the winner of the round by calculating
-     * the player with the highest scoring hand.
-     *
-     * @return the winning player.
-     */
-//    public ArrayList<Player> getWinner() {
-//        ArrayList<Player> winner = players;
-//
-//        for (Player player : winner) {
-//            if (player.isPlaying == false) {
-//                winner.remove(player);
-//            }
-//        }
-//
-//        for (int i = 0; i < 5; i++) {
-//            int maxScore = 0;
-//            for (Player player : winner) {
-//                if (player.getScore().getScore()[i] > maxScore) {
-//                    maxScore = player.getScore().getScore()[i];
-//                }
-//            }
-//            for (Player player : winner) {
-//                if (player.getScore().getScore()[i] < maxScore) {
-//                    winner.remove(player);
-//                }
-//            }
-//        }
-//        return winner;
-//    }
+
     public String getPlayerActionText() {
         return playerActionText;
     }
@@ -297,18 +269,6 @@ public class Table implements Serializable {
         this.playerActionText4 = playerActionText4;
     }
 
-
-//    public static void main(String[] args) {
-//        Table testTable = new Table();
-//        Player player1 = new Player(1);
-//        Player player2 = new Player(2);
-//        testTable.addPlayer(player1);
-//        testTable.addPlayer(player2);
-//        player1.setPlayerAction(PlayerAction.CHECK);
-//        player2.setPlayerAction(PlayerAction.BET);
-//        player2.setBet(20);
-//        testTable.playerActionDescription();
-//    }
 
 }
     

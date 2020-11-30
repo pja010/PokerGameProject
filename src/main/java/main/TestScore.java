@@ -27,7 +27,7 @@ public class TestScore {
     private static Player player3;
     private static Player player4;
 
-    public static void main(String[] args) throws EmptyDeckException {
+    public static void main(String[] args) {
         int[] probs = new int[9];
         int i = 0;
         while (i < 10000){
@@ -69,11 +69,11 @@ public class TestScore {
             //System.out.println(player4.getScore()[4]);
 
 
-            ArrayList<Integer> score = new ArrayList<Integer>();
-            score.add(player1.getScore().getScore().get(0));
-            score.add(player2.getScore().getScore().get(0));
-            score.add(player3.getScore().getScore().get(0));
-            score.add(player4.getScore().getScore().get(0));
+            ArrayList<Integer> score= new ArrayList<Integer>();
+            score.add(new ScoreUpdate(player1.playerHand).getScore().get(0));
+            score.add(new ScoreUpdate(player2.playerHand).getScore().get(0));
+            score.add(new ScoreUpdate(player3.playerHand).getScore().get(0));
+            score.add(new ScoreUpdate(player4.playerHand).getScore().get(0));
 
             for(int j = 0; j < score.size(); j++){
                 if (score.get(j) > 900){
@@ -113,7 +113,7 @@ public class TestScore {
 
     }
 
-    private static void initTableCards() throws EmptyDeckException {
+    private static void initTableCards() {
         deck.deal();
         tableCards.add(deck.deal());
         tableCards.add(deck.deal());
@@ -131,7 +131,7 @@ public class TestScore {
         }
     }
 
-    private static void initCards(Deck deck) throws EmptyDeckException {
+    private static void initCards(Deck deck) {
         player1.setCard1(deck.deal());
         player2.setCard1(deck.deal());
         player3.setCard1(deck.deal());

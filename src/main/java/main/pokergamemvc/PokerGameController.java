@@ -19,7 +19,6 @@
  */
 package main.pokergamemvc;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -27,7 +26,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import main.Deck;
@@ -35,7 +33,6 @@ import main.Player;
 import main.PlayerCopy;
 import main.Table;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -211,7 +208,7 @@ public class PokerGameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         deckOfCards = new Deck();
         deckOfCards.shuffle();
-        DeckImageView.setImage(deckOfCards.getBackOfCard());
+        //DeckImageView.setImage(deckOfCards.getBackOfCard());
         System.out.println("Initialize");
     }
 
@@ -276,7 +273,7 @@ public class PokerGameController implements Initializable {
                     player.makeBetMove(dUserBetAmount);
                     updateChipsAmountText();
                     passPlayerActionTextToTable(player.playerActionDescription());
-                    updatePlayerActionHub();
+                    //updatePlayerActionHub();
                 }
             }
         }
@@ -298,7 +295,7 @@ public class PokerGameController implements Initializable {
         playerChipsAmountText.setText("Chips amount: $" + player.getChipsAsString());
         updateChipsAmountText();
         passPlayerActionTextToTable(player.playerActionDescription());
-        updatePlayerActionHub();
+        //updatePlayerActionHub();
     }
 
     /**
@@ -307,7 +304,7 @@ public class PokerGameController implements Initializable {
     public void handleButtonFoldAction() {
         player.makeFoldMove();
         passPlayerActionTextToTable(player.playerActionDescription());
-        updatePlayerActionHub();
+        //updatePlayerActionHub();
     }
 
     /**
@@ -317,17 +314,5 @@ public class PokerGameController implements Initializable {
         textFieldUserBetAmount.setOnAction(buttonBet.getOnAction());
     }
 
-    @FXML
-    public void nextCardButtonPush() {
-        String filename1 = table.getTableCards().get(0).getRank() + "_" + table.getTableCards().get(0).getSuit() + ".png";
-        Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
-        FlopCard1.setImage(image1);
-
-        //FlopCard2.setImage(deckOfCards.deal().getImage());
-        //FlopCard3.setImage(deckOfCards.deal().getImage());
-
-        //TurnCard.setImage(deckOfCards.deal().getImage());
-        //RiverCard.setImage(deckOfCards.deal().getImage());
-    }
 
 }

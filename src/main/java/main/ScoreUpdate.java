@@ -23,6 +23,8 @@ import java.util.Collections;
 
 public class ScoreUpdate implements Serializable {
 
+    //private static final long serialVersionUID = 42L;
+
     private ArrayList<Integer> score;
 
 
@@ -277,7 +279,7 @@ public class ScoreUpdate implements Serializable {
         return count;
     }
 
-    public static ArrayList<Player> getWinner(ArrayList<Player> players){
+    /*public static ArrayList<Player> getWinner(ArrayList<Player> players){
         ArrayList<Player> winner = new ArrayList<Player>();
         winner.addAll(players);
 
@@ -301,7 +303,7 @@ public class ScoreUpdate implements Serializable {
             }
         }
         return winner;
-    }
+    }*/
 
 
 

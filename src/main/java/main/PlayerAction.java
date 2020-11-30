@@ -16,9 +16,12 @@
  */
 package main;
 
-public enum PlayerAction {
+import java.io.Serializable;
+
+public enum PlayerAction implements Serializable {
     FOLD,
     CHECK,
     BET
 }
+
     

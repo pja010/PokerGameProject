@@ -28,6 +28,8 @@ import java.io.Serializable;
  */
 public class Pot implements Serializable {
 
+    private static final long serialVersionUID = 42L;
+
     /** Total amount of money in the pot. */
     private double totalAmount;
 

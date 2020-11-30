@@ -25,14 +25,12 @@ import main.Player;
 import main.PlayerCopy;
 import main.Table;
 import main.pokergamemvc.PokerGameController;
-import main.pokergamemvc.PokerGameMain;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
@@ -46,7 +44,7 @@ public class GameFlowNetworking extends Application{
     private static Player player4;
     private static ArrayList<PlayerCopy> players;
     private static Scanner scnr = new Scanner(System.in);
-    private static int PORT = 12225;
+    private static int PORT = 12226;
     private static boolean isConnecting = true;
     private static ArrayList<ClientHandlerThread> clients = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(4);
@@ -141,17 +139,9 @@ public class GameFlowNetworking extends Application{
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         String hostName = in.readLine();
         System.out.println("Connected to: " + hostName);
-        System.out.println("To send group message: type 'say' before message, to quit: type 'quit, or just type message below");
 
         while(true){
 
-            System.out.println("Client before readOBj");
-            table = (Table) objIn.readObject();
-            System.out.println(table.getPot().getTotalAmount());
-            System.out.println("Client after readOBj");
-            player = new PlayerCopy(table.getPlayers().get(Integer.valueOf(hostName)-1));
-            System.out.println(player.getPlayerHand());
-            player.setUserName(userName);
 
             loader = new FXMLLoader();
             loader.setLocation(GameFlowNetworking.class.getResource("/PokerGameView.fxml"));
@@ -162,7 +152,7 @@ public class GameFlowNetworking extends Application{
 
 
             // Client thread that allows messages to be sent and received in any particular order
-            ClientThread serverConnection = new ClientThread(client, table, player, controller);
+            ClientThread serverConnection = new ClientThread(client, userName, hostName, controller, objOut,objIn);
             // Start thread
             new Thread(serverConnection).start();
 
@@ -218,13 +208,10 @@ public class GameFlowNetworking extends Application{
 
             System.out.println("Connected to : " + clientName);
 
-            //Transmit Table
-            System.out.println("Server before writeOBj");
-            objOut.writeObject(table);
-            System.out.println("Server after writeOBj");
+
 
             // Create Server thread responsible for keeping track of all client threads
-            ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients, table, i);
+            ClientHandlerThread clientThread = new ClientHandlerThread(client, userName, clients, table, i, objOut, objIn);
             clients.add(clientThread);
 
             // Run the threads

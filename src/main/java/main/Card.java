@@ -17,8 +17,6 @@
  */
 package main;
 
-import javafx.scene.image.Image;
-
 import java.io.Serializable;
 
 /**
@@ -27,6 +25,8 @@ import java.io.Serializable;
  * Based on ideas from: http://www.mathcs.emory.edu/~cheung/Courses/170/Syllabus/10/cards.html
  */
 public class Card implements Serializable {
+
+    //private static final long serialVersionUID = 42L;
 
     /**
      * The 4 possible suits and their relative values.
@@ -59,11 +59,6 @@ public class Card implements Serializable {
     private int rank;
     private int suit;
 
-    //private Image image;
-    /**
-     * The png image of the card.
-     */
-    private Image image;
 
     /**
      * The general constructor for a playing card.
@@ -73,8 +68,6 @@ public class Card implements Serializable {
     public Card(int rank, int suit) {
         this.rank = rank;
         this.suit = suit;
-        //String filename = rank + "_" + suit + ".png";
-        //image = new Image(this.getClass().getResource("/DeckOfCards/" + filename).toString());
     }
 
     @Override
@@ -93,12 +86,5 @@ public class Card implements Serializable {
         return suit;
     }
 
-    //public Image getImage() {
-        //return image;
-    //}
-
-    //public void setImage(Image image) {
-        //this.image = image;
-    //}
 }
     
