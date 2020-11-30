@@ -27,13 +27,13 @@ import java.util.ArrayList;
  * Class that models a player in a game of poker.
  */
 
-public class PlayerCopy implements Serializable {
+public class PlayerCopy{
 
     /**
      * The player's game identification numbers.
      */
     private final int playerNum;
-    public static final long serialVersionUID = 41L;
+    //public static final long serialVersionUID = 41L;
 
     /**
      * Whether or not the player is the dealer.

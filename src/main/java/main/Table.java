@@ -60,11 +60,9 @@ public class Table implements Serializable {
     /**
      * The text to display player's betting actions.
      */
+
     private String playerActionText;
-    private String playerActionText1;
-    private String playerActionText2;
-    private String playerActionText3;
-    private String playerActionText4;
+    private ArrayList<String> playerActionTexts;
 
     /**
      * The minimum allowed bet.
@@ -110,6 +108,11 @@ public class Table implements Serializable {
         this.round = 1;
         this.bet = 0;
         this.playerActionText = null;
+        playerActionTexts = new ArrayList<String>();
+        playerActionTexts.add("");
+        playerActionTexts.add("");
+        playerActionTexts.add("");
+        playerActionTexts.add("");
     }
 
     public Deck getDeck() {
@@ -220,55 +223,26 @@ public class Table implements Serializable {
         this.playerActionText = playerActionText;
     }
 
-    public void setPlayerActionText(String playerActionText, int playerNum) {
-        if (playerNum == 1) {
-            this.playerActionText1 = playerActionText;
-        }
-        else if (playerNum == 2) {
-            this.playerActionText2 = playerActionText;
-        }
-        else if (playerNum == 3) {
-            this.playerActionText3 = playerActionText;
-        }
+    public void setPlayerActionText() {
+        this.playerActionTexts.set(0,players.get(0).playerActionDescription());
 
-        else if (playerNum == 4) {
-            this.playerActionText4 = playerActionText;
-        }
+        this.playerActionTexts.set(1,players.get(1).playerActionDescription());
+
+        this.playerActionTexts.set(2,players.get(2).playerActionDescription());
+
+        this.playerActionTexts.set(3,players.get(3).playerActionDescription());
+
+
     }
 
 
-    public String getPlayerActionText1() {
-        return playerActionText1;
+
+    public ArrayList<String> getPlayerActionTexts() {
+        return playerActionTexts;
     }
 
-    public void setPlayerActionText1(String playerActionText1) {
-        this.playerActionText1 = playerActionText1;
+    public void setPlayerActionTexts(ArrayList<String> playerActionTexts) {
+        this.playerActionTexts = playerActionTexts;
     }
-
-    public String getPlayerActionText2() {
-        return playerActionText2;
-    }
-
-    public void setPlayerActionText2(String playerActionText2) {
-        this.playerActionText2 = playerActionText2;
-    }
-
-    public String getPlayerActionText3() {
-        return playerActionText3;
-    }
-
-    public void setPlayerActionText3(String playerActionText3) {
-        this.playerActionText3 = playerActionText3;
-    }
-
-    public String getPlayerActionText4() {
-        return playerActionText4;
-    }
-
-    public void setPlayerActionText4(String playerActionText4) {
-        this.playerActionText4 = playerActionText4;
-    }
-
-
 }
     

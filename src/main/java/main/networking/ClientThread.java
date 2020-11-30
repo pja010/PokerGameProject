@@ -118,6 +118,8 @@ public class ClientThread implements Runnable {
                         table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().set(table.getBet(),true);
                     }
 
+                    table.getPlayerActionTexts().set(player.getPlayerNum()-1,player.playerActionDescription());
+
                     printToScreen("PLAYER before writeOBj");
                     System.out.println(table.getPot().getTotalAmount());
                     objOut.flush();
@@ -136,6 +138,10 @@ public class ClientThread implements Runnable {
 
                 // Set the table up for the controller
                 controller.setTable(table);
+
+                controller.updateChipsAmountText();
+
+                controller.updatePlayerCards();
 
                 //printToScreen("1Client before writeObj");
                 //System.out.println(table.getPot().getTotalAmount());
