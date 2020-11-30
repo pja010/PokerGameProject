@@ -10,7 +10,7 @@
  *
  * Project: csci205FinalProject
  * Package: main
- * Class: ScoreTest
+ * Class: ScoreUpdateTest
  *
  * Description: A test class for the Score
  * class
@@ -23,14 +23,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ScoreTest {
+class ScoreUpdateTest {
 
     /** Scored used in every test */
-    private static Score score;
+    private static ScoreUpdate score;
 
     /** Player used in every test */
     private static Player player1;
@@ -59,16 +61,21 @@ class ScoreTest {
     @Test
     void evaluate() {
         // Create a hand with the Ace of Diamonds, Ace of Clubs, Ace of Hearts, King of Diamonds, and King of Clubs
-        int [] ranks = new int[5];
+        ArrayList<Integer> ranks = new ArrayList(5);
+
         card1 = new Card(14,1);
         card2 = new Card(14,2);
         card3 = new Card(14,3);
         card4 = new Card(13,1);
         card5 = new Card(13,2);
 
-        // This should be a full house, receive the same score as a full house
-        score = new Score(player1.getPlayerHand());
-        assertEquals(714,score.evaluate(card1,card2,card3,card4,card5));
+        // This should be a full house, receive the same score as a full house in the first spot, and then
+        // gets the rank of the two pair
+        score = new ScoreUpdate(player1.getPlayerHand());
+
+        ArrayList<Integer> values = new ArrayList<Integer>(Arrays.asList(714,13,0,0,0));
+        assertEquals(values,score.evaluate(card1,card2,card3,card4,card5));
+
     }
 
     /**
@@ -76,7 +83,7 @@ class ScoreTest {
      */
     @Test
     void kind() {
-        int[] ranks = new int[4];
+        ArrayList<Integer> ranks = new ArrayList(4);
         // Two of a kind - Create hand with Ace of Diamonds and Ace of Clubs
         card1 = new Card(14,1);
         card2 = new Card(14,2);
@@ -84,10 +91,10 @@ class ScoreTest {
         player1.addCard(card1);
         player1.addCard(card2);
         // Add card ranks
-        ranks[0] = card1.getRank();
-        ranks[1] = card2.getRank();
+        ranks.add(card1.getRank());
+        ranks.add(card2.getRank());
         // Counts the two of a kind
-        score = new Score(player1.getPlayerHand());
+        score = new ScoreUpdate(player1.getPlayerHand());
         assertEquals(214,score.kind(ranks));
 
 
@@ -96,9 +103,9 @@ class ScoreTest {
         // Add card to player hand
         player1.addCard(card3);
         // Add card rank
-        ranks[2] = card3.getRank();
+        ranks.add(card3.getRank());
         // Counts the three of a kind
-        score = new Score(player1.getPlayerHand());
+        score = new ScoreUpdate(player1.getPlayerHand());
         assertEquals(414,score.kind(ranks));
 
 
@@ -107,9 +114,9 @@ class ScoreTest {
         // Add card to player hand
         player1.addCard(card4);
         // Add card rank
-        ranks[3] = card4.getRank();
+        ranks.add(card4.getRank());
         // Counts the four of a kind
-        score = new Score(player1.getPlayerHand());
+        score = new ScoreUpdate(player1.getPlayerHand());
         assertEquals(814,score.kind(ranks));
     }
 
@@ -119,7 +126,7 @@ class ScoreTest {
     @Test
     void fullHouse() {
         // Create a hand with the Ace of Diamonds, Ace of Clubs, Ace of Hearts, King of Diamonds, and King of Clubs
-        int [] ranks = new int[5];
+        ArrayList<Integer> ranks = new ArrayList(5);
         card1 = new Card(14,1);
         card2 = new Card(14,2);
         card3 = new Card(14,3);
@@ -134,14 +141,14 @@ class ScoreTest {
         player1.addCard(card5);
 
         // Add card ranks
-        ranks[0] = card1.getRank();
-        ranks[1] = card2.getRank();
-        ranks[2] = card3.getRank();
-        ranks[3] = card4.getRank();
-        ranks[4] = card5.getRank();
+        ranks.add(card1.getRank());
+        ranks.add(card2.getRank());
+        ranks.add(card3.getRank());
+        ranks.add(card4.getRank());
+        ranks.add(card5.getRank());
 
         // Counts the three pair and then evaluates the other two pair and adds 300
-        score = new Score(player1.getPlayerHand());
+        score = new ScoreUpdate(player1.getPlayerHand());
         assertEquals(714,score.fullHouse(ranks));
     }
 
@@ -151,7 +158,7 @@ class ScoreTest {
     @Test
     void twoPair() {
         // Create a hand with the 2 of Clubs, 2 of Hearts, 6 of Spades, and 6 of Clubs
-        int [] ranks = new int[4];
+        ArrayList<Integer> ranks = new ArrayList(4);
         card1 = new Card(2,2);
         card2 = new Card(2 ,3);
         card3 = new Card(6,4);
@@ -164,13 +171,13 @@ class ScoreTest {
         player1.addCard(card4);
 
         // Add card ranks
-        ranks[0] = card1.getRank();
-        ranks[1] = card2.getRank();
-        ranks[2] = card3.getRank();
-        ranks[3] = card4.getRank();
+        ranks.add(card1.getRank());
+        ranks.add(card2.getRank());
+        ranks.add(card3.getRank());
+        ranks.add(card4.getRank());
 
         // Counts the two pair from the highest pair and then adds 100
-        score = new Score(player1.getPlayerHand());
+        score = new ScoreUpdate(player1.getPlayerHand());
         assertEquals(306,score.twoPair(ranks));
     }
 
@@ -180,8 +187,9 @@ class ScoreTest {
     @Test
     void flush() {
         // Create a hand with the Ace of Diamonds, 2 of Diamonds, 5 of Diamonds, 7 of Diamonds, and King of Diamonds
-        int [] ranks = new int[5];
-        int [] suits = new int[5];
+        ArrayList<Integer> ranks = new ArrayList(5);
+        ArrayList<Integer> suits = new ArrayList(5);
+
         card1 = new Card(14,1);
         card2 = new Card(2,1);
         card3 = new Card(5,1);
@@ -196,21 +204,21 @@ class ScoreTest {
         player1.addCard(card5);
 
         // Add card ranks
-        ranks[0] = card1.getRank();
-        ranks[1] = card2.getRank();
-        ranks[2] = card3.getRank();
-        ranks[3] = card4.getRank();
-        ranks[4] = card5.getRank();
+        ranks.add(card1.getRank());
+        ranks.add(card2.getRank());
+        ranks.add(card3.getRank());
+        ranks.add(card4.getRank());
+        ranks.add(card5.getRank());
 
         // Add card suits
-        suits[0] = card1.getSuit();
-        suits[1] = card2.getSuit();
-        suits[2] = card3.getSuit();
-        suits[3] = card4.getSuit();
-        suits[4] = card5.getSuit();
+        suits.add(card1.getSuit());
+        suits.add(card2.getSuit());
+        suits.add(card3.getSuit());
+        suits.add(card4.getSuit());
+        suits.add(card5.getSuit());
 
         // Counts the highest ranked card and then adds 600
-        score = new Score(player1.getPlayerHand());
+        score = new ScoreUpdate(player1.getPlayerHand());
         assertEquals(614,score.flush(ranks,suits));
     }
 
@@ -220,7 +228,8 @@ class ScoreTest {
     @Test
     void straight() {
         // Create a hand with the 5 of Diamonds, 6 of Clubs, 7 of Hearts, 8 of Spades, and 9 of Clubs
-        int [] ranks = new int[5];
+        ArrayList<Integer> ranks = new ArrayList(5);
+
         card1 = new Card(5,1);
         card2 = new Card(6,2);
         card3 = new Card(7,3);
@@ -235,14 +244,14 @@ class ScoreTest {
         player1.addCard(card5);
 
         // Add card ranks
-        ranks[0] = card1.getRank();
-        ranks[1] = card2.getRank();
-        ranks[2] = card3.getRank();
-        ranks[3] = card4.getRank();
-        ranks[4] = card5.getRank();
+        ranks.add(card1.getRank());
+        ranks.add(card2.getRank());
+        ranks.add(card3.getRank());
+        ranks.add(card4.getRank());
+        ranks.add(card5.getRank());
 
         // Counts the highest ranked card and then adds 500
-        score = new Score(player1.getPlayerHand());
+        score = new ScoreUpdate(player1.getPlayerHand());
         assertEquals(509,score.straight(ranks));
     }
 
@@ -252,7 +261,8 @@ class ScoreTest {
     @Test
     void getMax() {
         // Create a hand with the Jack of Spades, Queen of Hearts, and 3 of Hearts.
-        int [] ranks = new int[3];
+        ArrayList<Integer> ranks = new ArrayList(3);
+
         card1 = new Card(11,4);
         card2 = new Card(12,3);
         card3 = new Card(3,4);
@@ -263,12 +273,12 @@ class ScoreTest {
         player1.addCard(card3);
 
         // Add card ranks
-        ranks[0] = card1.getSuit();
-        ranks[1] = card2.getRank();
-        ranks[2] = card3.getRank();
+        ranks.add(card1.getRank());
+        ranks.add(card2.getRank());
+        ranks.add(card3.getRank());
 
         // Counts whichever card has the highest rank
-        score = new Score(player1.getPlayerHand());
+        score = new ScoreUpdate(player1.getPlayerHand());
         assertEquals(12,score.getMax(ranks));
     }
 
@@ -278,7 +288,8 @@ class ScoreTest {
     @Test
     void countMatches() {
         // Create a hand with the 2 of Diamonds and 2 of Hearts
-        int [] ranks = new int[2];
+        ArrayList<Integer> ranks = new ArrayList(2);
+
         card1 = new Card(2,1);
         card2 = new Card(2,3);
 
@@ -287,11 +298,11 @@ class ScoreTest {
         player1.addCard(card2);
 
         // Add card ranks
-        ranks[0] = card1.getRank();
-        ranks[1] = card2.getRank();
+        ranks.add(card1.getRank());
+        ranks.add(card2.getRank());
 
         // Counts number of matches based on rank
-        score = new Score(player1.getPlayerHand());
+        score = new ScoreUpdate(player1.getPlayerHand());
         assertEquals(2,score.countMatches(ranks,2));
     }
 }
