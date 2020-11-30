@@ -20,7 +20,6 @@ package main;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Poker table that encapsulates the deck, the community cards,

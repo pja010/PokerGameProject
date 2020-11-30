@@ -10,12 +10,16 @@
  * Project: csci205FinalProject
  * Package: main * Class: PlayerAction
  *
- * Description:
+ * Description: Enumeration for the possible
+ * actions in poker.
  *
  * ****************************************
  */
 package main;
 
+/**
+ * Enumeration of the player actions in a game of poker.
+ */
 public enum PlayerAction {
     FOLD,
     CHECK,

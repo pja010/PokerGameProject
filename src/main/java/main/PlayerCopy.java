@@ -24,9 +24,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Class that models a player in a game of poker.
+ * Class that models a player in a game of poker. Includes properties.
  */
-
 public class PlayerCopy implements Serializable {
 
     /**
@@ -44,7 +43,6 @@ public class PlayerCopy implements Serializable {
      * The player's hand represented as a list containing Card objects.
      */
     public ArrayList<Card> playerHand = new ArrayList<>();
-
     private Card card1;
     private Card card2;
 
@@ -109,7 +107,8 @@ public class PlayerCopy implements Serializable {
 
     /**
      * A second constructor that takes a simplified version of player
-     * that can be passed in a networking thread, as an argument.
+     * without properties that can be passed in a networking thread,
+     * as an argument.
      * @param player the player object.
      */
     public PlayerCopy(Player player) {
@@ -136,12 +135,21 @@ public class PlayerCopy implements Serializable {
      * Makes a bet move.
      * @param betAmount the amount of chips to bet.
      */
-    public void makeBetMove(double betAmount) {
-        setPlayerAction(PlayerAction.BET);
-        this.bet = betAmount;
-        subtractChips(betAmount);
-        System.out.println("Player" + playerNum + " made new bet of $" + betAmount);
-    }
+    public void makeBetMove(double betAmount) throws IllegalArgumentException {
+//        try {
+            if (betAmount <= this.getChips() && betAmount > 0) {
+                this.bet = betAmount;
+                subtractChips(betAmount);
+                System.out.println("Player" + playerNum + " made new bet of $" + betAmount);
+                setPlayerAction(PlayerAction.BET);
+            }
+//        }
+//        catch (IllegalArgumentException e) {
+          else
+            throw new IllegalArgumentException("Illegal bet amount entered.");
+//    System.out.println("Exception: bet amount exceeds your chips amount.");
+        }
+//    }
 
     /**
      * Makes a check move.

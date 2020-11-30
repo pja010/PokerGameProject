@@ -35,7 +35,6 @@ import main.Player;
 import main.PlayerCopy;
 import main.Table;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
