@@ -31,11 +31,6 @@ import java.io.Serializable;
     public double currAmount;
 
     /**
-     * Variable to determine whether a player's betting amount is valid.
-     */
-    public boolean validAmount = false;
-
-    /**
      * General constructor for amount of chips, setting initial and current amount to 0.
      */
     public Chips() {

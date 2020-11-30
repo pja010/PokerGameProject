@@ -107,7 +107,7 @@ public class Deck implements Serializable {
 
     /**
      * Deals all cards in the deck.
-     * @return 52 cards.
+     * @return 1 card.
      */
     public Card deal() {
         if (cardsDealt <= NUMBER_OF_CARDS_IN_DECK) {
