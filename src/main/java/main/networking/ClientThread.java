@@ -107,6 +107,7 @@ public class ClientThread implements Runnable {
                     if (player.getPlayerAction().equals("Bet")) {
                         table.setBetMin(player.getBet());
                         table.getPot().addToPot(player.getBet());
+                        table.getPlayers().get(player.getPlayerNum()-1).subChips(player.getBet());
                         table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction("Bet");
                         table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().set(table.getBet(),true);
                     } else if (player.getPlayerAction().equals("Check")) {
@@ -116,6 +117,7 @@ public class ClientThread implements Runnable {
                     } else if (player.getPlayerAction().equals("Fold")) {
                         table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction("Fold");
                         table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().set(table.getBet(),true);
+                        table.getPlayers().get(player.getPlayerNum()-1).isPlaying = false;
                     }
 
                     table.getPlayerActionTexts().set(player.getPlayerNum()-1,player.playerActionDescription());
@@ -138,6 +140,9 @@ public class ClientThread implements Runnable {
 
                 // Set the table up for the controller
                 controller.setTable(table);
+
+                player.setCard1(table.getPlayers().get(player.getPlayerNum()-1).getPlayerHand().get(0));
+                player.setCard2(table.getPlayers().get(player.getPlayerNum()-1).getPlayerHand().get(1));
 
                 controller.updateChipsAmountText();
 

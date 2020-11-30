@@ -21,6 +21,7 @@ package main.networking;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import main.Player;
 import main.PlayerCopy;
+import main.ScoreUpdate;
 import main.Table;
 
 import java.io.*;
@@ -98,14 +99,25 @@ public class ClientHandlerThread implements Runnable {
 
                     if (roundOver) {
                         if (table.getBet() == 3){
-                            //ArrayList<Player> winners = table.getWinner();
-                            //for (Player player: winners){
-                            //    player.addChips(table.getPot().getTotalAmount()/winners.size());
-                            //}
+                            ArrayList<Player> winners = getWinner(table.getPlayers());
+                            for (Player player: winners){
+                                player.addChips(table.getPot().getTotalAmount()/winners.size());
+                                table.getPlayers().get(player.getPlayerNum()-1).addChips(table.getPot().getTotalAmount()/winners.size());
+                                table.getPlayerActionTexts().set(playerNum-1,String.valueOf(playerNum) + " is a Winner!");
+                            }
+                            for (Player player:table.getPlayers()){
+                                player.getIsRoundDone().clear();
+                                player.getIsRoundDone().add(false);
+                                player.getIsRoundDone().add(false);
+                                player.getIsRoundDone().add(false);
+                                player.getIsRoundDone().add(false);
+                                player.isPlaying = true;
+                            }
                             table.getPot().setTotalAmount(0);
                             table.getTableCards().clear();
-                            initPlayers();
-                            setChips();
+                            for (Player player: table.getPlayers()){
+                                player.getPlayerHand().clear();
+                            }
                             table.setPlayerCards();
                             table.setTableCards();
                             table.setBetMin(1);
@@ -203,5 +215,36 @@ public class ClientHandlerThread implements Runnable {
         table.getPlayers().get(1).setChips(1600);
         table.getPlayers().get(2).setChips(1600);
         table.getPlayers().get(3).setChips(1600);
+    }
+
+    public static ArrayList<Player> getWinner(ArrayList<Player> players){
+        ArrayList<Player> winner = new ArrayList<Player>();
+        winner.addAll(players);
+
+        for(Player player : winner){
+            if (player.isPlaying == false){
+                winner.remove(player);
+            }
+        }
+
+        for(int i = 0; i < 5;i++) {
+            ArrayList<Player> winner1 = new ArrayList<Player>();
+            winner1.addAll(winner);
+            int maxScore = 0;
+            for (Player player : winner) {
+                int score = new ScoreUpdate(player.getPlayerHand()).getScore().get(i);
+                if (score > maxScore) {
+                    maxScore = score;
+                }
+            }
+            for (Player player : winner1) {
+                int score = new ScoreUpdate(player.getPlayerHand()).getScore().get(i);
+                System.out.println(String.valueOf(player.getPlayerNum()) +" score" + score);
+                if (score < maxScore) {
+                    winner.remove(player);
+                }
+            }
+        }
+        return winner;
     }
 }
