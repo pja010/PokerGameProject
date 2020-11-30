@@ -31,7 +31,7 @@
                     </image>
                 </ImageView>
                 <Text fx:id="playerTurnText" fill="#fcfcfc" layoutX="201.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1's turn" wrappingWidth="260.87295646670896"
-                onInputMethodTextChanged="#updatePlayerTurnText">
+                      onInputMethodTextChanged="#updatePlayerTurnText">
                     <font>
                         <Font size="35.0" />
                     </font>
@@ -74,10 +74,10 @@
                         <Font size="23.0" />
                     </font>
                 </Text>
-<!--                <Button fx:id="nextCardButton" layoutX="526.0" layoutY="398.0" mnemonicParsing="false" onAction="#nextCardButtonPush" prefHeight="50.0" prefWidth="117.0" text="Next Card">-->
-<!--                    <font>-->
-<!--                        <Font size="18.0" />-->
-<!--                    </font></Button>-->
+                <!--                <Button fx:id="nextCardButton" layoutX="526.0" layoutY="398.0" mnemonicParsing="false" onAction="#nextCardButtonPush" prefHeight="50.0" prefWidth="117.0" text="Next Card">-->
+                <!--                    <font>-->
+                <!--                        <Font size="18.0" />-->
+                <!--                    </font></Button>-->
                 <ButtonBar layoutX="300.0" layoutY="555.0" prefHeight="200.0" prefWidth="320.0">
                     <buttons>
                         <Button fx:id="buttonCheck" mnemonicParsing="false" onAction="#handleButtonCheckAction" prefHeight="57.0" prefWidth="191.0" text="Check">
@@ -101,11 +101,11 @@
                         <Font size="23.0" />
                     </font>
                 </Text>
-<!--                <Button fx:id="UpdatePot" layoutX="878.0" layoutY="340.0" mnemonicParsing="false" text="Update">-->
-<!--                    <font>-->
-<!--                        <Font size="17.0" />-->
-<!--                    </font>-->
-<!--                </Button>-->
+                <!--                <Button fx:id="UpdatePot" layoutX="878.0" layoutY="340.0" mnemonicParsing="false" text="Update">-->
+                <!--                    <font>-->
+                <!--                        <Font size="17.0" />-->
+                <!--                    </font>-->
+                <!--                </Button>-->
             </children>
         </AnchorPane>
         <AnchorPane fx:id="PlayerFunctionsPane" layoutY="605.0" prefHeight="285.0" prefWidth="1005.0">
@@ -137,9 +137,9 @@
                         <ImageView fx:id="PlayerCard1" fitHeight="155.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="PlayerCard2" fitHeight="155.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" />
                     </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
                 </HBox>
             </children>
         </AnchorPane>

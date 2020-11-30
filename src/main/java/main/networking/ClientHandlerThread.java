@@ -21,11 +21,13 @@ package main.networking;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import main.Player;
 import main.PlayerCopy;
+import main.ScoreUpdate;
 import main.Table;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ClientHandlerThread implements Runnable {
@@ -91,20 +93,25 @@ public class ClientHandlerThread implements Runnable {
 
                     if (roundOver) {
                         if (table.getBet() == 3){
-                            ArrayList<Player> winners = table.getWinner();
+                            ArrayList<Player> winners = new ArrayList<Player>();
+                            winners.addAll(ScoreUpdate.getWinner(table.getPlayers()));
                             for (Player player: winners){
                                 player.addChips(table.getPot().getTotalAmount()/winners.size());
                             }
-                            table.getPot().setTotalAmount(0);
-                            table.getTableCards().clear();
-                            initPlayers();
-                            setChips();
+
+
+                            Player player1 = table.getPlayers().get(0);
+                            Player player2 = table.getPlayers().get(1);
+                            Player player3 = table.getPlayers().get(2);
+                            Player player4 = table.getPlayers().get(3);
+
+                            table = new Table();
+                            table.addPlayer(player1);
+                            table.addPlayer(player2);
+                            table.addPlayer(player3);
+                            table.addPlayer(player4);
                             table.setPlayerCards();
                             table.setTableCards();
-                            table.setBetMin(1);
-                            table.setBet(0);
-                            table.setTurn(1);
-                            table.setRound(table.getRound()+1);
                         }
                         else {
                             table.setTurn(1);
@@ -177,17 +184,4 @@ public class ClientHandlerThread implements Runnable {
         players.get(playerNum).setCard2(table.getDeck().deal());
     }
 
-    private void initPlayers() {
-        table.getPlayers().set(0, new Player(1));
-        table.getPlayers().set(1, new Player(2));
-        table.getPlayers().set(2, new Player(3));
-        table.getPlayers().set(3, new Player(4));
-    }
-
-    private void setChips() {
-        table.getPlayers().get(0).setChips(1600);
-        table.getPlayers().get(1).setChips(1600);
-        table.getPlayers().get(2).setChips(1600);
-        table.getPlayers().get(3).setChips(1600);
-    }
 }

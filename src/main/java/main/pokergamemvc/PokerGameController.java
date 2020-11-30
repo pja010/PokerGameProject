@@ -35,6 +35,7 @@ import main.Player;
 import main.PlayerCopy;
 import main.Table;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -113,6 +114,9 @@ public class PokerGameController implements Initializable {
     @FXML
     private Text playerTurnText;
 
+    @FXML
+    private Text PotAmount;
+
     /**
      *  Default constructor.
      */
@@ -139,13 +143,13 @@ public class PokerGameController implements Initializable {
         player.moveIsCheckMovePropertyProperty().bind(buttonCheck.defaultButtonProperty());
         player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
 
-        //String filename1 = player.getCard1().getRank() + "_" + player.getCard1().getSuit() + ".png";
-        //Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
-        //PlayerCard1.setImage(image1);
+        String filename1 = player.getCard1().getRank() + "_" + player.getCard1().getSuit() + ".png";
+        Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
+        PlayerCard1.setImage(image1);
 
-        //String filename2 = player.getCard2().getRank() + "_" + player.getCard2().getSuit() + ".png";
-        //Image image2 = new Image(this.getClass().getResource("/DeckOfCards/" + filename2).toString());
-        //PlayerCard2.setImage(image2);
+        String filename2 = player.getCard2().getRank() + "_" + player.getCard2().getSuit() + ".png";
+        Image image2 = new Image(this.getClass().getResource("/DeckOfCards/" + filename2).toString());
+        PlayerCard2.setImage(image2);
     }
 
     /**
@@ -155,7 +159,8 @@ public class PokerGameController implements Initializable {
     public void setTable(Table table) {
         this.table = table;
         System.out.println("Set table");
-//        table.setBetMin(1);
+        table.setBetMin(1);
+        PotAmount.setText(String.valueOf(table.getPot().getTotalAmount()));
 
         updateTable();
         playerTurnText.setText(table.getPlayerTurnMessage());
@@ -166,13 +171,13 @@ public class PokerGameController implements Initializable {
     public void updateTable(){
 
         if (table.getBet() == 1) {
-            String filename1 = table.getTableCards().get(0).getRank() + "_" + table.getTableCards().get(0).getSuit() + ".png";
+            String filename1 = String.valueOf(table.getTableCards().get(0).getRank()) + "_" + String.valueOf(table.getTableCards().get(0).getSuit()) + ".png";
             Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
 
-            String filename2 = table.getTableCards().get(1).getRank() + "_" + table.getTableCards().get(1).getSuit() + ".png";
+            String filename2 = String.valueOf(table.getTableCards().get(1).getRank()) + "_" + String.valueOf(table.getTableCards().get(1).getSuit()) + ".png";
             Image image2 = new Image(this.getClass().getResource("/DeckOfCards/" + filename2).toString());
 
-            String filename3 = table.getTableCards().get(2).getRank() + "_" + table.getTableCards().get(2).getSuit() + ".png";
+            String filename3 = String.valueOf(table.getTableCards().get(2).getRank()) + "_" + String.valueOf(table.getTableCards().get(2).getSuit()) + ".png";
             Image image3 = new Image(this.getClass().getResource("/DeckOfCards/" + filename3).toString());
 
 
@@ -182,13 +187,13 @@ public class PokerGameController implements Initializable {
             FlopCard3.setImage(image3);
         }
         if(table.getBet() == 2){
-            String filename4 = table.getTableCards().get(3).getRank() + "_" + table.getTableCards().get(3).getSuit() + ".png";
+            String filename4 = String.valueOf(table.getTableCards().get(3).getRank()) + "_" + String.valueOf(table.getTableCards().get(3).getSuit()) + ".png";
             Image image4 = new Image(this.getClass().getResource("/DeckOfCards/" + filename4).toString());
 
             TurnCard.setImage(image4);
         }
         if(table.getBet() == 3){
-            String filename5 = table.getTableCards().get(4).getRank() + "_" + table.getTableCards().get(4).getSuit() + ".png";
+            String filename5 = String.valueOf(table.getTableCards().get(4).getRank()) + "_" + String.valueOf(table.getTableCards().get(4).getSuit()) + ".png";
             Image image5 = new Image(this.getClass().getResource("/DeckOfCards/" + filename5).toString());
 
             RiverCard.setImage(image5);
@@ -206,7 +211,7 @@ public class PokerGameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         deckOfCards = new Deck();
         deckOfCards.shuffle();
-//        DeckImageView.setImage(deckOfCards.getBackOfCard());
+        DeckImageView.setImage(deckOfCards.getBackOfCard());
         System.out.println("Initialize");
     }
 

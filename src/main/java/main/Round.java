@@ -17,8 +17,6 @@
  */
 package main;
 
-import main.pokergamemvc.PokerGameController;
-
 import java.util.ArrayList;
 
 /**
@@ -26,7 +24,6 @@ import java.util.ArrayList;
  * consisting of up to 4 "betting-rounds".
  */
 public class Round {
-    private static PokerGameController theController;
     /**
      * The number of the betting-round
      */
@@ -155,7 +152,6 @@ public class Round {
      */
     private static void getBets() {
         for (Player player : playerList) {
-            theController.writePlayerTurnMessage(player.getPlayerNum());
             bet = 100;
             player.subChips(bet);
             pot.addToPot(bet);
@@ -224,16 +220,16 @@ public class Round {
         Player winner = null;
 
         // Find max score among players
-        int max = playerList.get(0).getScore().getScore()[0];
+        int max = playerList.get(0).getScore().getScore().get(0);
         
         for (int i = 0; i < playerList.size(); ++i) {
-            if (playerList.get(i).getScore().getScore()[0] > max) {
-                max = playerList.get(i).getScore().getScore()[0];
+            if (playerList.get(i).getScore().getScore().get(0) > max) {
+                max = playerList.get(i).getScore().getScore().get(0);
             }
         }
         // Determine winner
         for (Player player : playerList) {
-            if (player.getScore().getScore()[0] == max) {
+            if (player.getScore().getScore().get(0) == max) {
                 winner = player;
             }
         }
