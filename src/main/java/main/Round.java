@@ -72,9 +72,8 @@ public class Round {
 
     /**
      * Start and execute a new round of poker.
-     * @throws EmptyDeckException if card deck is empty.
      */
-    public void startRound() throws EmptyDeckException {
+    public void startRound() {
         deck = new Deck();
         tableCards = new ArrayList<>();
         this.isInPlay = true;
@@ -118,8 +117,8 @@ public class Round {
                     getBets();
 
                     // Give winner the pot
-                    getWinner().addChips(pot.getTotalAmount());
-                    System.out.println(getWinner().getPlayerNum() + " wins!");
+                    //getWinner().addChips(pot.getTotalAmount());
+                    //System.out.println(getWinner().getPlayerNum() + " wins!");
 
                     // Clear players' hands
                     for (Player player : playerList) {
@@ -161,9 +160,8 @@ public class Round {
     /**
      * Add 5 cards to the table from the deck.
      *
-     * @throws EmptyDeckException if deck is empty.
      */
-    private static void initTableCards() throws EmptyDeckException {
+    private static void initTableCards(){
         deck.deal();
         tableCards.add(deck.deal());
         tableCards.add(deck.deal());
@@ -182,9 +180,8 @@ public class Round {
     /**
      * Deal the first card to each player.
      * @param deck contains the card to be dealt.
-     * @throws EmptyDeckException - if deck is empty.
      */
-    private static void initCard1(Deck deck) throws EmptyDeckException {
+    private static void initCard1(Deck deck){
         for (Player player : playerList) {
             player.setCard2(deck.deal());
         }
@@ -193,9 +190,8 @@ public class Round {
     /**
      * Deal the second card to each player.
      * @param deck contains the card to be dealt.
-     * @throws EmptyDeckException - if deck is empty.
      */
-    private static void initCard2(Deck deck) throws EmptyDeckException {
+    private static void initCard2(Deck deck){
         for (Player player : playerList) {
             player.setCard2(deck.deal());
         }
@@ -216,7 +212,7 @@ public class Round {
      * Determine winner by finding the hand with the highest score.
      * @return winner is Player instance with winning hand.
      */
-    public static Player getWinner(){
+   /* public static Player getWinner(){
         Player winner = null;
 
         // Find max score among players
@@ -235,7 +231,7 @@ public class Round {
         }
         return winner;
 
-    }
+    }*/
 
     public static Player getPlayer(int playerNum) {
         return playerList.get(playerNum - 1);
@@ -254,7 +250,7 @@ public class Round {
         return roundNum;
     }
 
-    public static void main(String[] args) throws EmptyDeckException {
+    public static void main(String[] args){
         Player p1 = new Player(1);
         Player p2 = new Player(2);
         Player p3 = new Player(3);

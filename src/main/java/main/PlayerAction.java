@@ -10,13 +10,19 @@
  * Project: csci205FinalProject
  * Package: main * Class: PlayerAction
  *
- * Description:
+ * Description: Enumeration for the possible
+ * actions in poker.
  *
  * ****************************************
  */
 package main;
 
-public enum PlayerAction {
+import java.io.Serializable;
+
+/**
+ * Enumeration of the player actions in a game of poker.
+ */
+public enum PlayerAction implements Serializable {
     FOLD,
     CHECK,
     BET

@@ -24,16 +24,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Class that models a player in a game of poker.
+ * Class that models a player in a game of poker. Includes properties.
  */
-
-public class PlayerCopy implements Serializable {
+public class PlayerCopy {
 
     /**
      * The player's game identification numbers.
      */
     private final int playerNum;
-    public static final long serialVersionUID = 41L;
+    //public static final long serialVersionUID = 41L;
 
     /**
      * Whether or not the player is the dealer.
@@ -44,7 +43,6 @@ public class PlayerCopy implements Serializable {
      * The player's hand represented as a list containing Card objects.
      */
     public ArrayList<Card> playerHand = new ArrayList<>();
-
     private Card card1;
     private Card card2;
 
@@ -56,7 +54,7 @@ public class PlayerCopy implements Serializable {
     /**
      * The score of the player's hand.
      */
-    private ScoreUpdate score;
+    //private ScoreUpdate score;
 
     /**
      * The status of the player; true if player is in the game, otherwise false.
@@ -66,7 +64,7 @@ public class PlayerCopy implements Serializable {
     /**
      * The player's choice of move.
      */
-    private PlayerAction playerAction;
+    private String playerAction;
 
     /**
      * Properties for the player's various moves.
@@ -109,7 +107,8 @@ public class PlayerCopy implements Serializable {
 
     /**
      * A second constructor that takes a simplified version of player
-     * that can be passed in a networking thread, as an argument.
+     * without properties that can be passed in a networking thread,
+     * as an argument.
      * @param player the player object.
      */
     public PlayerCopy(Player player) {
@@ -121,7 +120,7 @@ public class PlayerCopy implements Serializable {
         this.card2 = player.getPlayerHand().get(1);
         this.playerHand = player.getPlayerHand();
         this.chips = player.getChips();
-        this.score = player.getScore();
+        //this.score = player.getScore();
         this.bet = player.getBet();
         this.isRoundDone = player.getIsRoundDone();
 
@@ -135,19 +134,24 @@ public class PlayerCopy implements Serializable {
     /**
      * Makes a bet move.
      * @param betAmount the amount of chips to bet.
+     * @throws IllegalArgumentException if betAmount is negative or larger than chips amount.
      */
-    public void makeBetMove(double betAmount) {
-        setPlayerAction(PlayerAction.BET);
-        this.bet = betAmount;
-        subtractChips(betAmount);
-        System.out.println("Player" + playerNum + " made new bet of $" + betAmount);
+    public void makeBetMove(double betAmount) throws IllegalArgumentException {
+        if (betAmount <= this.getChips() && betAmount > 0) {
+            this.bet = betAmount;
+            subtractChips(betAmount);
+            System.out.println("Player" + playerNum + " made new bet of $" + betAmount);
+            setPlayerAction("Bet");
+        }
+        else
+            throw new IllegalArgumentException("Illegal bet amount entered.");
     }
 
     /**
      * Makes a check move.
      */
     public void makeCheckMove() {
-        setPlayerAction(PlayerAction.CHECK);
+        setPlayerAction("Check");
         System.out.println("Player" + playerNum + " checked.");
     }
 
@@ -155,7 +159,7 @@ public class PlayerCopy implements Serializable {
      * Makes a fold move.
      */
     public void makeFoldMove() {
-        setPlayerAction(PlayerAction.FOLD);
+        setPlayerAction("Fold");
         this.isPlaying = false;
         System.out.println("Player" + playerNum + " folded.");
     }
@@ -166,11 +170,11 @@ public class PlayerCopy implements Serializable {
      */
     public String playerActionDescription() {
         String playerActionDescription = null;
-        if (this.getPlayerAction() == PlayerAction.BET)
+        if (this.getPlayerAction().equals("Bet"))
             playerActionDescription = this.getUserName() + " raised by $" + this.getBet() + ".";
-        else if (this.getPlayerAction() == PlayerAction.CHECK)
+        else if (this.getPlayerAction().equals("Check"))
             playerActionDescription = this.getUserName() + " checked.";
-        else if (this.getPlayerAction() == PlayerAction.FOLD)
+        else if (this.getPlayerAction().equals("Fold"))
             playerActionDescription = this.getUserName() + " folded.";
         return playerActionDescription;
     }
@@ -214,10 +218,10 @@ public class PlayerCopy implements Serializable {
      * Gets the total score of the player's current hand.
      * @return the total score.
      */
-    public ArrayList<Integer>  getScore() {
-        score = new ScoreUpdate(playerHand);
-        return score.getScore();
-    }
+    //public ArrayList<Integer>  getScore() {
+    //    score = new ScoreUpdate(playerHand);
+    //    return score.getScore();
+    //}
 
     /**
      * Adds chips to the player's pile.
@@ -278,11 +282,11 @@ public class PlayerCopy implements Serializable {
         return moveIsBetProperty;
     }
 
-    public PlayerAction getPlayerAction() {
+    public String getPlayerAction() {
         return playerAction;
     }
 
-    public void setPlayerAction(PlayerAction playerAction) {
+    public void setPlayerAction(String playerAction) {
         this.playerAction = playerAction;
     }
 

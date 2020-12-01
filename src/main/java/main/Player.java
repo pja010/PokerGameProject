@@ -11,6 +11,7 @@
  * Package: main * Class: Player
  *
  * Description:
+ * A player object for the poker game.
  *
  * ****************************************
  */
@@ -19,49 +20,87 @@ package main;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class that models a player in a game of poker, excluding properties.
+ */
 public class Player implements Serializable {
+
+    //private static final long serialVersionUID = 42L;
+
+    /**
+     * The player's game identification numbers.
+     */
     private int playerNum;
+
+    /**
+     * Whether or not the player is the dealer.
+     */
     private boolean isDealer;
+
+    /**
+     * The player's hand represented as a list containing Card objects.
+     */
     public ArrayList<Card> playerHand = new ArrayList<Card>();
     private Card card1;
     private Card card2;
-    private PlayerAction action;
+
+    /**
+     * The player's choice of move.
+     */
+    private String playerAction;
     private double actionAmount;
     private Chips chips;
-    private ScoreUpdate score;
+
+    /**
+     * The score of the player's hand.
+     */
+    //private ScoreUpdate score;
+
+    /**
+     * The amount of the player's bet.
+     */
     private double bet;
     public boolean isPlaying;
+
+    /**
+     * The player's user name.
+     * It will be displayed to other players in the game.
+     */
     public String userName;
 
-
+    /**
+     * Boolean to determine whether player is still active in round.
+     */
     private ArrayList<Boolean> isRoundDone;
 
-    public PlayerAction getPlayerAction() {
+    public String getPlayerAction() {
         return playerAction;
     }
 
-    public void setPlayerAction(PlayerAction playerAction) {
+    public void setPlayerAction(String playerAction) {
         this.playerAction = playerAction;
     }
 
-    public PlayerAction playerAction;
 
     public double getBet() {
         return bet;
     }
 
-    public void setBet(int bet) {
+    public void setBet(double bet) {
         this.bet = bet;
     }
 
-
+    /**
+     * Constructor initializes the player's fields.
+     * @param playerNum the player's identification number.
+     */
     public Player(int playerNum) {
         this.playerNum = playerNum;
         this.chips = new Chips();
         this.isPlaying = true;
         this.bet = 0;
         this.playerAction = null;
-        this.isRoundDone = new ArrayList<Boolean>();
+        this.isRoundDone = new ArrayList<>();
         this.isRoundDone.add(false);
         this.isRoundDone.add(false);
         this.isRoundDone.add(false);
@@ -69,12 +108,16 @@ public class Player implements Serializable {
 
     }
 
-    public void move(PlayerAction action, double actionAmount) {
-        this.action = action;
+    public void move(String action, double actionAmount) {
+        this.playerAction = action;
         this.actionAmount = actionAmount;
         chips.subtractAmount(actionAmount);
     }
 
+    /**
+     * Sets the player's amount of chips to a specified number.
+     * @param initAmount the initial number of chips.
+     */
     public void setChips(double initAmount) {
         this.chips.initAmount = initAmount;
         this.chips.currAmount = initAmount;
@@ -94,18 +137,18 @@ public class Player implements Serializable {
         this.playerHand.add(card);
     }
 
-    public ScoreUpdate getScore() {
-        score = new ScoreUpdate(playerHand);
-        return score;
-    }
+    //public ScoreUpdate getScore() {
+    //    score = new ScoreUpdate(playerHand);
+    //    return score;
+    //}
 
     public String playerActionDescription() {
         String playerActionDescription = null;
-            if (this.getPlayerAction() == PlayerAction.BET)
+            if (this.getPlayerAction().equals("Bet"))
                 playerActionDescription = this + " raised by $" + this.getBet() + ".";
-            else if (this.getPlayerAction() == PlayerAction.CHECK)
+            else if (this.getPlayerAction().equals("Check"))
                 playerActionDescription = this + " checked.";
-            else if (this.getPlayerAction() == PlayerAction.FOLD)
+            else if (this.getPlayerAction().equals("Fold"))
                 playerActionDescription = this + " folded.";
         return playerActionDescription;
     }
@@ -148,7 +191,7 @@ public class Player implements Serializable {
 
     public static void main(String[] args) {
         Player player1 = new Player(1);
-        player1.setPlayerAction(PlayerAction.CHECK);
+        player1.setPlayerAction("Check");
         System.out.print("Test: " + player1.playerActionDescription());
     }
 
@@ -156,8 +199,8 @@ public class Player implements Serializable {
         return isRoundDone;
     }
 
-    public void setIsRoundDone(ArrayList<Boolean> isRoundDone) {
-        this.isRoundDone = isRoundDone;
+    public void setIsRoundDone(int i, Boolean isRoundDone) {
+        this.isRoundDone.set(i,isRoundDone);
     }
 }
     

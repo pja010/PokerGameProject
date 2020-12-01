@@ -25,7 +25,7 @@ public class GameFlow {
     private static Player player3;
     private static Player player4;
 
-    public static void main(String[] args) throws EmptyDeckException {
+    public static void main(String[] args) {
 
         initPlayers();
         setChips();
@@ -36,9 +36,6 @@ public class GameFlow {
         playerList.add(player3);
         playerList.add(player4);
 
-        Round round1 = new Round(playerList);
-        System.out.println("Starting new round.");
-        round1.startRound();
 
         // WE NEED TO ADD A BOOLEAN FOR EACH PLAYER TO CHECK IF THEY ARE PLAYING
         // TO CONTROL THIS

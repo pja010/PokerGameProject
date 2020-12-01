@@ -19,7 +19,6 @@
  */
 package main.pokergamemvc;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -27,7 +26,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import main.Deck;
@@ -35,7 +33,6 @@ import main.Player;
 import main.PlayerCopy;
 import main.Table;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -143,6 +140,11 @@ public class PokerGameController implements Initializable {
         player.moveIsCheckMovePropertyProperty().bind(buttonCheck.defaultButtonProperty());
         player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
 
+        updatePlayerCards();
+        updateChipsAmountText();
+    }
+
+    public void updatePlayerCards(){
         String filename1 = player.getCard1().getRank() + "_" + player.getCard1().getSuit() + ".png";
         Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
         PlayerCard1.setImage(image1);
@@ -169,6 +171,14 @@ public class PokerGameController implements Initializable {
     }
 
     public void updateTable(){
+
+        if (table.getBet() == 0){
+            FlopCard1.setImage(null);
+            FlopCard2.setImage(null);
+            FlopCard3.setImage(null);
+            TurnCard.setImage(null);
+            RiverCard.setImage(null);
+        }
 
         if (table.getBet() == 1) {
             String filename1 = String.valueOf(table.getTableCards().get(0).getRank()) + "_" + String.valueOf(table.getTableCards().get(0).getSuit()) + ".png";
@@ -209,9 +219,7 @@ public class PokerGameController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        deckOfCards = new Deck();
-        deckOfCards.shuffle();
-        DeckImageView.setImage(deckOfCards.getBackOfCard());
+
         System.out.println("Initialize");
     }
 
@@ -221,19 +229,19 @@ public class PokerGameController implements Initializable {
     public void updatePlayerActionHub() {
 //        String playerActionHub = table.getPlayerActionText();
 //        playerActionHubText1.setText(playerActionHub);
-        playerActionHubText1.setText(table.getPlayerActionText1());
-        playerActionHubText2.setText(table.getPlayerActionText2());
-        playerActionHubText3.setText(table.getPlayerActionText3());
-        playerActionHubText4.setText(table.getPlayerActionText4());
+        playerActionHubText1.setText(table.getPlayerActionTexts().get(0));
+        playerActionHubText2.setText(table.getPlayerActionTexts().get(1));
+        playerActionHubText3.setText(table.getPlayerActionTexts().get(2));
+        playerActionHubText4.setText(table.getPlayerActionTexts().get(3));
     }
 
     /**
      * Sends a description of the player's action to the table.
-     * @param textToDisplay the action description.
+     * @param //textToDisplay the action description.
      */
-    public void passPlayerActionTextToTable(String textToDisplay) {
-        table.setPlayerActionText(textToDisplay,player.getPlayerNum());
-    }
+    //public void passPlayerActionTextToTable(String textToDisplay) {
+    //    table.setPlayerActionText();
+    //}
 
     public void passPlayerNameToTable(String playerName, int playerID) {
         for (Player player: table.getPlayers() ) {
@@ -260,7 +268,7 @@ public class PokerGameController implements Initializable {
     /**
      * Updates the player's amount of chips on the view.
      */
-    private void updateChipsAmountText() {
+    public void updateChipsAmountText() {
         String sChipsAmount = player.getChipsAsString();
         playerChipsAmountText.setText(sChipsAmount);
     }
@@ -278,7 +286,7 @@ public class PokerGameController implements Initializable {
                 if (dUserBetAmount <= player.getChips() && dUserBetAmount >= table.getBetMin()) {
                     player.makeBetMove(dUserBetAmount);
                     updateChipsAmountText();
-                    passPlayerActionTextToTable(player.playerActionDescription());
+                    //passPlayerActionTextToTable(player.playerActionDescription());
                     updatePlayerActionHub();
                 }
             }
@@ -300,7 +308,7 @@ public class PokerGameController implements Initializable {
         player.makeCheckMove();
         playerChipsAmountText.setText("Chips amount: $" + player.getChipsAsString());
         updateChipsAmountText();
-        passPlayerActionTextToTable(player.playerActionDescription());
+        //passPlayerActionTextToTable(player.playerActionDescription());
         updatePlayerActionHub();
     }
 
@@ -309,7 +317,7 @@ public class PokerGameController implements Initializable {
      */
     public void handleButtonFoldAction() {
         player.makeFoldMove();
-        passPlayerActionTextToTable(player.playerActionDescription());
+        //passPlayerActionTextToTable(player.playerActionDescription());
         updatePlayerActionHub();
     }
 
