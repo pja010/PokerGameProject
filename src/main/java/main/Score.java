@@ -21,14 +21,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class ScoreUpdate implements Serializable {
+public class Score implements Serializable {
 
     //private static final long serialVersionUID = 42L;
 
     private ArrayList<Integer> score;
 
 
-    public ScoreUpdate(ArrayList<Card> playerHand) {
+    public Score(ArrayList<Card> playerHand) {
         this.score = new ArrayList<Integer>(5);
         score.add(0);
         score.add(0);

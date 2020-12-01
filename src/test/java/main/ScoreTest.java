@@ -23,16 +23,15 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ScoreUpdateTest {
+class ScoreTest {
 
     /** Scored used in every test */
-    private static ScoreUpdate score;
+    private static Score score;
 
     /** Player used in every test */
     private static Player player1;
@@ -71,7 +70,7 @@ class ScoreUpdateTest {
 
         // This should be a full house, receive the same score as a full house in the first spot, and then
         // gets the rank of the two pair
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
 
         ArrayList<Integer> values = new ArrayList<Integer>(Arrays.asList(714,13,0,0,0));
         assertEquals(values,score.evaluate(card1,card2,card3,card4,card5));
@@ -94,7 +93,7 @@ class ScoreUpdateTest {
         ranks.add(card1.getRank());
         ranks.add(card2.getRank());
         // Counts the two of a kind
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
         assertEquals(214,score.kind(ranks));
 
 
@@ -105,7 +104,7 @@ class ScoreUpdateTest {
         // Add card rank
         ranks.add(card3.getRank());
         // Counts the three of a kind
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
         assertEquals(414,score.kind(ranks));
 
 
@@ -116,7 +115,7 @@ class ScoreUpdateTest {
         // Add card rank
         ranks.add(card4.getRank());
         // Counts the four of a kind
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
         assertEquals(814,score.kind(ranks));
     }
 
@@ -148,7 +147,7 @@ class ScoreUpdateTest {
         ranks.add(card5.getRank());
 
         // Counts the three pair and then evaluates the other two pair and adds 300
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
         assertEquals(714,score.fullHouse(ranks));
     }
 
@@ -177,7 +176,7 @@ class ScoreUpdateTest {
         ranks.add(card4.getRank());
 
         // Counts the two pair from the highest pair and then adds 100
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
         assertEquals(306,score.twoPair(ranks));
     }
 
@@ -218,7 +217,7 @@ class ScoreUpdateTest {
         suits.add(card5.getSuit());
 
         // Counts the highest ranked card and then adds 600
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
         assertEquals(614,score.flush(ranks,suits));
     }
 
@@ -251,7 +250,7 @@ class ScoreUpdateTest {
         ranks.add(card5.getRank());
 
         // Counts the highest ranked card and then adds 500
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
         assertEquals(509,score.straight(ranks));
     }
 
@@ -278,7 +277,7 @@ class ScoreUpdateTest {
         ranks.add(card3.getRank());
 
         // Counts whichever card has the highest rank
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
         assertEquals(12,score.getMax(ranks));
     }
 
@@ -302,7 +301,7 @@ class ScoreUpdateTest {
         ranks.add(card2.getRank());
 
         // Counts number of matches based on rank
-        score = new ScoreUpdate(player1.getPlayerHand());
+        score = new Score(player1.getPlayerHand());
         assertEquals(2,score.countMatches(ranks,2));
     }
 }
