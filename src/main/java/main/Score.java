@@ -27,6 +27,26 @@ import java.util.Collections;
  */
 public class Score implements Serializable {
 
+    /**
+     * Scores for hands.
+     */
+    private final int SCORE_800 = 800;
+    private final int SCORE_700 = 700;
+    private final int SCORE_600 = 600;
+    private final int SCORE_400 = 400;
+    private final int SCORE_300 = 300;
+    private final int SCORE_200 = 200;
+    private final int SCORE_100 = 100;
+
+    /**
+     * Card hand positions.
+     */
+    private final int FIRST_CARD_POS = 0;
+    private final int SECOND_CARD_POSITION = 1;
+    private final int THIRD_CARD_POSITION = 2;
+    private final int FOURTH_CARD_POSITION = 3;
+    private final int FIFTH_CARD_POSITION = 4;
+    private final int SCORE_500 = 500;
     //private static final long serialVersionUID = 42L;
 
     private ArrayList<Integer> score;
