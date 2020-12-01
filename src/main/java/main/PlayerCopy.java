@@ -134,22 +134,18 @@ public class PlayerCopy implements Serializable {
     /**
      * Makes a bet move.
      * @param betAmount the amount of chips to bet.
+     * @throws IllegalArgumentException if betAmount is negative or larger than chips amount.
      */
     public void makeBetMove(double betAmount) throws IllegalArgumentException {
-//        try {
-            if (betAmount <= this.getChips() && betAmount > 0) {
-                this.bet = betAmount;
-                subtractChips(betAmount);
-                System.out.println("Player" + playerNum + " made new bet of $" + betAmount);
-                setPlayerAction(PlayerAction.BET);
-            }
-//        }
-//        catch (IllegalArgumentException e) {
-          else
-            throw new IllegalArgumentException("Illegal bet amount entered.");
-//    System.out.println("Exception: bet amount exceeds your chips amount.");
+        if (betAmount <= this.getChips() && betAmount > 0) {
+            this.bet = betAmount;
+            subtractChips(betAmount);
+            System.out.println("Player" + playerNum + " made new bet of $" + betAmount);
+            setPlayerAction(PlayerAction.BET);
         }
-//    }
+        else
+            throw new IllegalArgumentException("Illegal bet amount entered.");
+    }
 
     /**
      * Makes a check move.
