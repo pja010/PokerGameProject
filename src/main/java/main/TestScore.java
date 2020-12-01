@@ -70,10 +70,10 @@ public class TestScore {
 
 
             ArrayList<Integer> score= new ArrayList<Integer>();
-            score.add(new ScoreUpdate(player1.playerHand).getScore().get(0));
-            score.add(new ScoreUpdate(player2.playerHand).getScore().get(0));
-            score.add(new ScoreUpdate(player3.playerHand).getScore().get(0));
-            score.add(new ScoreUpdate(player4.playerHand).getScore().get(0));
+            score.add(new Score(player1.playerHand).getScore().get(0));
+            score.add(new Score(player2.playerHand).getScore().get(0));
+            score.add(new Score(player3.playerHand).getScore().get(0));
+            score.add(new Score(player4.playerHand).getScore().get(0));
 
             for(int j = 0; j < score.size(); j++){
                 if (score.get(j) > 900){

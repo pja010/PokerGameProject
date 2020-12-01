@@ -31,7 +31,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import main.Deck;
 import main.Player;
-import main.PlayerCopy;
+import main.GUIPlayer;
 import main.Table;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -103,7 +103,7 @@ public class PokerGameController implements Initializable {
     /**
      * The models for the view.
      */
-    private PlayerCopy player;
+    private GUIPlayer player;
     private Table table;
 
     /**
@@ -140,7 +140,7 @@ public class PokerGameController implements Initializable {
      * Set the player model.
      * @param player the player model
      */
-    public void setPlayer(PlayerCopy player) {
+    public void setPlayer(GUIPlayer player) {
         this.player = player;
         //System.out.println("Set player");
         player.moveIsBetPropertyProperty().bind(buttonBet.defaultButtonProperty());

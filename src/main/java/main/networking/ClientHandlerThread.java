@@ -13,13 +13,14 @@
  * Class: ClientHandlerThread
  *
  * Description: https://stackoverflow.com/questions/10131377/socket-programming-multiple-client-to-one-server
+ * https://www.youtube.com/watch?v=ZIzoesrHHQo
  *
  * ****************************************
  */
 package main.networking;
 
 import main.Player;
-import main.PlayerCopy;
+import main.GUIPlayer;
 import main.Table;
 
 import java.io.*;
@@ -41,7 +42,7 @@ public class ClientHandlerThread implements Runnable {
     private ObjectOutputStream objOut;
     private ObjectInputStream objIn;
     private Table table;
-    private ArrayList<PlayerCopy> players;
+    private ArrayList<GUIPlayer> players;
     private int playerNum;
 
 

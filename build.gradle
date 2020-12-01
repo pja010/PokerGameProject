@@ -32,6 +32,5 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter:5.6.2')
 }
 application {
-    mainClassName = project.hasProperty("mainClass") ? project.getProperty("mainClass") :
-            "main.testSceneBuilder"
+    mainClassName = "main.networking.GameFlowNetworking"
 }

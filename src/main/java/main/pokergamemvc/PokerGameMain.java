@@ -25,7 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.PlayerCopy;
+import main.GUIPlayer;
 import main.Table;
 
 /**
@@ -37,7 +37,7 @@ public class PokerGameMain extends Application {
     /**
      * The GUI models in the game.
      */
-    private PlayerCopy player;
+    private GUIPlayer player;
     private Table table;
 
     /**
@@ -48,7 +48,7 @@ public class PokerGameMain extends Application {
     public void init() throws Exception {
         super.init();
         table = new Table();
-        player = new PlayerCopy(4);
+        player = new GUIPlayer(4);
         player.addChips(50);
         System.out.println("init() called");
     }

@@ -22,7 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.Player;
-import main.PlayerCopy;
+import main.GUIPlayer;
 import main.Table;
 import main.pokergamemvc.PokerGameController;
 
@@ -42,7 +42,7 @@ public class GameFlowNetworking extends Application{
     private static Player player2;
     private static Player player3;
     private static Player player4;
-    private static ArrayList<PlayerCopy> players;
+    private static ArrayList<GUIPlayer> players;
     private static Scanner scnr = new Scanner(System.in);
     private static int PORT = 12227;
     private static boolean isConnecting = true;
@@ -50,7 +50,7 @@ public class GameFlowNetworking extends Application{
     private static ExecutorService pool = Executors.newFixedThreadPool(4);
     private static InetAddress address = null;
 
-    private static PlayerCopy player;
+    private static GUIPlayer player;
     private static Table table;
     private static PokerGameController controller;
     private static FXMLLoader loader;

@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Class to test the functionality of the PlayerCopy poker actions.
  */
-class PlayerCopyTest {
+class GUIPlayerTest {
 
-    PlayerCopy testPlayer1;
-    PlayerCopy testPlayer2;
-    PlayerCopy testPlayer3 ;
+    GUIPlayer testPlayer1;
+    GUIPlayer testPlayer2;
+    GUIPlayer testPlayer3 ;
 
     /**
      * Example test bets of various sizes.
@@ -23,9 +23,9 @@ class PlayerCopyTest {
 
     @BeforeEach
     void setUp(){
-        testPlayer1 = new PlayerCopy(1);
-        testPlayer2 = new PlayerCopy(2);
-        testPlayer3 = new PlayerCopy(3);
+        testPlayer1 = new GUIPlayer(1);
+        testPlayer2 = new GUIPlayer(2);
+        testPlayer3 = new GUIPlayer(3);
 
         testPlayer1.setChips(100);
         testPlayer2.setChips(1000);

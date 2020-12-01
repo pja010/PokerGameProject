@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Class that models a player in a game of poker. Includes properties.
  */
-public class PlayerCopy {
+public class GUIPlayer {
 
     /**
      * The player's game identification numbers.
@@ -93,7 +93,7 @@ public class PlayerCopy {
      * Constructor initializes the player's fields.
      * @param playerNum the player's identification number.
      */
-    public PlayerCopy(int playerNum) {
+    public GUIPlayer(int playerNum) {
         this.playerNum = playerNum;
         this.chips = new Chips();
         this.isPlaying = true;
@@ -111,7 +111,7 @@ public class PlayerCopy {
      * as an argument.
      * @param player the player object.
      */
-    public PlayerCopy(Player player) {
+    public GUIPlayer(Player player) {
         this.playerNum = player.getPlayerNum();
         this.chips = player.getChips();
         this.isPlaying = player.isPlaying;

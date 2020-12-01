@@ -14,24 +14,24 @@
  *
  * Description: A thread for each of the individual clients
  * so that each client can send or receive messages in any order
+ * https://www.youtube.com/watch?v=ZIzoesrHHQo
  *
  * ****************************************
  */
 package main.networking;
 
-import main.PlayerCopy;
+import main.GUIPlayer;
 import main.Table;
 import main.pokergamemvc.PokerGameController;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.ArrayList;
 
 public class ClientThread implements Runnable {
 
     private Table table;
-    private PlayerCopy player;
+    private GUIPlayer player;
     private String userName;
     private String hostName;
 
@@ -65,7 +65,7 @@ public class ClientThread implements Runnable {
             table = (Table) objIn.readObject();
             //System.out.println(table.getPot().getTotalAmount());
             //System.out.println("Client after readOBj");
-            player = new PlayerCopy(table.getPlayers().get(Integer.valueOf(hostName)-1));
+            player = new GUIPlayer(table.getPlayers().get(Integer.valueOf(hostName)-1));
             //System.out.println(player.getPlayerHand());
             player.setUserName(userName);
 

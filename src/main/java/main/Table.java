@@ -260,13 +260,13 @@ public class Table implements Serializable {
         for(int i = 0; i < 5;i++) {
             int maxScore = 0;
             for (Player player : players) {
-                int score = new ScoreUpdate(player.getPlayerHand()).getScore().get(i);
+                int score = new Score(player.getPlayerHand()).getScore().get(i);
                 if (score > maxScore) {
                     maxScore = score;
                 }
             }
             for (Player player : players) {
-                int score = new ScoreUpdate(player.getPlayerHand()).getScore().get(i);
+                int score = new Score(player.getPlayerHand()).getScore().get(i);
                 if (score < maxScore) {
                     winner.remove(player);
                 }
