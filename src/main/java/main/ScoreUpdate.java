@@ -279,33 +279,6 @@ public class ScoreUpdate implements Serializable {
         return count;
     }
 
-    public static ArrayList<Player> getWinner(ArrayList<Player> players){
-        ArrayList<Player> winner = new ArrayList<Player>();
-        winner.addAll(players);
-
-        for(Player player : winner){
-            if (player.isPlaying == false){
-                winner.remove(player);
-            }
-        }
-
-        for(int i = 0; i < 5;i++) {
-            int maxScore = 0;
-            for (Player player : winner) {
-                int score = new ScoreUpdate(player.getPlayerHand()).getScore().get(i);
-                if (score > maxScore) {
-                    maxScore = score;
-                }
-            }
-            for (Player player : winner) {
-                int score = new ScoreUpdate(player.getPlayerHand()).getScore().get(i);
-                if (score < maxScore) {
-                    winner.remove(player);
-                }
-            }
-        }
-        return winner;
-    }
 
 
 

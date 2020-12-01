@@ -19,13 +19,14 @@
  */
 package main.networking;
 
-import main.PlayerAction;
 import main.PlayerCopy;
 import main.Table;
 import main.pokergamemvc.PokerGameController;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ClientThread implements Runnable {
 
@@ -89,38 +90,64 @@ public class ClientThread implements Runnable {
 
 
                 if (player.getPlayerNum() == table.getTurn()) {
-                    table.setTurn(table.getTurn() + 1);
+                    //table.setTurn(table.getTurn() + 1);
 
-                    printToScreen("Enter Go when you have submitted your action: ");
+                    if (!table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().get(table.getBet()) && table.getPlayers().get(player.getPlayerNum()-1).isPlaying) {
 
-                    String clientCommand = keyboard.readLine();
-                    // Send message to server
-                    out.println(clientCommand);
-                    // Receive a message from the server which could be, "Thanks for responding" or the group message
-                    String serverResponse = waitForMessage(in);
-                    printToScreen(serverResponse);
+                        printToScreen("Enter Go when you have submitted your action: ");
 
-                    System.out.println(player.getPlayerAction());
+                        String clientCommand = keyboard.readLine();
+                        // Send message to server
+                        //out.println(clientCommand);
+                        // Receive a message from the server which could be, "Thanks for responding" or the group message
+                        //String serverResponse = waitForMessage(in);
+                        printToScreen(clientCommand);
 
-                    table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction(player.getPlayerAction());
+                        System.out.println(player.getPlayerAction());
 
-                    if (player.getPlayerAction().equals("Bet")) {
-                        table.setBetMin(player.getBet());
-                        table.getPot().addToPot(player.getBet());
-                        table.getPlayers().get(player.getPlayerNum()-1).subChips(player.getBet());
-                        table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction("Bet");
-                        table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().set(table.getBet(),true);
-                    } else if (player.getPlayerAction().equals("Check")) {
-                        table.getPot().addToPot(table.getBetMin());
-                        table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction("Check");
-                        table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().set(table.getBet(),true);
-                    } else if (player.getPlayerAction().equals("Fold")) {
-                        table.getPlayers().get(player.getPlayerNum()-1).setPlayerAction("Fold");
-                        table.getPlayers().get(player.getPlayerNum()-1).getIsRoundDone().set(table.getBet(),true);
-                        table.getPlayers().get(player.getPlayerNum()-1).isPlaying = false;
+                        table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction(player.getPlayerAction());
+
+                        if (player.getPlayerAction() == null) {
+                            printToScreen("INVALID USER ENTRY: AUTOMATIC FOLD");
+                            player.setPlayerAction("Fold");
+                            table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction("Fold");
+                            table.getPlayers().get(player.getPlayerNum() - 1).getIsRoundDone().set(table.getBet(), true);
+                            table.getPlayers().get(player.getPlayerNum() - 1).isPlaying = false;
+                        }
+                        else if (player.getPlayerAction().equals("Bet")) {
+                            table.setBetMin(player.getBet());
+                            table.getPot().addToPot(player.getBet());
+                            table.getPlayers().get(player.getPlayerNum() - 1).subChips(player.getBet());
+                            table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction("Bet");
+                            table.getPlayers().get(player.getPlayerNum() - 1).getIsRoundDone().set(table.getBet(), true);
+                            table.getPlayers().get(player.getPlayerNum() - 1).setBet(player.getBet());
+                        } else if (player.getPlayerAction().equals("Check")) {
+                            table.getPot().addToPot(table.getBetMin());
+                            table.getPlayers().get(player.getPlayerNum() - 1).subChips(table.getBetMin());
+                            table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction("Check");
+                            table.getPlayers().get(player.getPlayerNum() - 1).getIsRoundDone().set(table.getBet(), true);
+                            table.getPlayers().get(player.getPlayerNum() - 1).setBet(table.getBetMin());
+                        } else if (player.getPlayerAction().equals("Fold")) {
+                            table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction("Fold");
+                            ArrayList<Boolean> isRoundDone = new ArrayList<>();
+                            isRoundDone.add(true);
+                            isRoundDone.add(true);
+                            isRoundDone.add(true);
+                            isRoundDone.add(true);
+                            table.getPlayers().get(player.getPlayerNum() - 1).setIsRoundDone(isRoundDone);
+                            table.getPlayers().get(player.getPlayerNum() - 1).isPlaying = false;
+                        }
+                        else {
+                            printToScreen("INVALID USER ENTRY: AUTOMATIC FOLD");
+                            player.setPlayerAction("Fold");
+                            table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction("Fold");
+                            table.getPlayers().get(player.getPlayerNum() - 1).getIsRoundDone().set(table.getBet(), true);
+                            table.getPlayers().get(player.getPlayerNum() - 1).isPlaying = false;
+                        }
+
+                        table.getPlayerActionTexts().set(player.getPlayerNum() - 1, player.playerActionDescription());
+                        player.setPlayerAction(null);
                     }
-
-                    table.getPlayerActionTexts().set(player.getPlayerNum()-1,player.playerActionDescription());
 
                     printToScreen("PLAYER before writeOBj");
                     System.out.println(table.getPot().getTotalAmount());
@@ -144,9 +171,10 @@ public class ClientThread implements Runnable {
                 player.setCard1(table.getPlayers().get(player.getPlayerNum()-1).getPlayerHand().get(0));
                 player.setCard2(table.getPlayers().get(player.getPlayerNum()-1).getPlayerHand().get(1));
 
-                controller.updateChipsAmountText();
+                player.setChips(table.getPlayers().get(player.getPlayerNum()-1).getChips().getCurrAmount());
 
-                controller.updatePlayerCards();
+                controller.setPlayer(player);
+
 
                 //printToScreen("1Client before writeObj");
                 //System.out.println(table.getPot().getTotalAmount());

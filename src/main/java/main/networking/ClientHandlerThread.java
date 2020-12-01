@@ -18,10 +18,8 @@
  */
 package main.networking;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import main.Player;
 import main.PlayerCopy;
-import main.ScoreUpdate;
 import main.Table;
 
 import java.io.*;
@@ -80,15 +78,18 @@ public class ClientHandlerThread implements Runnable {
                 if (table.getTurn() == playerNum) {
                     printToScreen(String.valueOf(playerNum) + " : " + String.valueOf(table.getTurn()));
 
-                    // Response from client
-                    clientResponse = waitForMessage(in);
-                    transmitMessage(out, clientResponse);
 
                     printToScreen("PLAYER before readOBj");
                     table = (Table) objIn.readObject();
                     System.out.println(table.getPot().getTotalAmount());
                     printToScreen("PLAYER after readOBj");
 
+
+                    for (Player player: table.getPlayers()){
+                        if (player.isPlaying && player.getBet() < table.getBetMin()){
+                            player.getIsRoundDone().set(table.getBet(),false);
+                        }
+                    }
 
                     boolean roundOver = true;
                     for (Player player: table.getPlayers()) {
@@ -98,12 +99,19 @@ public class ClientHandlerThread implements Runnable {
                     }
 
                     if (roundOver) {
+                        table.getPlayerActionTexts().set(0,"");
+                        table.getPlayerActionTexts().set(1,"");
+                        table.getPlayerActionTexts().set(2,"");
+                        table.getPlayerActionTexts().set(3,"");
+
                         if (table.getBet() == 3){
-                            ArrayList<Player> winners = getWinner(table.getPlayers());
-                            for (Player player: winners){
-                                player.addChips(table.getPot().getTotalAmount()/winners.size());
-                                table.getPlayers().get(player.getPlayerNum()-1).addChips(table.getPot().getTotalAmount()/winners.size());
-                                table.getPlayerActionTexts().set(playerNum-1,String.valueOf(playerNum) + " is a Winner!");
+                            ArrayList<Player> winners = new ArrayList<>();
+                            winners = table.getPlayers();
+                            ArrayList<Player> winners1 = table.getWinner(winners);
+                            for (Player player: winners1){
+                                player.addChips(table.getPot().getTotalAmount()/winners1.size());
+                                table.getPlayers().get(player.getPlayerNum()-1).addChips(table.getPot().getTotalAmount()/winners1.size());
+                                table.getPlayerActionTexts().set(player.getPlayerNum()-1,String.valueOf(player.getPlayerNum()) + " is a Winner!");
                             }
                             for (Player player:table.getPlayers()){
                                 player.getIsRoundDone().clear();
@@ -120,7 +128,7 @@ public class ClientHandlerThread implements Runnable {
                             }
                             table.setPlayerCards();
                             table.setTableCards();
-                            table.setBetMin(1);
+                            table.setBetMin(0);
                             table.setBet(0);
                             table.setTurn(1);
                             table.setRound(table.getRound()+1);
@@ -128,7 +136,14 @@ public class ClientHandlerThread implements Runnable {
                         else {
                             table.setTurn(1);
                             table.setBet(table.getBet() + 1);
+                            table.setBetMin(0);
                         }
+                    }
+                    else if (table.getTurn()==4){
+                        table.setTurn(1);
+                    }
+                    else{
+                        table.setTurn(table.getTurn()+1);
                     }
 
                     printToScreen("OUT TO ALL before writeOBj");
@@ -138,7 +153,7 @@ public class ClientHandlerThread implements Runnable {
                     printToScreen("OUT TO ALL after writeOBj");
                 }
 
-                if (table.getTurn() == 4){
+                else if (table.getTurn() == 4){
                     table.setTurn(1);
                 }
                 else{
@@ -217,34 +232,5 @@ public class ClientHandlerThread implements Runnable {
         table.getPlayers().get(3).setChips(1600);
     }
 
-    public static ArrayList<Player> getWinner(ArrayList<Player> players){
-        ArrayList<Player> winner = new ArrayList<Player>();
-        winner.addAll(players);
 
-        for(Player player : winner){
-            if (player.isPlaying == false){
-                winner.remove(player);
-            }
-        }
-
-        for(int i = 0; i < 5;i++) {
-            ArrayList<Player> winner1 = new ArrayList<Player>();
-            winner1.addAll(winner);
-            int maxScore = 0;
-            for (Player player : winner) {
-                int score = new ScoreUpdate(player.getPlayerHand()).getScore().get(i);
-                if (score > maxScore) {
-                    maxScore = score;
-                }
-            }
-            for (Player player : winner1) {
-                int score = new ScoreUpdate(player.getPlayerHand()).getScore().get(i);
-                System.out.println(String.valueOf(player.getPlayerNum()) +" score" + score);
-                if (score < maxScore) {
-                    winner.remove(player);
-                }
-            }
-        }
-        return winner;
-    }
 }

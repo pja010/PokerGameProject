@@ -158,8 +158,8 @@ public class Player implements Serializable {
         return isRoundDone;
     }
 
-    public void setIsRoundDone(int i, Boolean isRoundDone) {
-        this.isRoundDone.set(i,isRoundDone);
+    public void setIsRoundDone(ArrayList<Boolean>  isRoundDone) {
+        this.isRoundDone = isRoundDone;
     }
 }
     

@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -96,6 +97,9 @@ public class PokerGameController implements Initializable {
     @FXML
     private TextField textFieldUserBetAmount;
 
+    @FXML
+    private TextArea instructions;
+
     /**
      * The models for the view.
      */
@@ -107,6 +111,9 @@ public class PokerGameController implements Initializable {
      */
     @FXML
     private Text playerActionHubText;
+
+    @FXML
+    private Text minBet;
 
     @FXML
     private Text playerTurnText;
@@ -161,12 +168,13 @@ public class PokerGameController implements Initializable {
     public void setTable(Table table) {
         this.table = table;
         System.out.println("Set table");
-        table.setBetMin(1);
         PotAmount.setText(String.valueOf(table.getPot().getTotalAmount()));
 
         updateTable();
         playerTurnText.setText(table.getPlayerTurnMessage());
         updatePlayerActionHub();
+
+        minBet.setText("Min Bet: " + table.getBetMin());
 
     }
 
