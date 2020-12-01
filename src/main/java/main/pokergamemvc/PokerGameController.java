@@ -250,6 +250,9 @@ public class PokerGameController implements Initializable {
         updatePlayerTurnText();
     }
 
+    /**
+     * Visualizes which player is choosing his/herself bets
+     */
     public void updatePlayerTurnText() {
         playerTurnText.setText(table.getPlayerTurnMessage());
     }
@@ -317,6 +320,9 @@ public class PokerGameController implements Initializable {
         textFieldUserBetAmount.setOnAction(buttonBet.getOnAction());
     }
 
+    /**
+     * Visualizes the table cards when button is clicked
+     */
     @FXML
     public void nextCardButtonPush() {
         String filename1 = table.getTableCards().get(0).getRank() + "_" + table.getTableCards().get(0).getSuit() + ".png";

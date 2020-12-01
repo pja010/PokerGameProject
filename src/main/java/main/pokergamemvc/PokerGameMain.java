@@ -42,6 +42,11 @@ public class PokerGameMain extends Application {
         System.out.println("init() called");
     }
 
+    /**
+     * Visualizes the GUI fxml file
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("/PokerGameView.fxml"));
