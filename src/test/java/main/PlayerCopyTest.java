@@ -42,9 +42,9 @@ class PlayerCopyTest {
         testPlayer2.makeBetMove(smallBet);
         testPlayer3.makeBetMove(largeBet);
 
-        assertEquals(testPlayer1.getPlayerAction(),PlayerAction.BET);
-        assertEquals(testPlayer2.getPlayerAction(), PlayerAction.BET);
-        assertEquals(testPlayer3.getPlayerAction(), PlayerAction.BET);
+        assertEquals(testPlayer1.getPlayerAction(),"Bet");
+        assertEquals(testPlayer2.getPlayerAction(), "Bet");
+        assertEquals(testPlayer3.getPlayerAction(), "Bet");
     }
 
     @Test
@@ -58,14 +58,14 @@ class PlayerCopyTest {
     @Test
     void makeCheckMove() {
         testPlayer2.makeCheckMove();
-        assertEquals(PlayerAction.CHECK, testPlayer2.getPlayerAction());
-        assertNotEquals(PlayerAction.CHECK,testPlayer3.getPlayerAction());
+        assertEquals("Check", testPlayer2.getPlayerAction());
+        assertNotEquals("Check",testPlayer3.getPlayerAction());
     }
 
     @Test
     void makeFoldMove() {
         testPlayer2.makeFoldMove();
-        assertEquals(PlayerAction.FOLD, testPlayer2.getPlayerAction());
+        assertEquals("Fold", testPlayer2.getPlayerAction());
         assertNotEquals(testPlayer2.getPlayerAction(),testPlayer3.getPlayerAction());
     }
 }
