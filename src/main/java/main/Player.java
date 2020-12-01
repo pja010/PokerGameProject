@@ -11,6 +11,7 @@
  * Package: main * Class: Player
  *
  * Description:
+ * A player object for the poker game.
  *
  * ****************************************
  */
@@ -19,24 +20,57 @@ package main;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class that models a player in a game of poker, excluding properties.
+ */
 public class Player implements Serializable {
 
     //private static final long serialVersionUID = 42L;
 
+    /**
+     * The player's game identification numbers.
+     */
     private int playerNum;
+
+    /**
+     * Whether or not the player is the dealer.
+     */
     private boolean isDealer;
+
+    /**
+     * The player's hand represented as a list containing Card objects.
+     */
     public ArrayList<Card> playerHand = new ArrayList<Card>();
     private Card card1;
     private Card card2;
+
+    /**
+     * The player's choice of move.
+     */
     private String playerAction;
     private double actionAmount;
     private Chips chips;
+
+    /**
+     * The score of the player's hand.
+     */
     //private ScoreUpdate score;
+
+    /**
+     * The amount of the player's bet.
+     */
     private double bet;
     public boolean isPlaying;
+
+    /**
+     * The player's user name.
+     * It will be displayed to other players in the game.
+     */
     public String userName;
 
-
+    /**
+     * Boolean to determine whether player is still active in round.
+     */
     private ArrayList<Boolean> isRoundDone;
 
     public String getPlayerAction() {
@@ -56,14 +90,17 @@ public class Player implements Serializable {
         this.bet = bet;
     }
 
-
+    /**
+     * Constructor initializes the player's fields.
+     * @param playerNum the player's identification number.
+     */
     public Player(int playerNum) {
         this.playerNum = playerNum;
         this.chips = new Chips();
         this.isPlaying = true;
         this.bet = 0;
         this.playerAction = null;
-        this.isRoundDone = new ArrayList<Boolean>();
+        this.isRoundDone = new ArrayList<>();
         this.isRoundDone.add(false);
         this.isRoundDone.add(false);
         this.isRoundDone.add(false);
@@ -77,6 +114,10 @@ public class Player implements Serializable {
         chips.subtractAmount(actionAmount);
     }
 
+    /**
+     * Sets the player's amount of chips to a specified number.
+     * @param initAmount the initial number of chips.
+     */
     public void setChips(double initAmount) {
         this.chips.initAmount = initAmount;
         this.chips.currAmount = initAmount;

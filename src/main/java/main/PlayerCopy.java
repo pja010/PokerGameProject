@@ -24,10 +24,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Class that models a player in a game of poker.
+ * Class that models a player in a game of poker. Includes properties.
  */
-
-public class PlayerCopy{
+public class PlayerCopy {
 
     /**
      * The player's game identification numbers.
@@ -44,7 +43,6 @@ public class PlayerCopy{
      * The player's hand represented as a list containing Card objects.
      */
     public ArrayList<Card> playerHand = new ArrayList<>();
-
     private Card card1;
     private Card card2;
 
@@ -109,7 +107,8 @@ public class PlayerCopy{
 
     /**
      * A second constructor that takes a simplified version of player
-     * that can be passed in a networking thread, as an argument.
+     * without properties that can be passed in a networking thread,
+     * as an argument.
      * @param player the player object.
      */
     public PlayerCopy(Player player) {
@@ -135,12 +134,17 @@ public class PlayerCopy{
     /**
      * Makes a bet move.
      * @param betAmount the amount of chips to bet.
+     * @throws IllegalArgumentException if betAmount is negative or larger than chips amount.
      */
-    public void makeBetMove(double betAmount) {
-        setPlayerAction("Bet");
-        this.bet = betAmount;
-        subtractChips(betAmount);
-        System.out.println("Player" + playerNum + " made new bet of $" + betAmount);
+    public void makeBetMove(double betAmount) throws IllegalArgumentException {
+        if (betAmount <= this.getChips() && betAmount > 0) {
+            this.bet = betAmount;
+            subtractChips(betAmount);
+            System.out.println("Player" + playerNum + " made new bet of $" + betAmount);
+            setPlayerAction("Bet");
+        }
+        else
+            throw new IllegalArgumentException("Illegal bet amount entered.");
     }
 
     /**
