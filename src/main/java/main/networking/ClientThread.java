@@ -14,6 +14,7 @@
  *
  * Description: A thread for each of the individual clients
  * so that each client can send or receive messages in any order
+ * https://www.youtube.com/watch?v=ZIzoesrHHQo
  *
  * ****************************************
  */
