@@ -199,7 +199,7 @@ public class PokerGameController implements Initializable {
             Image image3 = new Image(this.getClass().getResource("/DeckOfCards/" + filename3).toString());
 
 
-            System.out.println("Flop Cards");
+            //System.out.println("Flop Cards");
             FlopCard1.setImage(image1);
             FlopCard2.setImage(image2);
             FlopCard3.setImage(image3);
