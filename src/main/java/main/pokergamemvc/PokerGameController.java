@@ -142,7 +142,7 @@ public class PokerGameController implements Initializable {
      */
     public void setPlayer(PlayerCopy player) {
         this.player = player;
-        System.out.println("Set player");
+        //System.out.println("Set player");
         player.moveIsBetPropertyProperty().bind(buttonBet.defaultButtonProperty());
         player.moveIsCheckMovePropertyProperty().bind(buttonCheck.defaultButtonProperty());
         player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
@@ -167,7 +167,7 @@ public class PokerGameController implements Initializable {
      */
     public void setTable(Table table) {
         this.table = table;
-        System.out.println("Set table");
+        //System.out.println("Set table");
         PotAmount.setText(String.valueOf(table.getPot().getTotalAmount()));
 
         updateTable();
@@ -228,7 +228,7 @@ public class PokerGameController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        System.out.println("Initialize");
+        //System.out.println("Initialize");
     }
 
     /**

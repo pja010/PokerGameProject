@@ -61,12 +61,12 @@ public class ClientThread implements Runnable {
     public void run() {
         try {
 
-            System.out.println("Client before readOBj");
+            //System.out.println("Client before readOBj");
             table = (Table) objIn.readObject();
-            System.out.println(table.getPot().getTotalAmount());
-            System.out.println("Client after readOBj");
+            //System.out.println(table.getPot().getTotalAmount());
+            //System.out.println("Client after readOBj");
             player = new PlayerCopy(table.getPlayers().get(Integer.valueOf(hostName)-1));
-            System.out.println(player.getPlayerHand());
+            //System.out.println(player.getPlayerHand());
             player.setUserName(userName);
 
             // Set the model up for the controller
@@ -83,7 +83,7 @@ public class ClientThread implements Runnable {
             //objOut = new ObjectOutputStream(server.getOutputStream());
             //objIn = new ObjectInputStream((server.getInputStream()));
 
-            printToScreen("entered run loop");
+            //printToScreen("entered run loop");
 
 
             while (true) {
@@ -101,9 +101,9 @@ public class ClientThread implements Runnable {
                         //out.println(clientCommand);
                         // Receive a message from the server which could be, "Thanks for responding" or the group message
                         //String serverResponse = waitForMessage(in);
-                        printToScreen(clientCommand);
+                        //printToScreen(clientCommand);
 
-                        System.out.println(player.getPlayerAction());
+                        //System.out.println(player.getPlayerAction());
 
                         table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction(player.getPlayerAction());
 
@@ -122,7 +122,7 @@ public class ClientThread implements Runnable {
                             table.getPlayers().get(player.getPlayerNum() - 1).getIsRoundDone().set(table.getBet(), true);
                             table.getPlayers().get(player.getPlayerNum() - 1).setBet(player.getBet());
                         } else if (player.getPlayerAction().equals("Check")) {
-                            table.getPot().addToPot(table.getBetMin());
+                            table.getPot().addToPot(table.getBetMin()-table.getPlayers().get(player.getPlayerNum()-1).getBet());
                             table.getPlayers().get(player.getPlayerNum() - 1).subChips(table.getBetMin());
                             table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction("Check");
                             table.getPlayers().get(player.getPlayerNum() - 1).getIsRoundDone().set(table.getBet(), true);
@@ -149,21 +149,21 @@ public class ClientThread implements Runnable {
                         player.setPlayerAction(null);
                     }
 
-                    printToScreen("PLAYER before writeOBj");
-                    System.out.println(table.getPot().getTotalAmount());
+                    //printToScreen("PLAYER before writeOBj");
+                    //System.out.println(table.getPot().getTotalAmount());
                     objOut.flush();
                     objOut.reset();
                     objOut.writeObject(table);
-                    printToScreen("PLAYER after writeOBj");
+                    //printToScreen("PLAYER after writeOBj");
                     objOut.flush();
                     objOut.reset();
                 }
 
 
-                printToScreen("OUT TO ALL before readOBj");
+                //printToScreen("OUT TO ALL before readOBj");
                 table = (Table) objIn.readObject();
-                System.out.println(table.getPot().getTotalAmount());
-                printToScreen("OUT TO ALL after readOBj");
+                //System.out.println(table.getPot().getTotalAmount());
+                //printToScreen("OUT TO ALL after readOBj");
 
                 // Set the table up for the controller
                 controller.setTable(table);

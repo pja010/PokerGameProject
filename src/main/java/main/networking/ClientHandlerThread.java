@@ -64,9 +64,9 @@ public class ClientHandlerThread implements Runnable {
         try {
 
             //Transmit Table
-            System.out.println("Server before writeOBj");
+            //System.out.println("Server before writeOBj");
             objOut.writeObject(table);
-            System.out.println("Server after writeOBj");
+            //System.out.println("Server after writeOBj");
 
 
             //this.objIn = new ObjectInputStream(client.getInputStream());
@@ -76,13 +76,13 @@ public class ClientHandlerThread implements Runnable {
             while (true) {
 
                 if (table.getTurn() == playerNum) {
-                    printToScreen(String.valueOf(playerNum) + " : " + String.valueOf(table.getTurn()));
+                    printToScreen("Waiting for: " + String.valueOf(table.getTurn()));
 
 
-                    printToScreen("PLAYER before readOBj");
+                    //printToScreen("PLAYER before readOBj");
                     table = (Table) objIn.readObject();
-                    System.out.println(table.getPot().getTotalAmount());
-                    printToScreen("PLAYER after readOBj");
+                    //System.out.println(table.getPot().getTotalAmount());
+                    //printToScreen("PLAYER after readOBj");
 
 
                     for (Player player: table.getPlayers()){
@@ -146,11 +146,11 @@ public class ClientHandlerThread implements Runnable {
                         table.setTurn(table.getTurn()+1);
                     }
 
-                    printToScreen("OUT TO ALL before writeOBj");
+                    //printToScreen("OUT TO ALL before writeOBj");
                     System.out.println(table.getPot().getTotalAmount());
                     objOutToAll();
                     objOut.reset();
-                    printToScreen("OUT TO ALL after writeOBj");
+                    //printToScreen("OUT TO ALL after writeOBj");
                 }
 
                 else if (table.getTurn() == 4){
