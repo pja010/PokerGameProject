@@ -43,31 +43,6 @@ public class TestScore {
 
             initTableCards();
 
-            //System.out.println(player1.getPlayerHand());
-            //System.out.print(player1.getScore()[0] + ", ");
-            //System.out.print(player1.getScore()[1] + ", ");
-            //System.out.print(player1.getScore()[2] + ", ");
-            //System.out.print(player1.getScore()[3] + ", ");
-            //System.out.println(player1.getScore()[4]);
-            //System.out.println(player2.getPlayerHand());
-            //System.out.print(player2.getScore()[0] + ", ");
-            //System.out.print(player2.getScore()[1] + ", ");
-            //System.out.print(player2.getScore()[2] + ", ");
-            //System.out.print(player2.getScore()[3] + ", ");
-            //System.out.println(player2.getScore()[4]);
-            //System.out.println(player3.getPlayerHand());
-            //System.out.print(player3.getScore()[0] + ", ");
-            //System.out.print(player3.getScore()[1] + ", ");
-            //System.out.print(player3.getScore()[2] + ", ");
-            //System.out.print(player3.getScore()[3] + ", ");
-            //System.out.println(player3.getScore()[4]);
-            //System.out.println(player4.getPlayerHand());
-            //System.out.print(player4.getScore()[0] + ", ");
-            //System.out.print(player4.getScore()[1] + ", ");
-            //System.out.print(player4.getScore()[2] + ", ");
-            //System.out.print(player4.getScore()[3] + ", ");
-            //System.out.println(player4.getScore()[4]);
-
 
             ArrayList<Integer> score= new ArrayList<Integer>();
             score.add(new Score(player1.playerHand).getScore().get(0));

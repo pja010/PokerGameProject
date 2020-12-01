@@ -137,10 +137,6 @@ public class Player implements Serializable {
         this.playerHand.add(card);
     }
 
-    //public ScoreUpdate getScore() {
-    //    score = new ScoreUpdate(playerHand);
-    //    return score;
-    //}
 
     public String playerActionDescription() {
         String playerActionDescription = null;

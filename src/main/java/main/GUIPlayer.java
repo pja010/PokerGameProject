@@ -52,11 +52,6 @@ public class GUIPlayer {
     private Chips chips;
 
     /**
-     * The score of the player's hand.
-     */
-    //private ScoreUpdate score;
-
-    /**
      * The status of the player; true if player is in the game, otherwise false.
      */
     public boolean isPlaying;
@@ -120,7 +115,6 @@ public class GUIPlayer {
         this.card2 = player.getPlayerHand().get(1);
         this.playerHand = player.getPlayerHand();
         this.chips = player.getChips();
-        //this.score = player.getScore();
         this.bet = player.getBet();
         this.isRoundDone = player.getIsRoundDone();
 
@@ -214,14 +208,6 @@ public class GUIPlayer {
         this.playerHand.add(card);
     }
 
-    /**
-     * Gets the total score of the player's current hand.
-     * @return the total score.
-     */
-    //public ArrayList<Integer>  getScore() {
-    //    score = new ScoreUpdate(playerHand);
-    //    return score.getScore();
-    //}
 
     /**
      * Adds chips to the player's pile.
@@ -261,6 +247,7 @@ public class GUIPlayer {
     public void setBet(double bet) {
         this.bet = bet;
     }
+
     public int getPlayerNum(){
         return playerNum;
     }

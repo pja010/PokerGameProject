@@ -94,18 +94,5 @@ public class Card implements Serializable {
         return suit;
     }
 
-    /**
-     * Returns the image of the card
-     */
-    //public Image getImage() {
-        //return image;
-    //}
-
-    /**
-     * Sets the image for the card that will be shown
-     */
-    //public void setImage(Image image) {
-        //this.image = image;
-    //}
 }
     
