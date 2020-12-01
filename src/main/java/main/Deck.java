@@ -106,13 +106,37 @@ public class Deck implements Serializable {
         }
     }
 
+    /**
+     * Returns the list deck of cards
+     * @return - Array List of card deck
+     */
     public ArrayList<Card> getDeckOfCards() {
         return deckOfCards;
     }
 
+    /**
+     * Sets an array list for the deck of cards
+     * @param deckOfCards
+     */
     public void setDeckOfCards(ArrayList<Card> deckOfCards) {
         this.deckOfCards = deckOfCards;
     }
+
+    /**
+     * Returns the image for the back of a card
+     * @return - back of a card
+     */
+    //public Image getBackOfCard() {
+        //return backOfCard;
+    //}
+
+    /**
+     * Sets the image for the back of a card
+     * @param backOfCard
+     */
+    //public void setBackOfCard(Image backOfCard) {
+     //   this.backOfCard = backOfCard;
+   // }
 
 
 }

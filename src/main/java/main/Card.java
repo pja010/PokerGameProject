@@ -78,13 +78,34 @@ public class Card implements Serializable {
                 '}';
     }
 
+    /**
+     * Returns the rank of the card
+     * @return - card rank
+     */
     public int getRank() {
         return rank;
     }
 
+    /**
+     * Returns the suit of the card
+     * @return - card suit
+     */
     public int getSuit() {
         return suit;
     }
 
+    /**
+     * Returns the image of the card
+     */
+    //public Image getImage() {
+        //return image;
+    //}
+
+    /**
+     * Sets the image for the card that will be shown
+     */
+    //public void setImage(Image image) {
+        //this.image = image;
+    //}
 }
     
