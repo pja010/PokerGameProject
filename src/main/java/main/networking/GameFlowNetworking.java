@@ -44,7 +44,7 @@ public class GameFlowNetworking extends Application{
     private static Player player4;
     private static ArrayList<PlayerCopy> players;
     private static Scanner scnr = new Scanner(System.in);
-    private static int PORT = 12226;
+    private static int PORT = 12227;
     private static boolean isConnecting = true;
     private static ArrayList<ClientHandlerThread> clients = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(4);
