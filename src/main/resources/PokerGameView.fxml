@@ -95,9 +95,9 @@
                         <Font size="23.0" />
                     </font>
                 </Text>
-            <TextArea fx:id="instructions" layoutX="588.0" layoutY="381.0" prefHeight="190.0" prefWidth="348.0" text="During the first round of betting a player may bet higher than the minimum bet, check which automatically bets the min amount, or fold. During the second round a user may check or fold" wrapText="true">
+            <TextArea fx:id="instructions" layoutX="588.0" layoutY="381.0" prefHeight="190.0" prefWidth="348.0" text="Bet: Enters the bet amount entered in the text box. Check: sets your bet equal to the min bet. Fold: Enters no bet and user is not eligible to play for the rest of the round. For each betting round, after all actions are entered, users who entered bets below the min bet will be prompted for another action before more table cards are shown or a winner is declared. Users should either check or fold at that time." wrapText="true">
                <font>
-                  <Font size="24.0" />
+                  <Font size="14.0" />
                </font></TextArea>
                 <!--                <Button fx:id="UpdatePot" layoutX="878.0" layoutY="340.0" mnemonicParsing="false" text="Update">-->
                 <!--                    <font>-->

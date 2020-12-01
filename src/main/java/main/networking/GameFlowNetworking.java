@@ -57,38 +57,6 @@ public class GameFlowNetworking extends Application{
     private static Parent root;
 
 
-//    public static void main(String[] args) {
-//
-//        initPlayers();
-//        setChips();
-//
-//        networkingSetUp();
-//
-//        ArrayList<Player> playerList = new ArrayList<>(4);
-//        playerList.add(player1);
-//        playerList.add(player2);
-//        playerList.add(player3);
-//        playerList.add(player4);
-//
-//        // ESTABLISH A CONNECTION BEFORE ROUND STARTS
-//
-//
-//        Round round1 = new Round(playerList);
-//        System.out.println("Starting new round.");
-////        round1.startRound();
-//
-//        // WE NEED TO ADD A BOOLEAN FOR EACH PLAYER TO CHECK IF THEY ARE PLAYING
-//        // TO CONTROL THIS
-//
-//        // GETTING PLAYER ACTIONS AND BET AMOUNTS IS EVENTUALLY GOING
-//        // TO GO IN AN ORDER BUT FOR NOW LEAVING AS ONE PART
-//
-//        System.out.println(player1.getChips());
-//        System.out.println(player2.getChips());
-//        System.out.println(player3.getChips());
-//        System.out.println(player4.getChips());
-//    }
-
     private static void initPlayers() {
         player1 = new Player(1);
         player2 = new Player(2);
