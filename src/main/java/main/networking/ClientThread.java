@@ -76,10 +76,6 @@ public class ClientThread implements Runnable {
             // Set the table up for the controller
             controller.setTable(table);
 
-            // Allow for user input from the keyboard
-            BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(server.getOutputStream()), true);
-
 
             //objOut = new ObjectOutputStream(server.getOutputStream());
             //objIn = new ObjectInputStream((server.getInputStream()));
