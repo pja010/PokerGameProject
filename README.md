@@ -9,11 +9,23 @@ Teamwork with Gitlab and IntelliJ 3
 Instructor: Brian King
 Semester: Fall 2020
 ## Team Information
-Callie Valenti
-Lindsay Knupp
-Per Astrom
-Guillermo Torres
+Team Name: Four of a Kind
+Callie Valenti- Scrum Master
+Lindsay Knupp- Project Owner
+Per Astrom - Team Member
+Guillermo Torres - Team Member
 ## Project Information
 Final Project- Poker Game
-## How to run it
-*Update this with information about how to build and run your project*
+## Presentation Video URL
+
+## Libraries
+Scene Builder
+https://gluonhq.com/products/scene-builder/
+Version n: 11.0
+JavaFX
+https://openjfx.io/
+Version 15
+## Project Summary
+For our project, we decided to
+## Package Structure
+

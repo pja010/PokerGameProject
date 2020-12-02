@@ -121,6 +121,12 @@ public class ClientHandlerThread implements Runnable {
                                 player.getIsRoundDone().add(false);
                                 player.getIsRoundDone().add(false);
                                 player.isPlaying = true;
+                                if(player.getPlayerNum() == 4){
+                                    player.setPlayerNum(1);
+                                }
+                                else{
+                                    player.setPlayerNum(player.getPlayerNum()+1);
+                                }
                             }
                             table.getPot().setTotalAmount(0);
                             table.getTableCards().clear();

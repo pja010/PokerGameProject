@@ -141,7 +141,7 @@ public class Player implements Serializable {
     public String playerActionDescription() {
         String playerActionDescription = null;
             if (this.getPlayerAction().equals("Bet"))
-                playerActionDescription = this + " raised by $" + this.getBet() + ".";
+                playerActionDescription = this + " bet $" + this.getBet() + ".";
             else if (this.getPlayerAction().equals("Check"))
                 playerActionDescription = this + " checked.";
             else if (this.getPlayerAction().equals("Fold"))
@@ -172,6 +172,8 @@ public class Player implements Serializable {
     public int getPlayerNum(){
         return playerNum;
     }
+
+    public void setPlayerNum(int playerNum){this.playerNum = playerNum; }
 
     public void setIsPlaying(boolean isPlaying) {
         this.isPlaying = isPlaying;

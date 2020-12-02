@@ -173,6 +173,8 @@ public class ClientThread implements Runnable {
 
                 player.setChips(table.getPlayers().get(player.getPlayerNum()-1).getChips().getCurrAmount());
 
+                player.setPlayerNum(table.getPlayers().get(player.getPlayerNum()-1).getPlayerNum());
+
                 controller.setPlayer(player);
 
 

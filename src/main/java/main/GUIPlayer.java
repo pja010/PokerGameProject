@@ -31,7 +31,7 @@ public class GUIPlayer {
     /**
      * The player's game identification numbers.
      */
-    private final int playerNum;
+    private int playerNum;
     //public static final long serialVersionUID = 41L;
 
     /**
@@ -250,6 +250,10 @@ public class GUIPlayer {
 
     public int getPlayerNum(){
         return playerNum;
+    }
+
+    public void setPlayerNum(int playerNum){
+        this.playerNum = playerNum;
     }
 
     public void setIsPlaying(boolean isPlaying) {

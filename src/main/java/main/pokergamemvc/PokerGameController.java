@@ -46,6 +46,7 @@ public class PokerGameController implements Initializable {
     public Text playerActionHubText2;
     public Text playerActionHubText4;
     public Text playerActionHubText3;
+
     @FXML
     private ImageView DeckImageView;
     @FXML
@@ -84,6 +85,9 @@ public class PokerGameController implements Initializable {
      */
     @FXML
     private Text playerChipsAmountText;
+
+    @FXML
+    private Text playerNum;
 
     @FXML
     private Button buttonBet;
@@ -159,6 +163,8 @@ public class PokerGameController implements Initializable {
         String filename2 = player.getCard2().getRank() + "_" + player.getCard2().getSuit() + ".png";
         Image image2 = new Image(this.getClass().getResource("/DeckOfCards/" + filename2).toString());
         PlayerCard2.setImage(image2);
+
+        playerNum.setText("Your Turn Num: " + player.getPlayerNum());
     }
 
     /**
