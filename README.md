@@ -17,7 +17,7 @@ Guillermo Torres - Team Member
 ## Project Information
 Final Project- Poker Game
 ## Presentation Video URL
-
+https://mediaspace.bucknell.edu/media/t/1_rmap6rb2
 ## Libraries
 Scene Builder
 https://gluonhq.com/products/scene-builder/

@@ -139,7 +139,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </HBox>
-            <Text fx:id="playerNum" layoutX="409.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="191.0000000000001">
+            <Text fx:id="playerNum" layoutX="409.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="191.0000000000001">
                <font>
                   <Font size="24.0" />
                </font></Text>
