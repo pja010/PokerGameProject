@@ -85,7 +85,7 @@ public class Table implements Serializable {
     }
 
     public String getPlayerTurnMessage() {
-        return "Turn: " + this.turn;
+        return "Turn: " + turn;
     }
 
     public void setPlayerTurnMessage(String playerTurnMessage) {
@@ -208,6 +208,8 @@ public class Table implements Serializable {
 
     }
 
+
+
     public ArrayList<String> getPlayerActionTexts() {
         return playerActionTexts;
     }
@@ -216,11 +218,8 @@ public class Table implements Serializable {
         this.playerActionTexts = playerActionTexts;
     }
 
-    /**
-     * Calculates who the winner
-     * @param players playing the game
-     * @return
-     */
+
+
     public static ArrayList<Player> getWinner(ArrayList<Player> players){
         ArrayList<Player> winner = new ArrayList<Player>();
         winner.addAll(players);
@@ -230,8 +229,6 @@ public class Table implements Serializable {
                 winner.remove(player);
             }
         }
-
-        players = winner;
 
         for(int i = 0; i < 5;i++) {
             int maxScore = 0;

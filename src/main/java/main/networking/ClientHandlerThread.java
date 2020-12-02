@@ -25,6 +25,7 @@ package main.networking;
 import main.Player;
 import main.GUIPlayer;
 import main.Table;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
