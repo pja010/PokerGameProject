@@ -175,7 +175,7 @@ public class PokerGameController implements Initializable {
         PotAmount.setText(String.valueOf(table.getPot().getTotalAmount()));
 
         updateTable();
-        playerTurnText.setText(table.getPlayerTurnMessage());
+        playerTurnText.setText("Turn: " + table.getTurn());
         updatePlayerActionHub();
 
         minBet.setText("Min Bet: " + table.getBetMin());
