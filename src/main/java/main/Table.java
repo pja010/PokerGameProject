@@ -231,6 +231,8 @@ public class Table implements Serializable {
             }
         }
 
+        players = winner;
+
         for(int i = 0; i < 5;i++) {
             int maxScore = 0;
             for (Player player : players) {
