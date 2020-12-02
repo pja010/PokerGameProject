@@ -52,11 +52,6 @@ public class Player implements Serializable {
     private Chips chips;
 
     /**
-     * The score of the player's hand.
-     */
-    //private ScoreUpdate score;
-
-    /**
      * The amount of the player's bet.
      */
     private double bet;

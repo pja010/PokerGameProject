@@ -113,7 +113,4 @@ public class Deck implements Serializable {
     public ArrayList<Card> getDeckOfCards() {
         return deckOfCards;
     }
-
-
-
 }

@@ -1,3 +1,22 @@
+/* *****************************************
+ * CSCI205 - Software Engineering and Design
+ * Fall 2020
+ * Instructor: Prof. Brian King
+ *
+ * Name: Per Astrom
+ * Section: 01 - 11:30am
+ * Date: 11/27/2020
+ * Time: 1:00 PM
+ *
+ * Project: csci205FinalProject
+ * Package: main
+ * Class: PotTest
+ *
+ * Description: A test class for the Pot
+ * object
+ *
+ * ****************************************
+ */
 package main;
 
 import org.junit.jupiter.api.BeforeEach;

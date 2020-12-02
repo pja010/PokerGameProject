@@ -208,8 +208,6 @@ public class Table implements Serializable {
 
     }
 
-
-
     public ArrayList<String> getPlayerActionTexts() {
         return playerActionTexts;
     }
@@ -218,8 +216,11 @@ public class Table implements Serializable {
         this.playerActionTexts = playerActionTexts;
     }
 
-
-
+    /**
+     * Calculates who the winner
+     * @param players playing the game
+     * @return
+     */
     public static ArrayList<Player> getWinner(ArrayList<Player> players){
         ArrayList<Player> winner = new ArrayList<Player>();
         winner.addAll(players);

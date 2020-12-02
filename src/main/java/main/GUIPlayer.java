@@ -118,7 +118,6 @@ public class GUIPlayer {
         this.bet = player.getBet();
         this.isRoundDone = player.getIsRoundDone();
 
-
         this.playerAction = null;
         this.moveIsBetProperty = new SimpleBooleanProperty();
         this.moveIsCheckMoveProperty = new SimpleBooleanProperty();
@@ -316,5 +315,4 @@ public class GUIPlayer {
     public Card getCard2() {
         return card2;
     }
-
 }
