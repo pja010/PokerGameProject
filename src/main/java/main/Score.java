@@ -18,16 +18,25 @@ package main;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+
+/**
+ * Class that determines the total score of player's hand in a game of poker.
+ */
 
 public class Score implements Serializable {
 
     //private static final long serialVersionUID = 42L;
 
+    /**
+     * The score
+     */
     private ArrayList<Integer> score;
 
-
+    /**
+     * Updates the score of the hand.
+     * @param playerHand a list of a player's 5 cards.
+     */
     public Score(ArrayList<Card> playerHand) {
         this.score = new ArrayList<Integer>(5);
         score.add(0);
@@ -80,6 +89,15 @@ public class Score implements Serializable {
             }
         }
     }
+    /**
+     * Evaluate the score of a player's hand.
+     * @param card1 the first card on hand.
+     * @param card2 the second card on hand.
+     * @param card3 the third card on hand.
+     * @param card4 the fourth card on hand.
+     * @param card5 the fifth card on hand.
+     * @return the hand score.
+     */
 
     public ArrayList<Integer> evaluate(Card card1, Card card2, Card card3, Card card4, Card card5){
         ArrayList<Integer> ranks = new ArrayList<Integer>();
@@ -182,6 +200,11 @@ public class Score implements Serializable {
         return score;
     }
 
+    /**
+     * Evaluates the number of matching score of an "n"-of-a-kind hand.
+     * @param ranks the ranks of the cards.
+     * @return the score of the hand.
+     */
     public int kind(ArrayList<Integer> ranks){
         int count = 0;
         int rank = 0;
@@ -204,6 +227,12 @@ public class Score implements Serializable {
             return 100+getMax(ranks);
         }
     }
+
+    /**
+     * Evaluates the count of a full house hand.
+     * @param ranks the ranks of the cards.
+     * @return the count.
+     */
     public int fullHouse(ArrayList<Integer> ranks){
         int count = 0;
         ArrayList<Integer> ranks1 = new ArrayList<>();
@@ -221,6 +250,11 @@ public class Score implements Serializable {
         return count;
     }
 
+    /**
+     * Evaluates the count of a two pair hand.
+     * @param ranks the ranks of the cards.
+     * @return the count.
+     */
     public int twoPair(ArrayList<Integer> ranks){
         int count = 0;
         ArrayList<Integer> ranks1 = new ArrayList<>();
@@ -241,6 +275,12 @@ public class Score implements Serializable {
         return count;
     }
 
+    /**
+     * Evaluates the count of a flush.
+     * @param ranks the ranks of the cards.
+     * @param suits the suits of the cards.
+     * @return the count.
+     */
     public int flush(ArrayList<Integer> ranks, ArrayList<Integer> suits) {
         for (int i = 1; i < suits.size(); i++){
             if (suits.get(0) != suits.get(i)){
@@ -249,6 +289,12 @@ public class Score implements Serializable {
         }
         return 600 + getMax(ranks);
     }
+
+    /**
+     * Evaluates the count of a straight.
+     * @param ranks the ranks of the cards.
+     * @return the count.
+     */
     public int straight(ArrayList<Integer> ranks){
         Collections.sort(ranks);
         for (int i = 0; i < ranks.size()-1; i++) {
@@ -259,6 +305,11 @@ public class Score implements Serializable {
         return 500 + getMax(ranks);
     }
 
+    /**
+     * Gets the highest value in a list of integers.
+     * @param values the integer list.
+     * @return the highest value.
+     */
     public int getMax(ArrayList<Integer> values){
         int max = values.get(0);
         for (int i = 1; i < values.size(); i++){
@@ -269,6 +320,12 @@ public class Score implements Serializable {
         return max;
     }
 
+    /**
+     * Counts the number of cards of the same rank in a hand.
+     * @param ranks the ranks of the cards.
+     * @param rank the rank to be compare for matches.
+     * @return the count.
+     */
     public int countMatches(ArrayList<Integer> ranks, int rank){
         int count = 0;
         for (int i = 0; i < ranks.size(); i++){
