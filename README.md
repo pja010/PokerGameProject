@@ -10,21 +10,28 @@ Instructor: Brian King
 Semester: Fall 2020
 ## Team Information
 Team Name: Four of a Kind
+
 Callie Valenti- Scrum Master
+
 Lindsay Knupp- Project Owner
+
 Per Astrom - Team Member
+
 Guillermo Torres - Team Member
 ## Project Information
 Final Project- Poker Game
 ## Presentation Video URL
 https://mediaspace.bucknell.edu/media/t/1_rmap6rb2
 ## Libraries
-Scene Builder
+Scene Builder: Version n: 11.0
+
 https://gluonhq.com/products/scene-builder/
-Version n: 11.0
-JavaFX
+
+
+JavaFX: Version 15
+
 https://openjfx.io/
-Version 15
+
 ## Project Summary
 For our project, we decided to create a poker game that focused on networking and GUI development. The GUI displays a table that is the same for all players as well as a bar on the bottom that is specific to each player. Additionally, on the right hand side, the GUI displays the ranking of different poker hands. The table updates each time a player makes a move for all the players. It keeps track of the minimum bet amount, the pot amount, the cards displayed, and the moves of each player within a betting round. It also displays the winner of the round at the end. At the top it lets each player know whose turn it is as well so that they know when they need to set their action.
 The bottom pane of the GUI displays the unique bar for each player and has buttons for bet, check, and fold as well as a TextField for the user to enter their bet amount in. Additionally, it lets the user know what turn number they currently are. This value changes for each round to simulate how the position of each player in the betting structure would change based on the changing of a dealer in in person poker. This is also where the player’s two personal cards are displayed as well as their current amount of chips. The cards update after each complete round is finished and the chips are updated every time the player completes a turn.
