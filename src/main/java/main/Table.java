@@ -85,7 +85,7 @@ public class Table implements Serializable {
     }
 
     public String getPlayerTurnMessage() {
-        return "Turn: " + turn;
+        return "Turn: " + this.turn;
     }
 
     public void setPlayerTurnMessage(String playerTurnMessage) {

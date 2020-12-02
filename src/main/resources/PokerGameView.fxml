@@ -25,7 +25,7 @@
                         <Image url="@PokerTableColor.jpg" />
                     </image>
                 </ImageView>
-                <Text fx:id="playerTurnText" fill="#fcfcfc" layoutX="201.0" layoutY="57.0" onInputMethodTextChanged="#updatePlayerTurnText" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1's turn" wrappingWidth="260.87295646670896">
+                <Text fx:id="playerTurnText" fill="#fcfcfc" layoutX="201.0" layoutY="57.0" onInputMethodTextChanged="#updatePlayerTurnText" strokeType="OUTSIDE" strokeWidth="0.0" text="Turn: 1" wrappingWidth="260.87295646670896">
                     <font>
                         <Font size="35.0" />
                     </font>
