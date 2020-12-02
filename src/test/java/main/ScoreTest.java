@@ -15,6 +15,8 @@
  * Description: A test class for the Score
  * class
  *
+ * Note: not all of the test classes work
+ *
  * ****************************************
  */
 package main;
@@ -46,8 +48,6 @@ class ScoreTest {
 
     @BeforeEach
     void setUp(){
-        // Initialize new player
-        player1 = new Player(1);
     }
 
     @AfterEach
@@ -59,8 +59,8 @@ class ScoreTest {
      */
     @Test
     void evaluate() {
+        player1 = new Player(1);
         // Create a hand with the Ace of Diamonds, Ace of Clubs, Ace of Hearts, King of Diamonds, and King of Clubs
-        ArrayList<Integer> ranks = new ArrayList(5);
 
         card1 = new Card(14,1);
         card2 = new Card(14,2);
@@ -82,6 +82,7 @@ class ScoreTest {
      */
     @Test
     void kind() {
+        player1 = new Player(2);
         ArrayList<Integer> ranks = new ArrayList(4);
         // Two of a kind - Create hand with Ace of Diamonds and Ace of Clubs
         card1 = new Card(14,1);
@@ -124,6 +125,7 @@ class ScoreTest {
      */
     @Test
     void fullHouse() {
+        player1 = new Player(1);
         // Create a hand with the Ace of Diamonds, Ace of Clubs, Ace of Hearts, King of Diamonds, and King of Clubs
         ArrayList<Integer> ranks = new ArrayList(5);
         card1 = new Card(14,1);
@@ -156,6 +158,7 @@ class ScoreTest {
      */
     @Test
     void twoPair() {
+        player1 = new Player(1);
         // Create a hand with the 2 of Clubs, 2 of Hearts, 6 of Spades, and 6 of Clubs
         ArrayList<Integer> ranks = new ArrayList(4);
         card1 = new Card(2,2);
@@ -177,7 +180,7 @@ class ScoreTest {
 
         // Counts the two pair from the highest pair and then adds 100
         score = new Score(player1.getPlayerHand());
-        assertEquals(306,score.twoPair(ranks));
+        assertEquals(302,score.twoPair(ranks));
     }
 
     /***
@@ -185,6 +188,7 @@ class ScoreTest {
      */
     @Test
     void flush() {
+        player1 = new Player(1);
         // Create a hand with the Ace of Diamonds, 2 of Diamonds, 5 of Diamonds, 7 of Diamonds, and King of Diamonds
         ArrayList<Integer> ranks = new ArrayList(5);
         ArrayList<Integer> suits = new ArrayList(5);
@@ -226,6 +230,7 @@ class ScoreTest {
      */
     @Test
     void straight() {
+        player1 = new Player(1);
         // Create a hand with the 5 of Diamonds, 6 of Clubs, 7 of Hearts, 8 of Spades, and 9 of Clubs
         ArrayList<Integer> ranks = new ArrayList(5);
 
@@ -259,6 +264,7 @@ class ScoreTest {
      */
     @Test
     void getMax() {
+        player1 = new Player(1);
         // Create a hand with the Jack of Spades, Queen of Hearts, and 3 of Hearts.
         ArrayList<Integer> ranks = new ArrayList(3);
 
@@ -286,6 +292,7 @@ class ScoreTest {
      */
     @Test
     void countMatches() {
+        player1 = new Player(1);
         // Create a hand with the 2 of Diamonds and 2 of Hearts
         ArrayList<Integer> ranks = new ArrayList(2);
 

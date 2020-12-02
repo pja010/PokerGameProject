@@ -146,7 +146,6 @@ public class PokerGameController implements Initializable {
      */
     public void setPlayer(GUIPlayer player) {
         this.player = player;
-        //System.out.println("Set player");
         player.moveIsBetPropertyProperty().bind(buttonBet.defaultButtonProperty());
         player.moveIsCheckMovePropertyProperty().bind(buttonCheck.defaultButtonProperty());
         player.moveIsFoldPropertyProperty().bind(buttonFold.defaultButtonProperty());
@@ -173,7 +172,6 @@ public class PokerGameController implements Initializable {
      */
     public void setTable(Table table) {
         this.table = table;
-        //System.out.println("Set table");
         PotAmount.setText(String.valueOf(table.getPot().getTotalAmount()));
 
         updateTable();
@@ -181,11 +179,9 @@ public class PokerGameController implements Initializable {
         updatePlayerActionHub();
 
         minBet.setText("Min Bet: " + table.getBetMin());
-
     }
 
     public void updateTable(){
-
         if (table.getBet() == 0){
             FlopCard1.setImage(null);
             FlopCard2.setImage(null);
@@ -204,8 +200,6 @@ public class PokerGameController implements Initializable {
             String filename3 = String.valueOf(table.getTableCards().get(2).getRank()) + "_" + String.valueOf(table.getTableCards().get(2).getSuit()) + ".png";
             Image image3 = new Image(this.getClass().getResource("/DeckOfCards/" + filename3).toString());
 
-
-            //System.out.println("Flop Cards");
             FlopCard1.setImage(image1);
             FlopCard2.setImage(image2);
             FlopCard3.setImage(image3);
@@ -222,8 +216,6 @@ public class PokerGameController implements Initializable {
 
             RiverCard.setImage(image5);
         }
-
-
     }
 
     /**
@@ -233,16 +225,12 @@ public class PokerGameController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        //System.out.println("Initialize");
     }
 
     /**
      * Updates the text display on the view for players' actions.
      */
     public void updatePlayerActionHub() {
-//        String playerActionHub = table.getPlayerActionText();
-//        playerActionHubText1.setText(playerActionHub);
         playerActionHubText1.setText(table.getPlayerActionTexts().get(0));
         playerActionHubText2.setText(table.getPlayerActionTexts().get(1));
         playerActionHubText3.setText(table.getPlayerActionTexts().get(2));
@@ -253,9 +241,6 @@ public class PokerGameController implements Initializable {
      * Sends a description of the player's action to the table.
      * @param //textToDisplay the action description.
      */
-    //public void passPlayerActionTextToTable(String textToDisplay) {
-    //    table.setPlayerActionText();
-    //}
 
     public void passPlayerNameToTable(String playerName, int playerID) {
         for (Player player: table.getPlayers() ) {
@@ -350,12 +335,5 @@ public class PokerGameController implements Initializable {
         String filename1 = table.getTableCards().get(0).getRank() + "_" + table.getTableCards().get(0).getSuit() + ".png";
         Image image1 = new Image(this.getClass().getResource("/DeckOfCards/" + filename1).toString());
         FlopCard1.setImage(image1);
-
-        //FlopCard2.setImage(deckOfCards.deal().getImage());
-        //FlopCard3.setImage(deckOfCards.deal().getImage());
-
-        //TurnCard.setImage(deckOfCards.deal().getImage());
-        //RiverCard.setImage(deckOfCards.deal().getImage());
     }
-
 }

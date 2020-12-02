@@ -10,7 +10,9 @@
  * Project: csci205FinalProject
  * Package: main * Class: TestScore
  *
- * Description:
+ * Description: Runs simulation to make sure
+ * probabilities of getting certain hands in
+ * game match actual known probabilities
  *
  * ****************************************
  */

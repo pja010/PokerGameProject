@@ -2,8 +2,8 @@
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King *
- * Name: Callie Valenti
- * Section: 11:30
+ * Name: Callie Valenti, Lindsay Knupp, Callie Valenti, Guillermo Torres
+ * Section: 02-8:50 am and 01-11:30 am
  * Date: 11/2/20
  * Time: 12:03 PM
  *
