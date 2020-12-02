@@ -3,18 +3,19 @@
  * Fall 2020
  * Instructor: Prof. Brian King
  *
- * Name: Lindsay Knupp
+ * Name: Lindsay Knupp, Callie Valenti
  * Section: 01 - 11:30am
  * Date: 11/15/2020
  * Time: 2:16 PM
  *
  * Project: csci205FinalProject
  * Package: main.networking
- * Class: ServerConnection
+ * Class: ClientThread
  *
  * Description: A thread for each of the individual clients
  * so that each client can send or receive messages in any order
- * https://www.youtube.com/watch?v=ZIzoesrHHQo
+ *
+ * Sources: https://www.youtube.com/watch?v=ZIzoesrHHQo
  *
  * ****************************************
  */
@@ -30,43 +31,64 @@ import java.util.ArrayList;
 
 public class ClientThread implements Runnable {
 
+    /** Table object */
     private Table table;
+
+    /** Player represented on GUI */
     private GUIPlayer player;
+
+    /** Client username */
     private String userName;
+
+    /** Server username */
     private String hostName;
 
+    /** Server socket */
     private Socket server;
+
+    /** Input stream */
     private BufferedReader in;
+
+    /** Object output stream */
     private ObjectOutputStream objOut;
+
+    /**Object input stream */
     private ObjectInputStream objIn;
+
+    /** GUI Controller */
     private PokerGameController controller;
 
+    /**
+     * General constructor for Client Thread
+     * @param serverSocket server socket
+     * @param userName client username
+     * @param hostName server username
+     * @param controller GUI controller
+     * @param objOut object output stream
+     * @param objIn object input stream
+     * @throws IOException is thrown if error in connecting to server
+     */
     public ClientThread(Socket serverSocket, String userName, String hostName, PokerGameController controller, ObjectOutputStream objOut, ObjectInputStream objIn) throws IOException {
         this.server = serverSocket;
         in = new BufferedReader(new InputStreamReader(server.getInputStream()));
-        //this.table = table;
-        //this.player = player;
         this.userName = userName;
         this.hostName = hostName;
-
         this.controller = controller;
-
         this.objOut = objOut;
         this.objIn = objIn;
-
-
     }
 
+    /**
+     * Protocol for client thread
+     */
     @Override
     public void run() {
         try {
 
-            //System.out.println("Client before readOBj");
+            // Read in table
             table = (Table) objIn.readObject();
-            //System.out.println(table.getPot().getTotalAmount());
-            //System.out.println("Client after readOBj");
+            // Create player on GUI from connected client
             player = new GUIPlayer(table.getPlayers().get(Integer.valueOf(hostName)-1));
-            //System.out.println(player.getPlayerHand());
             player.setUserName(userName);
 
             // Set the model up for the controller
@@ -79,16 +101,9 @@ public class ClientThread implements Runnable {
             BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
             PrintWriter out = new PrintWriter(new OutputStreamWriter(server.getOutputStream()), true);
 
-
-            //objOut = new ObjectOutputStream(server.getOutputStream());
-            //objIn = new ObjectInputStream((server.getInputStream()));
-
-            //printToScreen("entered run loop");
-
-
             while (true) {
 
-
+                // If it's a player's turn
                 if (player.getPlayerNum() == table.getTurn()) {
                     //table.setTurn(table.getTurn() + 1);
 
@@ -96,17 +111,9 @@ public class ClientThread implements Runnable {
 
                         printToScreen("Enter Go when you have submitted your action: ");
 
-                        String clientCommand = keyboard.readLine();
-                        // Send message to server
-                        //out.println(clientCommand);
-                        // Receive a message from the server which could be, "Thanks for responding" or the group message
-                        //String serverResponse = waitForMessage(in);
-                        //printToScreen(clientCommand);
-
-                        //System.out.println(player.getPlayerAction());
-
                         table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction(player.getPlayerAction());
 
+                        // Player tries an illegal move
                         if (player.getPlayerAction() == null) {
                             printToScreen("INVALID USER ENTRY: AUTOMATIC FOLD");
                             player.setPlayerAction("Fold");
@@ -114,6 +121,7 @@ public class ClientThread implements Runnable {
                             table.getPlayers().get(player.getPlayerNum() - 1).getIsRoundDone().set(table.getBet(), true);
                             table.getPlayers().get(player.getPlayerNum() - 1).isPlaying = false;
                         }
+                        // Player bets
                         else if (player.getPlayerAction().equals("Bet")) {
                             table.setBetMin(player.getBet());
                             table.getPot().addToPot(player.getBet());
@@ -121,13 +129,17 @@ public class ClientThread implements Runnable {
                             table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction("Bet");
                             table.getPlayers().get(player.getPlayerNum() - 1).getIsRoundDone().set(table.getBet(), true);
                             table.getPlayers().get(player.getPlayerNum() - 1).setBet(player.getBet());
-                        } else if (player.getPlayerAction().equals("Check")) {
+                        }
+                        // Player checks
+                        else if (player.getPlayerAction().equals("Check")) {
                             table.getPot().addToPot(table.getBetMin()-table.getPlayers().get(player.getPlayerNum()-1).getBet());
                             table.getPlayers().get(player.getPlayerNum() - 1).subChips(table.getBetMin());
                             table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction("Check");
                             table.getPlayers().get(player.getPlayerNum() - 1).getIsRoundDone().set(table.getBet(), true);
                             table.getPlayers().get(player.getPlayerNum() - 1).setBet(table.getBetMin());
-                        } else if (player.getPlayerAction().equals("Fold")) {
+                        }
+                        // Player folds
+                        else if (player.getPlayerAction().equals("Fold")) {
                             table.getPlayers().get(player.getPlayerNum() - 1).setPlayerAction("Fold");
                             ArrayList<Boolean> isRoundDone = new ArrayList<>();
                             isRoundDone.add(true);
@@ -137,6 +149,7 @@ public class ClientThread implements Runnable {
                             table.getPlayers().get(player.getPlayerNum() - 1).setIsRoundDone(isRoundDone);
                             table.getPlayers().get(player.getPlayerNum() - 1).isPlaying = false;
                         }
+                        // Otherwise player also did illegal move
                         else {
                             printToScreen("INVALID USER ENTRY: AUTOMATIC FOLD");
                             player.setPlayerAction("Fold");
@@ -149,50 +162,33 @@ public class ClientThread implements Runnable {
                         player.setPlayerAction(null);
                     }
 
-                    //printToScreen("PLAYER before writeOBj");
-                    //System.out.println(table.getPot().getTotalAmount());
+                    // Reset all the object output/input streams
                     objOut.flush();
                     objOut.reset();
                     objOut.writeObject(table);
-                    //printToScreen("PLAYER after writeOBj");
                     objOut.flush();
                     objOut.reset();
                 }
-
-
-                //printToScreen("OUT TO ALL before readOBj");
+                // Read in table
                 table = (Table) objIn.readObject();
-                //System.out.println(table.getPot().getTotalAmount());
-                //printToScreen("OUT TO ALL after readOBj");
 
                 // Set the table up for the controller
                 controller.setTable(table);
 
+                // Set all attributes to the correct player
                 player.setCard1(table.getPlayers().get(player.getPlayerNum()-1).getPlayerHand().get(0));
                 player.setCard2(table.getPlayers().get(player.getPlayerNum()-1).getPlayerHand().get(1));
-
                 player.setChips(table.getPlayers().get(player.getPlayerNum()-1).getChips().getCurrAmount());
-
                 player.setPlayerNum(table.getPlayers().get(player.getPlayerNum()-1).getPlayerNum());
-
                 controller.setPlayer(player);
-
-
-                //printToScreen("1Client before writeObj");
-                //System.out.println(table.getPot().getTotalAmount());
-                //objOut.flush();
-                //objOut.writeObject(table);
-                //printToScreen("1Client after writeObj");
-                //objOut.reset();
-                //objOut.flush();
-
             }
-            //this.server.close();
+
         } catch (IOException | ClassNotFoundException e) {
-//            } catch(IOException e) {
             System.out.println("Exception in Server Connection");
             e.printStackTrace();
-        } finally {
+        }
+        // Close input/output streams
+        finally {
             try {
                 in.close();
                 objIn.close();
@@ -203,10 +199,20 @@ public class ClientThread implements Runnable {
         }
     }
 
+    /**
+     * Prints message on client/side
+     * @param msg message to display
+     */
     private void printToScreen(String msg) {
         System.out.println(msg);
     }
 
+    /**
+     * Waits for message from client
+     * @param in input stream
+     * @return transmitted message
+     * @throws IOException is thrown if message with Sockets
+     */
     public String waitForMessage(BufferedReader in) throws IOException {
         String sBuffer;
         sBuffer = in.readLine();
