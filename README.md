@@ -33,6 +33,9 @@ JavaFX: Version 15
 https://openjfx.io/
 
 ## Project Summary
+
+NOTE: I'm not sure that the build.gradle will work because we had to use two different buffered readers on the client side or else the whole program stopped working
+
 For our project, we decided to create a poker game that focused on networking and GUI development. The GUI displays a table that is the same for all players as well as a bar on the bottom that is specific to each player. Additionally, on the right hand side, the GUI displays the ranking of different poker hands. The table updates each time a player makes a move for all the players. It keeps track of the minimum bet amount, the pot amount, the cards displayed, and the moves of each player within a betting round. It also displays the winner of the round at the end. At the top it lets each player know whose turn it is as well so that they know when they need to set their action.
 
 The bottom pane of the GUI displays the unique bar for each player and has buttons for bet, check, and fold as well as a TextField for the user to enter their bet amount in. Additionally, it lets the user know what turn number they currently are. This value changes for each round to simulate how the position of each player in the betting structure would change based on the changing of a dealer in in person poker. This is also where the player’s two personal cards are displayed as well as their current amount of chips. The cards update after each complete round is finished and the chips are updated every time the player completes a turn.
